@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Headcount: 30 AI Growth Agents</title>
+<meta name="description" content="Product blueprint: 30 installable AI marketing and GTM agents, packaged as one product.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ee;--ink:#15140f;--mut:#6a675d;--line:#dcd8cc;--card:#fffdf8;--acc:#2440c9;--acc2:#e8ecff;--ok:#1f7a4d;--warn:#a6560f;--chip:#efece3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121210;--ink:#f1efe8;--mut:#a29f94;--line:#2e2d28;--card:#1b1a17;--acc:#8ea2ff;--acc2:#1e2440;--ok:#5fcf97;--warn:#f0a35e;--chip:#25241f}}
+:root[data-theme="dark"]{--bg:#121210;--ink:#f1efe8;--mut:#a29f94;--line:#2e2d28;--card:#1b1a17;--acc:#8ea2ff;--acc2:#1e2440;--ok:#5fcf97;--warn:#f0a35e;--chip:#25241f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:Fraunces,serif;line-height:1.1;margin:0}
+h1{font-size:clamp(38px,7vw,72px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(26px,4vw,38px);font-weight:800;margin-bottom:14px}
+h3{font-size:20px;font-weight:600}
+.mono{font-family:"JetBrains Mono",monospace;font-size:13px}
+.mut{color:var(--mut)}
+header{padding:56px 0 32px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+.lede{font-size:clamp(18px,2.4vw,22px);max-width:760px;margin:18px 0 0}
+section{padding:44px 0;border-bottom:1px solid var(--line)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+.stat{font-family:Fraunces,serif;font-size:34px;font-weight:800}
+ul.tight{margin:8px 0 0;padding-left:18px}ul.tight li{margin:3px 0}
+.chip{display:inline-block;background:var(--chip);border-radius:99px;padding:2px 10px;font-size:12px;margin:2px 4px 2px 0}
+.chip.w{background:var(--acc2);color:var(--acc)}
+.chip.c{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.dept{margin-top:34px}
+.dept-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:12px}
+.dept-h .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mut)}
+details.agent{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+details.agent summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start}
+details.agent summary::-webkit-details-marker{display:none}
+.num{font-family:"JetBrains Mono",monospace;color:var(--acc);font-weight:600;padding-top:2px}
+.aname{font-weight:700;font-size:17px}
+.ajob{color:var(--mut);font-size:14.5px;margin-top:2px}
+.plus{font-family:"JetBrains Mono",monospace;color:var(--mut);transition:transform .2s}
+details[open] .plus{transform:rotate(45deg)}
+.abody{padding:0 16px 16px 60px;display:grid;gap:14px}
+@media (max-width:640px){.abody{padding:0 14px 14px}}
+.lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+ol.steps{margin:0;padding-left:20px}ol.steps li{margin:3px 0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+a{color:var(--acc)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.tw{overflow-x:auto}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.5;margin:0}
+.price{font-family:Fraunces,serif;font-size:36px;font-weight:800}
+.tier.pop{border:2px solid var(--acc)}
+.ad{border-left:3px solid var(--acc)}
+.ad .hook{font-family:Fraunces,serif;font-size:20px;font-weight:600;line-height:1.25}
+.filter{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 0}
+.filter button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 12px;cursor:pointer}
+.filter button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+footer{padding:36px 0 60px;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="eyebrow">Product blueprint · 11 Nov 2026</div>
+  <h1>Headcount</h1>
+  <p class="lede"><b>Hire a 30-agent growth team. Install it with one command.</b> Not prompts. Agents that pull your live numbers, do the work, check it, and report to you every Monday. Runs in Claude Code, ChatGPT, Codex, OpenClaw and Hermes.</p>
+  <div class="grid g3" style="margin-top:28px">
+    <div class="card"><div class="stat">30</div><div class="mut">agents in 7 departments, plus Company Brain</div></div>
+    <div class="card"><div class="stat">5</div><div class="mut">runtimes from one source (SKILL.md + MCP)</div></div>
+    <div class="card"><div class="stat">$199</div><div class="mut">one-time for the full team, vs. $1,500 to $5,000/mo for AI SDR tools</div></div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>The bar: what counts as an agent</h2>
+  <div class="grid g2">
+    <div class="card"><h3>In</h3><ul class="tight">
+      <li>Has a <b>shift</b>: a trigger and a cadence (hourly, daily, weekly, per launch).</li>
+      <li>Pulls <b>live data</b> through an API or MCP before it decides anything.</li>
+      <li>Runs <b>5+ steps</b> with decisions between them.</li>
+      <li>Has a <b>quality gate</b> and a human checkpoint before anything goes public or spends money.</li>
+      <li>Writes a <b>log</b> that the Monday Standup and other agents read.</li>
+    </ul></div>
+    <div class="card"><h3>Out</h3><ul class="tight">
+      <li>Copywriter, caption writer, UGC script writer, hook generator.</li>
+      <li>Anything a user gets by pasting one instruction into ChatGPT.</li>
+      <li>"Frameworks" with no data connection (most of today's 100+ skill packs).</li>
+      <li>These survive only as <b>steps inside</b> real agents (copy is a step of Static Ad Factory, not a product).</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>The 30 agents</h2>
+  <p class="mut">Tap any agent for its workflow, tools, package contents, gates and the evidence it is built on. <span class="chip c">runs in chat</span> works in any runtime on the buyer's own keys. <span class="chip w">needs worker</span> needs a cron or compute (local CLI, or our hosted Night Shift).</p>
+  <div class="filter" id="filter"></div>
+  <div id="org"></div>
+  <div class="card" style="margin-top:20px"><h3 id="brain-name"></h3><p id="brain-job" class="mut" style="margin:6px 0 0"></p><p style="margin:8px 0 0;font-size:14px">Included in every tier. It is the reason agent 12 sounds like agent 1, and the biggest switching cost once installed.</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>What is in each agent package</h2>
+  <div class="grid g2">
+    <pre>headcount/
+  brain/COMPANY.md            # written by Company Brain
+  agents/meta-ads-operator/
+    SKILL.md                  # name, description, trigger
+    workflow.md               # the steps + decisions
+    rules.yaml                # thresholds the buyer edits
+    gates.md                  # quality + approval checks
+    references/               # playbooks it was built from
+    scripts/                  # deterministic helpers (py/ts)
+    examples/                 # a real run, input to output
+    mcp.json                  # tools it needs, MIT/Apache only
+  runtimes/
+    claude/plugin.json        # Claude Code plugin
+    codex/AGENTS.md           # Codex
+    openclaw/clawhub.json     # OpenClaw (ClawHub)
+    hermes/skills/            # Hermes Agent
+    chatgpt/                  # Apps SDK MCP server + GPT export
+  standup/                    # Monday report template</pre>
+    <div class="card">
+      <h3>Why this format</h3>
+      <ul class="tight">
+        <li><b>SKILL.md is the open Agent Skills standard.</b> Claude Code, Codex, OpenClaw and Hermes all load it natively. Write once.</li>
+        <li><b>MCP is the shared tool layer.</b> ChatGPT reaches it through the Apps SDK. Custom GPTs get a generated export.</li>
+        <li><b>Thin per-runtime manifests</b>, the pattern wshobson/agents and unifapi-agent/agents already prove.</li>
+        <li><b>Bring your own keys.</b> No vendor token ever ships in the bundle. Buyer pays providers directly, at cost.</li>
+        <li><b>Licence-clean.</b> Only MIT/Apache/BSD code is bundled. AGPL tools are called as services. BSL and unlicensed repos are reference only.</li>
+      </ul>
+      <div class="lbl" style="margin-top:14px">Install</div>
+      <pre>npx headcount hire --all --runtime claude
+npx headcount hire meta-ads-operator --runtime codex
+npx headcount connect meta google ga4 shopify klaviyo</pre>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Positioning</h2>
+  <div class="grid g2">
+    <div class="card"><h3>The idea</h3><p>Sell <b>headcount, not software</b>. Every agent ships as a hire: a job card, a shift, a tool belt and a KPI. The product page is an org chart. The buyer's Monday Standup is the proof it works.</p><p class="mut" style="margin:0">One line: <b>"30 marketers. Zero payroll. They report to you every Monday."</b></p></div>
+    <div class="card"><h3>White space we take</h3><ul class="tight">
+      <li><b>Cross-runtime.</b> Every other pack is Claude-only, ChatGPT-only or n8n-only.</li>
+      <li><b>Live data.</b> Skill packs read nothing. Ours read your ad accounts, store and ESP.</li>
+      <li><b>Agents, not counts.</b> Competitors sell "167 skills". We sell 30 jobs done.</li>
+      <li><b>The missing middle.</b> Between $50 DIY packs and $1,500+/mo locked-in SaaS.</li>
+      <li><b>Closed loop.</b> Viral X playbooks stop at generation. Ours upload, read results, kill, scale, regenerate.</li>
+      <li><b>Own it.</b> One-time purchase, runs on your machine and keys. No lock-in.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Pricing (USD)</h2>
+  <div class="grid g3">
+    <div class="card tier"><div class="lbl">One department</div><div class="price">$49</div><p class="mut">Any one of the 7 departments + Company Brain.</p></div>
+    <div class="card tier pop"><div class="lbl">Full team · most popular</div><div class="price">$199</div><p class="mut">All 30 agents, Company Brain, Monday Standup, 12 months of new agents and updates.</p></div>
+    <div class="card tier"><div class="lbl">Night Shift (hosted)</div><div class="price">$79<span style="font-size:18px">/mo</span></div><p class="mut">We run the worker agents on schedule (Watchdog, Static Ads, Video, Competitor Watch, Outbound). Buyer's keys.</p></div>
+    <div class="card tier"><div class="lbl">Install Day</div><div class="price">$299</div><p class="mut">90-minute live setup: accounts connected, Company Brain built, first Standup run on their data.</p></div>
+    <div class="card tier"><div class="lbl">Agency licence</div><div class="price">$499</div><p class="mut">Unlimited client workspaces, white-label Standup.</p></div>
+  </div>
+  <p class="mut" style="margin-top:14px">Upgrade logic: worker agents genuinely need a cron and compute, so they pull buyers into Night Shift. Install Day is the door to recurring, not a margin product. Track % of buyers who book it.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Meta ad angles</h2>
+  <div class="grid g2" id="ads"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Competition</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Product</th><th>Price</th><th>What it is</th><th>Gap we exploit</th></tr></thead>
+    <tbody>
+      <tr><td>coreyhaines31/marketingskills</td><td>Free</td><td>CRO, copy, SEO skills, 59.6k stars</td><td>Frameworks, no data, Claude only. We build on it (MIT).</td></tr>
+      <tr><td>Anthropic Marketing plugin</td><td>Free + plan</td><td>Content, campaigns, reporting skills</td><td>Generic, no ecommerce, no setup help</td></tr>
+      <tr><td>unifapi-agent/agents</td><td>Free</td><td>Marketing plugin for 5 runtimes</td><td>Closest format rival; thin workflows, no live-data loops</td></tr>
+      <tr><td>Inflectual skills bundle</td><td>$167</td><td>167 Claude skills</td><td>Count-based; free repos match it</td></tr>
+      <tr><td>n8n template stores</td><td>$5 to $97</td><td>Hundreds of workflows</td><td>Self-host and wire it yourself</td></tr>
+      <tr><td>Okara AI CMO</td><td>$129 to $249/mo</td><td>6 SEO/content agents</td><td>No published performance data</td></tr>
+      <tr><td>Clay</td><td>$185 to $495/mo</td><td>Enrichment workflows</td><td>Credit math; our Enrichment Waterfall is BYOK</td></tr>
+      <tr><td>Artisan / 11x</td><td>$1,500 to $5,000/mo</td><td>AI SDR</td><td>Annual lock-in; Reddit calls their emails generic</td></tr>
+      <tr><td>Arcads "Mark"</td><td>SaaS ($16M raised)</td><td>Claude Code for Meta Ads</td><td>Meta only, their platform only</td></tr>
+      <tr><td>Gooseworks skills</td><td>Skills</td><td>Ad agency in a box</td><td>Stops at generation; no kill/scale loop</td></tr>
+      <tr><td>Viral X playbooks</td><td>Free, gated</td><td>"Comment X and I'll DM it"</td><td>Screenshots, not runnable systems. We ship the runnable version.</td></tr>
+      <tr><td>Maven cohorts</td><td>$500 to $1,300</td><td>Build agents in Claude Code</td><td>Buyer leaves with knowledge, not running agents</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Build order</h2>
+  <div class="grid g2">
+    <div class="card"><h3>Wave 1: the five that sell the ad</h3><ol class="steps">
+      <li><b>Monday Standup</b>: the screenshot in every ad.</li>
+      <li><b>Competitor Watch</b>: instant "whoa" on any brand.</li>
+      <li><b>Meta Ads Operator</b>: the agency-replacement story.</li>
+      <li><b>Static Ad Factory</b>: URL in, 20 ads out. Visual demo.</li>
+      <li><b>AI Visibility Tracker</b>: the newest fear, no good cheap tool.</li>
+    </ol></div>
+    <div class="card"><h3>Then</h3><ul class="tight">
+      <li>Wave 2: Search and Lifecycle departments.</li>
+      <li>Wave 3: Pipeline and Growth Labs.</li>
+      <li>Ship all 30 job cards on day one with a public dated roadmap. Each new agent is an email to every buyer.</li>
+      <li>Every agent passes one real run on 5 real businesses before release. Generic output kills the brand.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Research sources</h2>
+  <div class="grid g2" id="sources"></div>
+</div></section>
+
+<footer><div class="wrap mut">Blueprint built from public sources scouted 11 Nov 2026: X/Twitter, Reddit, GitHub (stars and licences checked via API), Meta Ad Library, competitor pricing pages. Competitor prices are from public listings and may be rough.</div></footer>
+
+<script>
+// 30 agents. Each: id, dept, name, job, shift, steps[], tools[], ships[], gate, kpi, why (evidence), runtime ("chat" = runs in any chat runtime on BYOK, "worker" = needs compute/cron, runs local CLI or our cloud)
+const R = (p) => "https://reddit.com" + p;
+window.DEPTS = [
+  { id: "paid", name: "Paid Media", blurb: "Runs the ad accounts like a senior buyer who never sleeps." },
+  { id: "creative", name: "Creative Studio", blurb: "Makes genuinely different ads from real customer language and your real product." },
+  { id: "search", name: "Search (SEO + GEO)", blurb: "Wins Google and the AI answer engines." },
+  { id: "pipeline", name: "Pipeline", blurb: "Outbound that reads like a person did the homework." },
+  { id: "lifecycle", name: "Lifecycle", blurb: "Turns the list you already own into revenue." },
+  { id: "intel", name: "Intel + Ops", blurb: "Watches the market and tells you what changed and why." },
+  { id: "growth", name: "Growth Labs", blurb: "Conversion, creators and community." },
+];
+
+window.AGENTS = [
+  // ---------------- PAID ----------------
+  {
+    id: "meta-ads-operator", dept: "paid", name: "Meta Ads Operator",
+    job: "Runs a daily optimisation pass on Meta. Kills fatigued ads, scales winners, paces budget, and logs every change.",
+    shift: "Daily 07:00 + on-demand",
+    steps: [
+      "Pull 7/14/30-day insights per ad: spend, CPA, ROAS, CTR, hook rate, frequency.",
+      "Detect fatigue: CTR decay vs. the ad's own first 7 days, frequency over 3, CPM creep.",
+      "Apply your rulebook (kill, hold, scale 20%, duplicate to new ad set). Rules live in rules.yaml.",
+      "Draft a change list with the reason for each line.",
+      "Human approves in chat. Agent applies via Marketing API and writes changelog.md.",
+      "Hands fatigued ads to Winner Remixer for replacements.",
+    ],
+    tools: ["Meta Marketing API via mikusnuz/meta-ads-mcp (MIT)", "Shopify or GA4 for true revenue", "Slack/email notifier"],
+    ships: ["AGENT.md workflow", "rules.yaml (kill/scale thresholds by AOV band)", "fatigue-model.md", "changelog template"],
+    gate: "No write without approval. Max daily budget change capped at 25% per ad set. Reverts if CPA spikes 40% in 48h.",
+    kpi: "Blended CPA, % spend on ads older than 21 days",
+    why: [["X @perplexity_ai: agent ran $30K Meta spend, 63% higher ROAS than the agency (190K views)", "https://x.com/perplexity_ai/status/2118035494898704781"], ["X @gregisenberg: looping agent runs the whole ad account (134K views)", "https://x.com/gregisenberg/status/2081814601851900221"], ["r/FacebookAds: CTR 2.1% to 0.9% in 6 weeks, freelancer too slow", R("/r/FacebookAds/comments/1sukq74/")], ["r/b2bmarketing: solo marketer plans to drop agency after wiring Claude to ad accounts", R("/r/b2bmarketing/comments/1shz5t1/")]],
+    runtime: "chat",
+  },
+  {
+    id: "google-ads-hygiene", dept: "paid", name: "Google Ads Hygiene Auditor",
+    job: "Weekly deep audit of Google Ads. Finds wasted spend and applies the fixes you approve.",
+    shift: "Weekly Monday",
+    steps: [
+      "Pull search terms report. Run the 3-pass negative finder (irrelevant, low-intent, competitor).",
+      "RSA asset quadrant: rate each headline and description by impressions vs. CTR. Flag losers to replace.",
+      "Shopping feed audit: titles, GTINs, disapprovals, missing attributes.",
+      "PMax asset group and search-theme review; settings drift (networks, locations, auto-apply).",
+      "Output a ranked fix list with dollars at stake. Apply approved negatives and pauses via API.",
+    ],
+    tools: ["googleads/google-ads-mcp (Apache-2.0)", "kLOsk/adloop for guarded writes (MIT)", "Merchant Center API"],
+    ships: ["AGENT.md", "negative-keyword taxonomy", "RSA quadrant method", "audit checklist (90 checks)"],
+    gate: "Every negative shown with the search terms it blocks and their 30-day conversions. Zero-conversion-only by default.",
+    kpi: "Wasted spend recovered per week",
+    why: [["X @lifemaximised: 10-stage Google Ads workflow with search-term pruning (194K views)", "https://x.com/lifemaximised/status/2102802935558103146"], ["r/PPC: practitioners sharing their built tools (negatives finder, RSA quadrant, feed audit, PMax builder)", R("/r/PPC/comments/1ua0l0y/")]],
+    runtime: "chat",
+  },
+  {
+    id: "ad-account-watchdog", dept: "paid", name: "Ad Account Watchdog",
+    job: "Guards every ad account against silent money leaks: auto-applied changes, hacks, spend spikes, disapprovals.",
+    shift: "Hourly",
+    steps: [
+      "Diff change history across Meta, Google, TikTok since last check.",
+      "Flag changes by unknown users, auto-apply recommendations, broadened match types, new placements.",
+      "Spend anomaly check vs. hour-of-week baseline; disapproval and payment-failure scan.",
+      "Alert with the exact change and a one-click rollback proposal.",
+      "Weekly: list of auto-apply settings still on, with how to switch them off.",
+    ],
+    tools: ["Google Ads change_event API", "Meta activity log", "TikTok Business API", "Slack/SMS webhook"],
+    ships: ["AGENT.md", "anomaly baselines", "rollback playbooks per platform"],
+    gate: "Alerts only. Rollback only after a human says yes.",
+    kpi: "Time-to-detect, dollars saved",
+    why: [["r/PPC: Google auto-apply quietly broadened campaigns, $600 burned in 6 days", R("/r/PPC/comments/1tt74xe/")], ["r/PPC: MCC change-log monitor 'caught several hacks'", R("/r/PPC/comments/1ua0l0y/")]],
+    runtime: "worker",
+  },
+  {
+    id: "spend-allocator", dept: "paid", name: "Spend Allocator (MER Planner)",
+    job: "Decides where next month's dollars go across channels using blended numbers, not platform-reported ROAS.",
+    shift: "Monthly + before big promos",
+    steps: [
+      "Pull orders (Shopify/Stripe) and spend from every channel. Compute MER, blended CAC, new-customer CAC.",
+      "Fit diminishing-returns curves per channel from the last 90 days.",
+      "Design one geo or time holdout test to check incrementality on the biggest channel.",
+      "Output next month's budget split with expected revenue range, and the test plan.",
+      "Month end: read holdout results and update the curves.",
+    ],
+    tools: ["Shopify Admin API", "Meta + Google APIs", "GA4 MCP (googleanalytics, Apache-2.0)", "Python (scipy) in sandbox"],
+    ships: ["AGENT.md", "MER model notebook", "holdout test templates", "budget memo template"],
+    gate: "Shows confidence ranges. Refuses to recommend a channel cut on under 30 days of data.",
+    kpi: "MER, new-customer CAC",
+    why: [["r/PPC: weekly report merging CRM categories with ad campaigns is the painful part", R("/r/PPC/comments/1ua0l0y/")]],
+    runtime: "chat",
+  },
+
+  // ---------------- CREATIVE ----------------
+  {
+    id: "angle-miner", dept: "creative", name: "Angle Miner",
+    job: "Mines real customer language from reviews, Reddit and competitor reviews. Outputs a ranked bank of distinct selling arguments.",
+    shift: "Monthly + on new product",
+    steps: [
+      "Scrape your reviews, competitor Amazon/Trustpilot reviews, and Reddit threads in the category.",
+      "Cluster into pains, desires, objections, and moments of use. Keep verbatim quotes.",
+      "Score each cluster: frequency x intensity x how few competitors already say it.",
+      "Write 10 angles as distinct arguments (not rewordings), each with proof quotes.",
+      "Feeds Static Ad Factory, Video Ad Studio and Lifecycle copy.",
+    ],
+    tools: ["Apify MCP (MIT) for Amazon/Trustpilot", "Reddit MCP (karanb192, MIT)", "Meta Ad Library via ScrapeCreators/Apify"],
+    ships: ["AGENT.md", "angle-bank schema", "clustering rubric", "example bank"],
+    gate: "Every angle cites at least 3 real quotes. No invented claims.",
+    kpi: "Number of angles tested; win rate of new angles",
+    why: [["X @mikefutia: 50 concepts daily mined from reviews and winning ads (65K views)", "https://x.com/mikefutia/status/2041567383056519304"], ["r/FacebookAds: after Andromeda, 50 near-identical creatives count as one; 5 genuinely different arguments matter", R("/r/FacebookAds/comments/1w3siss/")]],
+    runtime: "chat",
+  },
+  {
+    id: "static-ad-factory", dept: "creative", name: "Static Ad Factory",
+    job: "Website URL in, 20 finished static ads out. Grounded in your real product photos and proven ad formats.",
+    shift: "Weekly batch",
+    steps: [
+      "Crawl the site: products, prices, real photos, brand colours, fonts.",
+      "Pull category ads running 30+ days from Meta Ad Library as proven formats.",
+      "Take 5 angles from Angle Miner. Match each to 4 formats (testimonial, us-vs-them, stat, problem-solution).",
+      "Generate scenes with an image model, composite the real product and real type on top.",
+      "Vision QA: product fidelity, legibility at phone size, spelling, brand colour. Regenerate failures once.",
+      "Export 1:1, 4:5, 9:16 with a naming convention that tags angle and format.",
+    ],
+    tools: ["crawl4ai (Apache-2.0)", "Ad Library pull (Apify/ScrapeCreators)", "Gemini Image / GPT Image / Seedream via Replicate or fal (BYOK)", "Sharp or Satori for text compositing"],
+    ships: ["AGENT.md", "40 proven format templates", "QA rubric", "naming convention"],
+    gate: "Real product pixels only. No ad ships failing QA. No unverifiable claims.",
+    kpi: "Ads produced per week; % beating account median CTR",
+    why: [["X @cgtwts: Anthropic's one-person growth team swaps copy across 100 templates (1.1M views)", "https://x.com/cgtwts/status/2032863625128587534"], ["X @gregisenberg: agents ship 100+ statics (200K views)", "https://x.com/gregisenberg/status/2119865330210140339"], ["r/FacebookAds: 4 AI ad tools tested, all 'scream generated'", R("/r/FacebookAds/comments/1u215y0/")], ["GitHub: no mature open-source static ad generator exists", "https://github.com/search?q=static+ad+generator"]],
+    runtime: "worker",
+  },
+  {
+    id: "winner-remixer", dept: "creative", name: "Winner Remixer",
+    job: "Takes your top-performing ads and produces structured iterations: new hooks on winning bodies, new formats on winning angles.",
+    shift: "Weekly, triggered by Meta Ads Operator",
+    steps: [
+      "Pull top 10 ads by spend-weighted ROAS and hook rate.",
+      "Deconstruct each: hook, angle, format, proof element, CTA.",
+      "Generate a test matrix: 3 new hooks x winning body, winning angle x 2 new formats.",
+      "Produce assets through Static Ad Factory or Video Ad Studio.",
+      "Upload as paused ads in a test campaign with a naming scheme. Read results in 7 days.",
+    ],
+    tools: ["Meta Marketing API", "Static Ad Factory", "Video Ad Studio"],
+    ships: ["AGENT.md", "deconstruction template", "iteration matrix"],
+    gate: "Uploads paused. Human launches.",
+    kpi: "% of iterations that beat the parent",
+    why: [["X @ErnestoSOFTWARE: 'Eddie' self-improving ad agent, clones long-running winners (1.3M views)", "https://x.com/ErnestoSOFTWARE/status/2033917717762191659"], ["X @sohmehta: 'Ad Agency in a Box' (79K views)", "https://x.com/sohmehta/status/2072393426327482768"], ["r/FacebookAds creative fatigue thread", R("/r/FacebookAds/comments/1sukq74/")]],
+    runtime: "chat",
+  },
+  {
+    id: "video-ad-studio", dept: "creative", name: "Video Ad Studio",
+    job: "Angle in, finished 15 to 30s vertical video ad out: script, AI footage, voiceover, captions, music.",
+    shift: "On demand",
+    steps: [
+      "Pick an angle. Write a beat sheet with the hook in the first 1.5s.",
+      "Storyboard shot by shot. Generate clips with a video model using real product reference images.",
+      "Voiceover with an AI voice; sync captions word by word.",
+      "Assemble, mix (VO forward), and render with HyperFrames or Remotion.",
+      "QA: no dead air over 1s, product looks correct, captions inside safe zones.",
+    ],
+    tools: ["Seedance / Veo / Kling via Replicate or fal (BYOK)", "ElevenLabs", "heygen-com/hyperframes (Apache-2.0)", "FFmpeg", "Whisper"],
+    ships: ["AGENT.md", "12 proven ad structures", "pacing rules", "QA checklist"],
+    gate: "Human approves storyboard before any paid generation.",
+    kpi: "Hook rate (3s view %), cost per finished ad",
+    why: [["X @mikefutia: product + prompt to finished AI UGC video on Seedance (42K views)", "https://x.com/mikefutia/status/2053866141064548396"], ["r/FindVideoEditors: DTC brands paying $600/week for AI UGC editors", R("/r/FindVideoEditors/comments/1xogdtp/")], ["r/forhire: AI UGC creators at $25 to 50/hr", R("/r/forhire/comments/1wa9tpf/")]],
+    runtime: "worker",
+  },
+  {
+    id: "clip-repurposer", dept: "creative", name: "Clip Repurposer",
+    job: "One long video or podcast in. Ten captioned vertical clips, a newsletter and five posts out.",
+    shift: "Per episode",
+    steps: [
+      "Transcribe with word timestamps and speaker labels.",
+      "Score moments: standalone sense, strong opening line, emotion, specific number or story.",
+      "Cut 9:16 with face tracking, burn animated captions.",
+      "Write the newsletter and posts from the same moments, linking clips.",
+      "Schedule via your social scheduler as drafts.",
+    ],
+    tools: ["Whisper", "Anil-matcha/AI-Youtube-Shorts-Generator (MIT)", "FFmpeg", "Postiz API (call as a service, AGPL)"],
+    ships: ["AGENT.md", "moment scoring rubric", "caption styles"],
+    gate: "Human picks final clips from the top 15.",
+    kpi: "Hours saved per episode; clip views",
+    why: [["X @recap_david: content agent replaced a $100K media team (327K views)", "https://x.com/recap_david/status/2012557796051693948"], ["r/podcasting: 4+ hours per episode on clips, newsletter and posts", R("/r/podcasting/comments/1vhxngt/")]],
+    runtime: "worker",
+  },
+
+  // ---------------- SEARCH ----------------
+  {
+    id: "seo-content-pipeline", dept: "search", name: "SEO Content Pipeline",
+    job: "Keyword to published, ranking article with no cleanup needed. Then keeps old posts from decaying.",
+    shift: "Weekly: 2 to 5 articles + decay check",
+    steps: [
+      "Find keyword gaps vs. 3 competitors. Pick targets by volume, difficulty and business fit.",
+      "Analyse the top 10 SERP: intent, subtopics, questions, word count, gaps none of them cover.",
+      "Write a brief, then draft in your voice file with first-hand details you supply.",
+      "Fact-check claims, add internal links from your sitemap, schema, and image alt text.",
+      "Publish as a CMS draft. Track position in GSC for 30 days.",
+      "Decay mode: find pages losing clicks for 90 days, diagnose, and refresh.",
+    ],
+    tools: ["DataForSEO MCP (Apache-2.0)", "Search Console MCP (saurabhsharma2u, MIT)", "WordPress / Webflow / Shopify blog API", "crawl4ai"],
+    ships: ["AGENT.md", "voice-file interview", "brief template", "anti-slop checklist", "internal linking rules"],
+    gate: "Banned-phrase and sameness check. Every article needs one input only you can supply (data, story, photo).",
+    kpi: "Clicks from new pages at 90 days",
+    why: [["X @codyschneider: Claude Code SEO via a .env of APIs (122K views)", "https://x.com/codyschneider/status/2028500579501183024"], ["X @NicholasDulait: Claude for SEO article (814K views)", "https://x.com/NicholasDulait/status/2120063043614716174"], ["r/SEO: agency with 300+ clients, SEOs spend half the day fixing AI slop", R("/r/SEO/comments/1x0yc3z/")], ["r/Agentic_SEO: solo operator automated 15 to 20 hrs/week of SEO", R("/r/Agentic_SEO/comments/1tqwric/")]],
+    runtime: "chat",
+  },
+  {
+    id: "programmatic-seo", dept: "search", name: "Programmatic SEO Builder",
+    job: "Finds a keyword pattern worth hundreds of pages and builds them with real, unique data on every page.",
+    shift: "Project, then monthly refresh",
+    steps: [
+      "Find patterns: [tool] for [use case], [X] vs [Y], [service] in [city], templates, integrations.",
+      "Size the pattern: sum of volume, difficulty, and whether the SERP rewards templated pages.",
+      "Build the dataset (your data, public APIs, scraped specs). This is the moat.",
+      "Design one page template. Generate pages with a uniqueness gate (data diff over 40% between any two pages).",
+      "Deploy, submit sitemap, monitor indexing rate, prune pages not indexed after 60 days.",
+    ],
+    tools: ["DataForSEO", "Next.js / Astro templates", "Cloudflare Pages or Vercel", "GSC API"],
+    ships: ["AGENT.md", "pattern finder", "template starter", "uniqueness gate script"],
+    gate: "Stops if pages are not data-differentiated. Launches 50 pages first, scales only on indexing above 70%.",
+    kpi: "Indexed pages, clicks per page",
+    why: [["X @startupideaspod: 'best X for Y' pSEO with Firecrawl (200K views)", "https://x.com/startupideaspod/status/2040935972343521411"], ["GitHub: pSEO tooling is thin, mostly small templates; nobody packages the whole loop", "https://github.com/search?q=programmatic+seo"]],
+    runtime: "worker",
+  },
+  {
+    id: "technical-seo-auditor", dept: "search", name: "Technical SEO Auditor",
+    job: "Crawls the site, finds what blocks rankings, and opens the fixes as code changes or a dev ticket.",
+    shift: "Monthly + after every deploy",
+    steps: [
+      "Crawl up to 10k URLs: status, canonicals, redirects, duplicate titles, orphan pages.",
+      "Core Web Vitals from CrUX and PageSpeed; indexing coverage from GSC.",
+      "Schema validation and missing schema opportunities (Product, FAQ, Article, Organization).",
+      "Rank issues by traffic at stake.",
+      "For code sites, write the fix as a PR. Otherwise write a dev-ready ticket.",
+    ],
+    tools: ["AgriciDaniel/claude-seo (MIT)", "crawl4ai", "PageSpeed + CrUX API", "GSC MCP", "GitHub CLI"],
+    ships: ["AGENT.md", "issue severity model", "ticket template"],
+    gate: "Never pushes to main. PRs only.",
+    kpi: "Issues closed; indexed page %",
+    why: [["GitHub: claude-seo (27.9k stars) shows demand for agentic SEO audits", "https://github.com/AgriciDaniel/claude-seo"]],
+    runtime: "chat",
+  },
+  {
+    id: "ai-visibility-tracker", dept: "search", name: "AI Visibility Tracker",
+    job: "Measures how often ChatGPT, Claude, Perplexity and Gemini recommend you vs. competitors, on your own API keys.",
+    shift: "Weekly",
+    steps: [
+      "Generate 50 to 200 buyer prompts from your ICP and category (best X for Y, X vs Y, alternatives).",
+      "Run every prompt across 4+ models, 3 samples each, with web search on.",
+      "Extract brand mentions, rank position, sentiment, and every cited URL.",
+      "Compute share of voice by model and topic. Diff vs. last week.",
+      "Hand the cited-source list to Citation Gap Closer.",
+    ],
+    tools: ["OpenAI, Anthropic, Perplexity, Gemini APIs (BYOK)", "elmohq/elmo (MIT) as a reference tracker"],
+    ships: ["AGENT.md", "prompt-set generator", "mention extraction schema", "trend chart"],
+    gate: "Reports variance across samples. Never claims a rank from one run.",
+    kpi: "AI share of voice",
+    why: [["X @borjafat: 232 tactics behind 129K AI mentions (44K views)", "https://x.com/borjafat/status/2115204396715794813"], ["r/aeo: can't track AI visibility; tools priced at heavy markups", R("/r/aeo/comments/1vqugjg/")], ["r/digital_marketing: executives 'obsessed with AI mentions'", R("/r/digital_marketing/comments/1vxyjbv/")]],
+    runtime: "chat",
+  },
+  {
+    id: "citation-gap-closer", dept: "search", name: "Citation Gap Closer",
+    job: "Gets you into the pages AI engines cite: listicles, Reddit threads, review sites, comparison pages.",
+    shift: "Weekly, fed by AI Visibility Tracker",
+    steps: [
+      "Rank the URLs AI engines cite for your prompts where you are absent.",
+      "Classify: listicle (outreach), Reddit/forum (helpful answer), review site (get reviews), own site (missing page).",
+      "Listicles: find the author, write a short inclusion pitch with a reason to add you.",
+      "Own site: build comparison and alternatives pages, FAQ schema, llms.txt.",
+      "Audit server logs for AI crawlers (OAI-SearchBot, PerplexityBot, Claude-SearchBot); fix pages they never reach.",
+      "Re-check citations in 2 weeks and log wins.",
+    ],
+    tools: ["Hunter/Prospeo for author email", "Reddit MCP", "Instantly or Gmail API for pitches", "CMS API"],
+    ships: ["AGENT.md", "citation taxonomy", "pitch templates", "comparison page template"],
+    gate: "Pitches and Reddit replies are drafts. A human sends or posts.",
+    kpi: "New citations earned per month",
+    why: [["X @wespreadjam: AEO crawl-log audit for AI bots (25K views)", "https://x.com/wespreadjam/status/2118102739943322010"], ["X @geektao0319: tool pages win ChatGPT traffic (53K views)", "https://x.com/geektao0319/status/2117581259115250035"], ["r/localseo: shopping for an AI visibility tool", R("/r/localseo/comments/1u6aus5/")]],
+    runtime: "chat",
+  },
+
+  // ---------------- PIPELINE ----------------
+  {
+    id: "signal-prospector", dept: "pipeline", name: "Signal Prospector",
+    job: "Finds accounts showing buying signals today and scores them against your ICP.",
+    shift: "Daily",
+    steps: [
+      "Watch signals: hiring for a role you replace, funding, new tool installed, job changes, posts complaining about the problem, engagement on competitor posts.",
+      "Resolve each signal to a company and the right person.",
+      "Score: ICP fit x signal strength x recency.",
+      "Write the 'why now' line for each account.",
+      "Push the top 25 to Outbound Operator and CRM.",
+    ],
+    tools: ["LinkedIn MCP (stickerdaniel, Apache-2.0)", "Apollo MCP (MIT)", "job board APIs", "BuiltWith / Wappalyzer", "Reddit + X search"],
+    ships: ["AGENT.md", "signal library (40 signals)", "ICP scoring sheet"],
+    gate: "Every account carries the evidence link for its signal.",
+    kpi: "Signal-sourced meetings",
+    why: [["X @TheMattBerman: $130/mo open-source GTM system (23K views)", "https://x.com/TheMattBerman/status/2026035503448125506"], ["r/SaaS: lead discovery and monitoring automate fine; outreach is where AI fails", R("/r/SaaS/comments/1s6od3o/")]],
+    runtime: "chat",
+  },
+  {
+    id: "enrichment-waterfall", dept: "pipeline", name: "Enrichment Waterfall",
+    job: "A bring-your-own-key Clay alternative. Any list in, verified emails and firmographics out at provider cost.",
+    shift: "On demand",
+    steps: [
+      "Normalise and dedupe the input list (CSV, CRM view, LinkedIn search).",
+      "Waterfall through providers you have keys for, cheapest first, stop on first verified hit.",
+      "Verify every email (catch-all handling included).",
+      "Add firmographics, tech stack and a one-line company summary.",
+      "Report cost per verified contact and hit rate by provider.",
+    ],
+    tools: ["YALC (MIT) as base", "Apollo, Prospeo, Hunter, LeadMagic (BYOK)", "ZeroBounce / MillionVerifier"],
+    ships: ["AGENT.md", "waterfall config", "cost report"],
+    gate: "Never sends to unverified addresses. Drops role and catch-all addresses by default.",
+    kpi: "Cost per verified contact",
+    why: [["X @codyschneider: LinkedIn engagers into waterfall enrichment (30K views)", "https://x.com/codyschneider/status/2110832083396603977"], ["r/GrowthHacking + r/techsales: Clay credit costs unpredictable at agency scale", R("/r/GrowthHacking/comments/1tdejs2/")]],
+    runtime: "chat",
+  },
+  {
+    id: "outbound-operator", dept: "pipeline", name: "Outbound Operator",
+    job: "Researches each prospect, writes a short signal-led email, sends from your inboxes, and remembers which angles win.",
+    shift: "Daily send window",
+    steps: [
+      "Research each account: site, recent news, posts, the signal that triggered it.",
+      "Write 3 to 5 lines: the signal, the likely problem, one proof point, a soft ask. No flattery.",
+      "Sequence with 2 follow-ups that add new information.",
+      "Send via your sending tool; throttle per inbox.",
+      "Log angle, role and industry per reply. Weekly: shift volume to winning angles.",
+    ],
+    tools: ["Instantly / Smartlead API", "Gmail or Outlook API", "CRM API (HubSpot MCP)", "Signal Prospector feed"],
+    ships: ["AGENT.md", "angle memory file", "banned-phrase list", "deliverability limits"],
+    gate: "First 20 emails of each campaign approved by a human. Spam-word and length check on every email.",
+    kpi: "Positive reply rate",
+    why: [["X @MichLieben: ColdIQ ($7M ARR) runs outbound on 15 Claude skills (37K views)", "https://x.com/MichLieben/status/2071283020049604792"], ["X @coldemailchris: 115-step GTM playbook (73K views)", "https://x.com/coldemailchris/status/1970625735145763118"], ["r/salesdevelopment: 'AI personalization is actively ruining cold email'", R("/r/salesdevelopment/comments/1rqgpa6/")], ["r/sales: AI SDR emails get 'unsub me' replies", R("/r/sales/comments/1t63m4o/")]],
+    runtime: "worker",
+  },
+  {
+    id: "reply-handler", dept: "pipeline", name: "Reply Handler",
+    job: "Reads every reply, classifies it, drafts the right answer, and books the meeting.",
+    shift: "Every 15 minutes",
+    steps: [
+      "Classify: interested, question, objection, referral, not now, out of office, unsubscribe.",
+      "Unsubscribes and OOO handled automatically (suppress, reschedule).",
+      "Draft answers from your objection playbook and pricing facts.",
+      "Offer real calendar slots and book via Cal.com or Google Calendar.",
+      "Update CRM stage and notify you on hot replies.",
+    ],
+    tools: ["Gmail / Instantly unibox API", "Cal.com API", "HubSpot MCP"],
+    ships: ["AGENT.md", "objection playbook", "classification prompts"],
+    gate: "Interested and objection replies are drafts until you set auto-send per class.",
+    kpi: "Reply-to-meeting rate; minutes to first response",
+    why: [["r/SaaS: an 8,000/day sender spends 45 to 60 min daily just on replies", R("/r/SaaS/comments/1s6od3o/")]],
+    runtime: "worker",
+  },
+  {
+    id: "founder-voice-linkedin", dept: "pipeline", name: "Founder Voice + LinkedIn Engine",
+    job: "Turns your real stories into posts in your voice, comments where your buyers are, and hands warm engagers to the prospector.",
+    shift: "3 posts/week + daily comments",
+    steps: [
+      "Build a voice file from your transcripts, calls and old posts.",
+      "Interview you weekly in chat (5 questions) to harvest real stories and numbers.",
+      "Draft posts from those stories only. Rank hooks.",
+      "Find 10 ICP posts a day worth a useful comment. Draft comments.",
+      "Pull post engagers, score against ICP, send to Signal Prospector.",
+    ],
+    tools: ["LinkedIn MCP", "Linked-API/linkedin-skills (MIT)", "transcript import (Fathom, Otter, Zoom)"],
+    ships: ["AGENT.md", "voice-file builder", "weekly interview script", "hook bank"],
+    gate: "You post. The agent never posts as you.",
+    kpi: "ICP engagers per post; meetings from content",
+    why: [["r/GhostWritersCommunity: founders want '100% human' voice", R("/r/GhostWritersCommunity/comments/1vfavc6/")], ["r/HireaWriterCommunity: $40 to 50 per ghostwritten post", R("/r/HireaWriterCommunity/comments/1x82nyq/")]],
+    runtime: "chat",
+  },
+  {
+    id: "abm-personalizer", dept: "pipeline", name: "ABM Ad Personalizer",
+    job: "Target account list in. Per-account ads and landing pages out, so each account sees itself.",
+    shift: "Per campaign",
+    steps: [
+      "Take 50 to 500 target accounts. Fetch logo, industry, competitors, tech stack.",
+      "Write per-account ad copy and render per-account ad images.",
+      "Generate a personalised landing page variant per account (URL param or subpage).",
+      "Upload to LinkedIn Ads as matched-audience campaigns.",
+      "Track which accounts engage and pass them to Outbound Operator.",
+    ],
+    tools: ["Clearbit-style logo API", "LinkedIn Ads API", "Static Ad Factory", "Cloudflare Pages"],
+    ships: ["AGENT.md", "ABM page template", "copy matrix"],
+    gate: "Uploads paused. Logo use flagged for your legal check.",
+    kpi: "Account engagement rate; pipeline from target list",
+    why: [["X @everestchris6: Ad Library to per-prospect creatives + microsite (72K views)", "https://x.com/everestchris6/status/2044504960898109600"], ["r/DigitalMarketing: 100 custom LinkedIn ad variants in an hour, 5 to 6% CTR vs 0.4% benchmark", R("/r/DigitalMarketing/comments/1uoojg0/")]],
+    runtime: "worker",
+  },
+
+  // ---------------- LIFECYCLE ----------------
+  {
+    id: "flow-architect", dept: "lifecycle", name: "Lifecycle Flow Architect",
+    job: "Audits your email/SMS flows against best-in-class, finds the revenue gaps, and builds the missing flows as drafts.",
+    shift: "Once, then quarterly",
+    steps: [
+      "Read your ESP: active flows, triggers, splits, revenue per recipient.",
+      "Compare with the core set: welcome, browse, cart, checkout, post-purchase, replenishment, winback, sunset.",
+      "Estimate revenue at stake per missing or weak flow from your traffic and AOV.",
+      "Build missing flows as drafts: timing, conditions, copy, offers.",
+      "After 30 days, compare flow revenue vs. estimate.",
+    ],
+    tools: ["Klaviyo API (doinglean/klaviyo-mcp, MIT)", "Brevo / HubSpot / Mailchimp APIs", "Shopify Admin API"],
+    ships: ["AGENT.md", "flow blueprints (20)", "benchmark table", "revenue-at-stake model"],
+    gate: "Builds as drafts. Never turns a flow live.",
+    kpi: "Flow revenue per recipient",
+    why: [["X @mikefutia: Klaviyo audit to 90-day calendar (39K views)", "https://x.com/mikefutia/status/2045170559185813695"], ["r/ecommerce: top answer, the boring flows make the money", R("/r/ecommerce/comments/1p7521m/")], ["r/n8n: ecom owners have an 'operations bleeding problem' (carts, WISMO)", R("/r/n8n/comments/1rnjgsf/")]],
+    runtime: "chat",
+  },
+  {
+    id: "campaign-builder", dept: "lifecycle", name: "Campaign Calendar + Builder",
+    job: "Plans the month of campaigns from your promos and stock, then builds each one in your ESP ready to schedule.",
+    shift: "Monthly plan, weekly build",
+    steps: [
+      "Read promos, launches, holidays, and stock levels (no promoting out-of-stock items).",
+      "Plan the calendar: segment, angle and send time per campaign.",
+      "Write the copy, build the email in your ESP template, set UTMs.",
+      "QA: links, alt text, mobile render, spam score, segment size.",
+      "Send a test to you. Schedule after approval.",
+    ],
+    tools: ["ESP API", "Shopify inventory", "Litmus-style render check", "Angle Miner feed"],
+    ships: ["AGENT.md", "12-month promo calendar", "QA checklist"],
+    gate: "Nothing schedules without your yes.",
+    kpi: "Campaign revenue per send",
+    why: [["r/Klaviyo: email production (slicing, alt text, links, upload) is the grind", R("/r/Klaviyo/comments/1ufh5a6/")]],
+    runtime: "chat",
+  },
+  {
+    id: "winback-analyst", dept: "lifecycle", name: "Churn + Winback Analyst",
+    job: "Finds who is about to lapse, segments by value, and runs winback offers with a holdout so you know what worked.",
+    shift: "Weekly",
+    steps: [
+      "Pull orders. Build RFM scores and each customer's expected next-order date.",
+      "Flag at-risk cohorts by value tier.",
+      "Assign offers by tier (no discount for high-value, content first, offer last).",
+      "Sync segments to ESP with a 10% holdout.",
+      "Report incremental revenue vs. holdout monthly.",
+    ],
+    tools: ["Shopify / Stripe API", "ESP API", "Python in sandbox"],
+    ships: ["AGENT.md", "RFM model", "offer ladder", "holdout readout"],
+    gate: "Always keeps a holdout. Caps discount depth.",
+    kpi: "Incremental winback revenue",
+    why: [["X @gregisenberg: Stripe cancel reason routes to a winback sequence (233K views)", "https://x.com/gregisenberg/status/2086534549341610457"], ["r/ecommerce: winback is one of the flows owners know they should have", R("/r/ecommerce/comments/1p7521m/")]],
+    runtime: "chat",
+  },
+
+  // ---------------- INTEL + OPS ----------------
+  {
+    id: "competitor-watch", dept: "intel", name: "Competitor Watch",
+    job: "Watches competitors daily: prices, new products, page changes, new ads, reviews. Sends one brief a week.",
+    shift: "Daily scan, weekly brief",
+    steps: [
+      "Track pricing and product pages (and /products.json on Shopify stores).",
+      "Pull new ads from Meta, Google and TikTok libraries; flag ads running 30+ days as winners.",
+      "Catch new reviews and complaints; catch new SEO pages.",
+      "Alert same day on price drops and big launches.",
+      "Weekly brief: what changed, what it likely means, what to do.",
+    ],
+    tools: ["dgtlmoon/changedetection.io (Apache-2.0)", "Meta/Google/TikTok ad libraries (Apify or ScrapeCreators)", "Apify review scrapers"],
+    ships: ["AGENT.md", "competitor config", "brief template"],
+    gate: "Every claim links to the snapshot that proves it.",
+    kpi: "Moves caught before they hit your numbers",
+    why: [["X @gregisenberg: competitor outage triggers 'alternative' ads (233K views)", "https://x.com/gregisenberg/status/2086534549341610457"], ["r/DigitalMarketing: top 'stopped doing manually' answer was competitor and market research", R("/r/DigitalMarketing/comments/1uoojg0/")], ["r/automation: daily competitor price-drop scan to Slack", R("/r/automation/comments/1x4rb15/")]],
+    runtime: "worker",
+  },
+  {
+    id: "monday-standup", dept: "intel", name: "Monday Growth Standup",
+    job: "Every Monday, one page: the 4 numbers that moved, why they moved, and what each agent will do this week.",
+    shift: "Weekly Monday 07:00",
+    steps: [
+      "Pull GA4, ad platforms, ESP, Shopify or Stripe, GSC.",
+      "Find what moved beyond normal variance and trace it (channel, campaign, page, product).",
+      "Collect each agent's last-week log and proposed next actions.",
+      "Write one page. Max 4 numbers. Plain language.",
+      "Agency mode: one page per client, branded.",
+    ],
+    tools: ["GA4 MCP", "Meta + Google Ads", "ESP API", "Shopify", "GSC MCP"],
+    ships: ["AGENT.md", "variance model", "one-page template", "agency white-label template"],
+    gate: "Every number links to its source query.",
+    kpi: "Report open rate; decisions taken",
+    why: [["r/marketingagency: client reporting took 10 hrs/week", R("/r/marketingagency/comments/1q4r6fu/")], ["r/agency: dashboards go unopened, clients read a one-page note", R("/r/agency/comments/1vkvnhu/")]],
+    runtime: "chat",
+  },
+  {
+    id: "launch-commander", dept: "intel", name: "Launch Commander",
+    job: "Runs a product or campaign launch end to end by directing the other agents against a dated plan.",
+    shift: "Per launch",
+    steps: [
+      "Interview you: what, who, offer, date, budget.",
+      "Write positioning and messaging from Angle Miner output.",
+      "Build the plan: landing page, emails, ads, organic, PR and creator list, with owners and dates.",
+      "Dispatch work to the agents and track completion.",
+      "Launch day: watch numbers hourly, flag what to boost or fix. Post-mortem after 14 days.",
+    ],
+    tools: ["All agents", "Notion / Linear API for the board"],
+    ships: ["AGENT.md", "launch plan template", "day-of runbook", "post-mortem template"],
+    gate: "You approve the plan and every outbound asset.",
+    kpi: "Launch revenue vs. target",
+    why: [["r/ClaudeAI: webinar title to landing page, emails and HubSpot campaign in one run", R("/r/ClaudeAI/comments/1ruod57/")]],
+    runtime: "chat",
+  },
+
+  // ---------------- GROWTH LABS ----------------
+  {
+    id: "cro-test-runner", dept: "growth", name: "CRO Test Runner",
+    job: "Finds why visitors don't convert, builds the variant, runs the A/B test, and calls the winner with real statistics.",
+    shift: "Continuous, one test at a time per page",
+    steps: [
+      "Read analytics and session data for the top landing pages. Find the leak (bounce, scroll, CTA clicks).",
+      "Heuristic audit: clarity, proof, friction, offer.",
+      "Write a hypothesis and build the variant (code or page builder).",
+      "Launch behind a feature flag with a pre-computed sample size.",
+      "Call the winner only at significance. Ship it and log the learning.",
+    ],
+    tools: ["PostHog MCP (MIT) or GrowthBook", "Microsoft Clarity", "GitHub CLI for code variants", "coreyhaines31/marketingskills CRO skills (MIT)"],
+    ships: ["AGENT.md", "hypothesis backlog", "sample-size calculator", "learnings log"],
+    gate: "No peeking: no early calls. Variant changes need your approval.",
+    kpi: "Conversion rate lift shipped per quarter",
+    why: [["X @gregisenberg: self-pruning PostHog onboarding A/B test (233K views)", "https://x.com/gregisenberg/status/2086534549341610457"], ["GitHub: marketingskills (59.6k stars) has CRO frameworks but no test loop", "https://github.com/coreyhaines31/marketingskills"]],
+    runtime: "chat",
+  },
+  {
+    id: "creator-scout", dept: "growth", name: "Creator Scout + Deal Desk",
+    job: "Finds creators who actually move product, vets them, prices them, runs outreach, and tracks results.",
+    shift: "Weekly batch",
+    steps: [
+      "Discover 3 ways: bio keyword search, hashtag search, video search.",
+      "Enrich: real engagement rate, recent views, audience country, fake-follower signals.",
+      "Find contact paths (bio email, link-in-bio).",
+      "Price each one on CPM from median recent views, with an opening offer and a cap.",
+      "Outreach, negotiate to the cap, then track posts and promo-code sales.",
+    ],
+    tools: ["ScrapeCreators or Apify (IG, TikTok, YouTube)", "Gmail API", "Shopify discount codes"],
+    ships: ["AGENT.md", "CPM pricing model", "outreach sequences", "creator brief template"],
+    gate: "Never exceeds your price cap. Offers go out only after you approve the list.",
+    kpi: "Cost per acquired customer from creators",
+    why: [["X @codyschneider: $5K bounty for a creator DM outreach product that doesn't exist (49K views)", "https://x.com/codyschneider/status/2060433376545546335"], ["r/FindVideoEditors + r/forhire: brands paying weekly for creator content", R("/r/FindVideoEditors/comments/1xogdtp/")]],
+    runtime: "worker",
+  },
+  {
+    id: "community-reputation", dept: "growth", name: "Community + Reputation Agent",
+    job: "Finds every conversation about your category and your brand. Drafts useful replies and answers every review.",
+    shift: "Daily",
+    steps: [
+      "Listen on Reddit, X, forums and Google/Trustpilot reviews for your brand, competitors and problem keywords.",
+      "Score threads: buying intent, visibility, whether a reply would genuinely help.",
+      "Draft helpful replies that disclose who you are.",
+      "Draft review replies in brand voice; escalate angry ones to you.",
+      "Weekly: top recurring complaints, sent to product and to Angle Miner.",
+    ],
+    tools: ["Reddit MCP", "X API / ScrapeCreators", "Google Business Profile API", "Trustpilot API"],
+    ships: ["AGENT.md", "reply rules (disclose, help first)", "review reply library"],
+    gate: "Drafts only. You post. No fake accounts, ever.",
+    kpi: "Threads joined; review response time",
+    why: [["r/GoogleMyBusiness: tired of pasting reviews into ChatGPT one by one", R("/r/GoogleMyBusiness/comments/1qfspjl/")], ["r/GoogleMyBusiness: agency managing 20 profiles, 10 to 15 reviews a day", R("/r/GoogleMyBusiness/comments/1rbj8nb/")]],
+    runtime: "chat",
+  },
+  {
+    id: "catalog-seo", dept: "growth", name: "Catalog Optimizer",
+    job: "Rewrites thousands of product pages and feed titles from the product images and specs, then pushes them to the store.",
+    shift: "Once, then on new SKUs",
+    steps: [
+      "Export the catalog. Read every product image with a vision model.",
+      "Pull search demand per product type.",
+      "Write titles, descriptions, alt text and meta for each SKU, plus Google Shopping titles.",
+      "Spot-check 20 with you, then run the full batch.",
+      "Push via Admin API. Track feed approvals and organic clicks.",
+    ],
+    tools: ["Shopify Admin API (GeLi2001/shopify-mcp, MIT)", "vision model (BYOK)", "Merchant Center API", "DataForSEO"],
+    ships: ["AGENT.md", "PDP template by category", "feed title formula"],
+    gate: "Keeps a full backup and one-click restore of the old copy.",
+    kpi: "Shopping impressions; PDP organic clicks",
+    why: [["r/shopify: 1k+ SKU descriptions, manual is unrealistic", R("/r/shopify/comments/1r1yx1n/")], ["r/shopify: bulk SEO one product at a time", R("/r/shopify/comments/1skmp6n/")]],
+    runtime: "chat",
+  },
+];
+
+// The one that ties it together (bonus, every tier)
+window.BRAIN = {
+  name: "Company Brain",
+  job: "Interviews you once (20 minutes) and writes the memory file every agent reads: brand, offer, ICP, voice, competitors, numbers, banned claims. Updates itself from every agent's log.",
+};
+
+</script>
+<script>
+window.ADS = [
+  { hook: "I hired 30 marketers last night. None of them are human.", visual: "Org chart animates in, 30 job cards. Cut to one command in a terminal. Cut to the Monday Standup on a phone.", why: "The 'AI employees' frame is already proven in the Ad Library (Krafted, Content Creator, BotBuilders). We show the org chart, not a tool." },
+  { hook: "Your agency costs $5,000 a month. This costs $199 once.", visual: "Split screen: agency invoice vs. Meta Ads Operator's change list with reasons.", why: "Reddit: a solo marketer wired Claude to ad accounts and plans to drop the agency in 3 months." },
+  { hook: "Every Monday at 7am, 30 agents tell you what changed and why.", visual: "Phone lock screen notification, then the one-page Standup: 4 numbers, 4 reasons, this week's actions.", why: "Dashboards go unopened. A one-page note gets read. The deliverable is the ad." },
+  { hook: "Stop buying prompts. Prompts don't do the work.", visual: "A '167 skills' bundle scrolls by. Then an agent pulls live ad data, makes 20 ads, checks them, uploads them paused.", why: "Directly attacks the count-based packs. Every rival sells volume; we sell jobs done." },
+  { hook: "Paste your website. Get 20 ads that don't look AI.", visual: "URL typed. Real product photos land in proven formats. QA checkmarks. Grid of finished 4:5 ads.", why: "Reddit's top creative complaint: AI ads 'scream generated'. 'Paying $500 per creative is insane' already runs." },
+  { hook: "ChatGPT recommends your competitor. Here is how often.", visual: "AI Visibility Tracker: share-of-voice bars for the buyer's brand vs. 3 rivals across 4 models.", why: "Fresh executive fear, no cheap tool, high curiosity. Works as a free-scan lead magnet too." },
+  { hook: "Google spent $600 of your money while you slept.", visual: "Watchdog alert: 'auto-apply broadened 3 campaigns at 2:14am'. One-tap rollback.", why: "A real Reddit loss story. Loss aversion beats gain framing for cold traffic." },
+  { hook: "Works in Claude, ChatGPT, Codex, OpenClaw and Hermes. One command.", visual: "Same agent installed in five apps in a fast montage.", why: "No competitor is cross-runtime. Removes the 'which AI do I need' objection." },
+];
+
+window.SOURCES = [
+  { name: "X / Twitter (viral playbooks)", items: [
+    ["@cgtwts: Anthropic's one-person growth team (1.1M views)", "https://x.com/cgtwts/status/2032863625128587534"],
+    ["@SavannahFeder: Claude Code for marketing (3.6M views)", "https://x.com/SavannahFeder/status/2011875544783339868"],
+    ["@ErnestoSOFTWARE: self-improving ad agent 'Eddie' (1.3M views)", "https://x.com/ErnestoSOFTWARE/status/2033917717762191659"],
+    ["@itsalexvacca: services-as-software (864K views)", "https://x.com/itsalexvacca/status/2044502868556992937"],
+    ["@arcads_ai: $16M for 'Claude Code for Meta Ads' (654K views)", "https://x.com/arcads_ai/status/2084611105528115415"],
+    ["@gregisenberg: 23 trigger-based growth agents (233K views)", "https://x.com/gregisenberg/status/2086534549341610457"],
+    ["@perplexity_ai: agent beat the agency on $30K Meta spend", "https://x.com/perplexity_ai/status/2118035494898704781"],
+    ["@coreyhainesco: marketing skills + 51 API CLIs", "https://x.com/coreyhainesco/status/2025592984927150367"],
+    ["@codyschneider: $5K bounty for creator DM outreach", "https://x.com/codyschneider/status/2060433376545546335"],
+  ]},
+  { name: "Reddit (operator pain)", items: [
+    ["r/DigitalMarketing: what marketers stopped doing manually", "https://reddit.com/r/DigitalMarketing/comments/1uoojg0/"],
+    ["r/b2bmarketing: Claude Code wired to GA, Google Ads, LinkedIn Ads", "https://reddit.com/r/b2bmarketing/comments/1shz5t1/"],
+    ["r/ClaudeAI: 40-client agency, 85 to 90% automated", "https://reddit.com/r/ClaudeAI/comments/1ruod57/"],
+    ["r/PPC: tools practitioners built", "https://reddit.com/r/PPC/comments/1ua0l0y/"],
+    ["r/FacebookAds: Andromeda and angle diversity", "https://reddit.com/r/FacebookAds/comments/1w3siss/"],
+    ["r/SEO: AI slop cleanup at a 300-client agency", "https://reddit.com/r/SEO/comments/1x0yc3z/"],
+    ["r/aeo: can't track AI visibility", "https://reddit.com/r/aeo/comments/1vqugjg/"],
+    ["r/SaaS: outbound sequences have no memory", "https://reddit.com/r/SaaS/comments/1s6od3o/"],
+    ["r/ClaudeCode: $46k contract to install an AI workflow for an SMB", "https://reddit.com/r/ClaudeCode/comments/1v13z0p/"],
+  ]},
+  { name: "GitHub (what we build on)", items: [
+    ["coreyhaines31/marketingskills (59.6k, MIT)", "https://github.com/coreyhaines31/marketingskills"],
+    ["agentskills/agentskills: the SKILL.md standard", "https://github.com/agentskills/agentskills"],
+    ["AgriciDaniel/claude-seo (27.9k, MIT)", "https://github.com/AgriciDaniel/claude-seo"],
+    ["googleanalytics/google-analytics-mcp (Apache-2.0)", "https://github.com/googleanalytics/google-analytics-mcp"],
+    ["googleads/google-ads-mcp (Apache-2.0)", "https://github.com/googleads/google-ads-mcp"],
+    ["mikusnuz/meta-ads-mcp (MIT)", "https://github.com/mikusnuz/meta-ads-mcp"],
+    ["heygen-com/hyperframes (Apache-2.0)", "https://github.com/heygen-com/hyperframes"],
+    ["Othmane-Khadri/YALC: open Clay alternative (MIT)", "https://github.com/Othmane-Khadri/YALC-the-GTM-operating-system"],
+    ["wshobson/agents: multi-runtime packaging pattern", "https://github.com/wshobson/agents"],
+    ["unifapi-agent/agents: closest rival format", "https://github.com/unifapi-agent/agents"],
+  ]},
+  { name: "Competing products", items: [
+    ["Anthropic knowledge-work plugins", "https://github.com/anthropics/knowledge-work-plugins"],
+    ["Inflectual 167-skill bundle ($167)", "https://inflectual.gumroad.com/l/master-marketing-claude-skills-bundle"],
+    ["Okara AI CMO", "https://okara.ai"],
+    ["HubSpot Marketer's Claude Skills Library", "https://offers.hubspot.com/view/marketers-claude-skills-library"],
+    ["Maven: Claude Code for marketers cohorts", "https://maven.com"],
+  ]},
+];
+
+</script>
+<script>
+const org=document.getElementById('org'),filter=document.getElementById('filter');
+let n=0;const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function render(){
+  org.innerHTML='';n=0;
+  DEPTS.forEach(d=>{
+    const list=AGENTS.filter(a=>a.dept===d.id);
+    const sec=document.createElement('div');sec.className='dept';sec.dataset.dept=d.id;
+    sec.innerHTML=`<div class="dept-h"><h3>${d.name}</h3><span class="n">${list.length} agents</span><span class="mut" style="font-size:14px">${d.blurb}</span></div>`;
+    list.forEach(a=>{n++;
+      const el=document.createElement('details');el.className='agent';el.id=a.id;
+      el.innerHTML=`<summary><span class="num">${String(n).padStart(2,'0')}</span><span><div class="aname">${esc(a.name)} <span class="chip ${a.runtime==='worker'?'w':'c'}">${a.runtime==='worker'?'needs worker':'runs in chat'}</span></div><div class="ajob">${esc(a.job)}</div></span><span class="plus">+</span></summary>
+      <div class="abody">
+        <div><div class="lbl">Shift</div>${esc(a.shift)}</div>
+        <div><div class="lbl">Workflow</div><ol class="steps">${a.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></div>
+        <div class="kv">
+          <div><div class="lbl">Tool belt</div>${a.tools.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>
+          <div><div class="lbl">Ships with</div>${a.ships.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div>
+        </div>
+        <div class="kv"><div><div class="lbl">Gate</div>${esc(a.gate)}</div><div><div class="lbl">KPI</div>${esc(a.kpi)}</div></div>
+        <div><div class="lbl">Built on evidence</div><ul class="tight">${a.why.map(w=>`<li><a href="${w[1]}" target="_blank" rel="noopener">${esc(w[0])}</a></li>`).join('')}</ul></div>
+      </div>`;
+      sec.appendChild(el);});
+    org.appendChild(sec);});
+}
+render();
+const all=document.createElement('button');all.textContent='All 30';all.className='on';filter.appendChild(all);
+const btns=[all];
+DEPTS.forEach(d=>{const b=document.createElement('button');b.textContent=d.name;b.onclick=()=>{btns.forEach(x=>x.classList.remove('on'));b.classList.add('on');document.querySelectorAll('.dept').forEach(s=>s.style.display=s.dataset.dept===d.id?'':'none')};filter.appendChild(b);btns.push(b)});
+all.onclick=()=>{btns.forEach(x=>x.classList.remove('on'));all.classList.add('on');document.querySelectorAll('.dept').forEach(s=>s.style.display='')};
+document.getElementById('brain-name').textContent='Bonus · '+BRAIN.name;document.getElementById('brain-job').textContent=BRAIN.job;
+document.getElementById('ads').innerHTML=(window.ADS||[]).map(a=>`<div class="card ad"><div class="hook">${esc(a.hook)}</div><p class="mut" style="margin:8px 0 0;font-size:14px">${esc(a.visual)}</p><p style="margin:6px 0 0;font-size:14px"><b>Why it works:</b> ${esc(a.why)}</p></div>`).join('');
+document.getElementById('sources').innerHTML=(window.SOURCES||[]).map(g=>`<div class="card"><h3>${esc(g.name)}</h3><ul class="tight">${g.items.map(i=>`<li><a href="${i[1]}" target="_blank" rel="noopener">${esc(i[0])}</a></li>`).join('')}</ul></div>`).join('');
+</script>
+</body>
+</html>

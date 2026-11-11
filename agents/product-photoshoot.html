@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Product Photoshoot: Headcount agent</title><meta name="description" content="Studio and lifestyle product imagery from phone photos. No shoot."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Product Photoshoot
+
+## 1. What this agent gets you
+Phone photos in, a full product image set out: Amazon white main image, store hero, brand colour studio shot and lifestyle scenes. Your product is never redrawn by AI, so what shoppers see is what they get.
+
+## 2. Who it is for / not for
+For: ecommerce brands launching products or variants, Amazon and Shopify sellers, teams that need consistent catalogue imagery fast.
+Not for: products that need a model wearing them (use a real shoot or a disclosed AI model workflow), heavily reflective or transparent products without a clean phone photo (cutouts struggle), or anyone wanting the product "improved" by AI.
+
+## 3. Setup checklist
+- [ ] company-brain has run (brand colours, style, where images are used)
+- [ ] Google Chrome or Chromium (free)
+- [ ] Background removal: `pip install "rembg[cli]"` (MIT, free) or a Replicate or fal key
+- [ ] Optional image key (Gemini, OpenAI, Replicate or fal) for lifestyle scenes
+Time to set up: 15 minutes. Cost per product: $0 for white, store and studio shots (all local); roughly $0.10 to $0.50 per lifestyle plate depending on provider and resolution, so about $0.50 to $2 per product with 3 scenes and a retry.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+```
+Run product-photoshoot on ./photos/pillow-front.jpg. I sell on Amazon and Shopify. Make the full set.
+```
+ChatGPT:
+```
+Use the product-photoshoot skill on the attached photo. Plan the set and wait for my approval before generating scenes.
+```
+
+## 5. Running it on a schedule
+Usually on demand. To process a drop folder every evening at 19:20:
+- cron: `20 19 * * * cd /path/to/project && claude -p "Run product-photoshoot on new files in ./photos/inbox"`
+- Claude Code: `/schedule daily 19:20 Run product-photoshoot on new files in ./photos/inbox`
+Paid scenes still wait for approval.
+
+## 6. What good output looks like
+`examples/output/`: Amazon main (passes white border and 85% fill), Shopify hero, brand studio shot with shadow and reflection, plus a deliberately wrong Amazon image (60% fill) that the check catches.
+
+## 7. Tuning (the 3 settings that matter)
+- `brand_bg` and `brand_bg2`: the studio sweep colours.
+- `generation.allow_edit_task`: off for strict product truth; on for more natural lifestyle shots with stricter QA.
+- `marketplaces.amazon.shadow_on_main`: off is safest for Amazon review.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Halo around the product | Try the other removal route or model; shoot on a contrasting background |
+| Product looks pasted in a scene | Match the light side and camera height in the plate prompt; lower `floor_y` to the surface edge |
+| Amazon check fails on fill | Raise `fill` to 0.85 (the cutout padding is trimmed automatically) |
+| "unsupported PNG" | Re-save as 8 bit RGB or RGBA PNG; JPEGs get size checks only |
+| Label wrong in an edit shot | Discard it and use a composite |
+
+## 9. Safety and platform rules
+Images show the real product only, at real scale. No invented features, accessories or badges. Marketplace main images follow each marketplace's rules. Lifestyle scenes with AI people are labelled where required. Nothing is uploaded without your yes.
+
+
+---
+
+# Connections
+
+| Connection | Needed for | Where to get it | Scopes / access | Cost | Env var |
+|---|---|---|---|---|---|
+| Chrome or Chromium | Compositing and export | google.com/chrome | Local | Free | `CHROME_PATH` (optional) |
+| rembg (recommended) | Free local background removal | `pip install "rembg[cli]"` (danielgatis/rembg, MIT) | Local | Free | none |
+| Replicate | Background removal (`851-labs/background-remover`, `recraft-ai/recraft-remove-background`), scenes (Nano Banana Pro, Seedream 4, Flux Kontext Pro) | replicate.com, API tokens | Predictions | Per run (see each model page) | `REPLICATE_API_TOKEN` |
+| fal | Background removal and scene edits (`fal-ai/nano-banana-pro/edit`, `fal-ai/bytedance/seedream/v4/edit`) | fal.ai, Keys | Model calls | Per image | `FAL_KEY` |
+| Google Gemini API | Scenes and edits (`gemini-3-pro-image-preview`) | aistudio.google.com | Generative Language API | Per image | `GEMINI_API_KEY` |
+| OpenAI API | Edits with `input_fidelity: high` (`gpt-image-1.5`) | platform.openai.com | Images | Per image | `OPENAI_API_KEY` |
+| Shopify Admin (optional) | Upload approved images to your store | Shopify admin, Develop apps | `write_products` | Free | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_STORE_DOMAIN` |
+| treg (optional) | Only if you already have your own treg account with image models | your account | per tool | per call | `TREG_TOKEN` |
+
+Pick one paid image provider at most. Keys stay in your environment; `--dry-run` output redacts them.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/cutout.png`
+- `examples/fixtures/product-cutout.svg`
+- `examples/fixtures/scene_marble.json`
+- `examples/fixtures/shots.json`
+- `examples/output/check_amazon.json`
+- `examples/output/check_cutout.json`
+- `examples/output/check_shopify.json`
+- `examples/output/composite_report.json`
+- `examples/output/s1-amazon-main.png`
+- `examples/output/s2-shopify-main.png`
+- `examples/output/s3-studio-brand.png`
+- `examples/output/s4-amazon-too-small.png`
+- `mcp.json`
+- `references/json-prompt-method.md`
+- `references/marketplace-specs.md`
+- `references/qa-rubric.md`
+- `scripts/_common.py`
+- `scripts/check_setup.py`
+- `scripts/composite.py`
+- `scripts/gen_image.py`
+- `scripts/marketplace_check.py`
+- `scripts/remove_bg.py`
+- `templates/contact-sheet.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

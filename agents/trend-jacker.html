@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Trend Jacker: Headcount agent</title><meta name="description" content="Same-day content on trending formats, audio and news in your niche."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Trend Jacker
+
+## 1. What this agent gets you
+Every morning: the trends worth your time (rising sounds, formats, searches and niche discussions), filtered for relevance and brand safety, with up to 3 ready concepts you can approve and post the same day.
+
+## 2. Who it is for, and not for
+- For: brands that post short video or social content at least 3 times a week and can turn something around in hours.
+- For: founders who want to join conversations early without doomscrolling.
+- Not for: brands that need legal review on every post (the windows are too short).
+- Not for: newsjacking tragedies, politics or celebrity gossip. The safety filter blocks them by default.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost per day |
+|---|---|---|---|
+| COMPANY.md (company-brain) | yes | 15 min once | free |
+| Relevance terms in config.yaml | yes, agent drafts them | 5 min once | free |
+| Reddit app (client id and secret) | recommended | 5 min | free at low volume |
+| 5-minute manual TikTok Creative Center and IG audio check | recommended | 5 min daily | free |
+| Apify key for TikTok Creative Center actors | optional | 5 min | pay per result, usually cents per day |
+| Python 3.9+ | yes | | free |
+The automated scan uses only free public sources (Google Trends RSS, Hacker News API, Reddit).
+
+## 4. First run
+- **Claude Code:** `trend-jacker: first run. Fill my relevance terms from COMPANY.md and ask me for subreddits.` Then daily: `trend-jacker: morning run.`
+- **ChatGPT:** add the folder as project files: `Use trend-jacker. Here is today's trends list (paste). Score it and write concepts.` (ChatGPT browsing can stand in for the scan.)
+- **Codex:** `Follow agents/trend-jacker/SKILL.md for today.`
+- **OpenClaw / Hermes:** load the skill, schedule `trend-jacker: morning run` daily.
+Try it without setup: `python3 scripts/score_trends.py --dry-run`.
+
+## 5. Running it on a schedule
+- cron (07:40 daily): `40 7 * * * cd /path/to/trend-jacker && claude -p "trend-jacker: morning run"`
+- Claude Code: `/schedule daily 7:40am: trend-jacker morning run`
+- OpenClaw / Hermes: daily job, same prompt. The brief waits for your approvals.
+
+## 6. What good output looks like
+See `examples/example-output.md`: scored table, the agent's upgrades and downgrades with reasons, blocked items shown, 3 concepts with bridge, format, slot and hours left.
+
+## 7. Tuning (the 3 settings that matter)
+- `relevance.core_terms` and `adjacent_terms`: the whole filter. Add the words your customers use, not industry jargon.
+- `relevance.go_score` (60): raise if you get too many weak concepts, lower if the brief is empty most days.
+- `safety.blocklist` and `allow_politics`: add your own sensitive topics. Politics stays off unless you have a stated position.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Brief is empty most days | Add adjacent terms from your audience's daily life; add 2 more subreddits; lower go_score by 5. |
+| Reddit returns 429 or 403 | Set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET; set a real User-Agent username. |
+| Google Trends RSS fails | Retry later; the scan continues with other sources and lists the error. |
+| Concepts feel forced | Your bridge sentences are weak. Require "Direct" or "Audience life" bridges only. |
+| Trend posts underperform | Check hours from first seen to post in the ledger. Most late posts fail. |
+
+## 9. Safety and platform rules
+- Brand safety blocks are on by default and listed in every brief.
+- Trending audio is added in the app from the platform library, never ripped into files.
+- No real people's names or likeness without consent; link sources for any news fact.
+- Respect Reddit's Data API terms and rate limits. TikTok Creative Center scraping is unofficial; the default is a manual check.
+
+
+---
+
+# Connections
+
+## Free, no key (used by default)
+| Source | Endpoint | Notes |
+|---|---|---|
+| Google Trends daily trending searches | `https://trends.google.com/trending/rss?geo=<CC>` | Public RSS. Change `scan.geo`. |
+| Hacker News | `https://hn.algolia.com/api/v1/search?tags=front_page` | Public API. Most useful for tech, SaaS and dev-tool brands. |
+
+## Reddit (recommended)
+- Create a "script" or "web" app at reddit.com/prefs/apps. Env vars: `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET`.
+- Uses app-only OAuth (read access). Without keys, the scan falls back to public `.json` listings with a User-Agent; edit `UA` in scan_trends.py to include your Reddit username.
+- Cost: free at low volume under Reddit's Data API terms. Read them before commercial use at scale.
+- Optional MCP: `reddit` in mcp.json (karanb192/reddit-mcp-buddy, MIT).
+
+## TikTok Creative Center and Instagram trending audio (manual by default)
+- No official public API for trend data. 5-minute daily manual check (references/trend-sources.md), written to `data/manual_trends.csv`.
+- Optional BYOK: an Apify Creative Center actor via the `apify` MCP (MIT server). Env var `APIFY_TOKEN`. Unofficial endpoints; may break; costs per result.
+
+## X (optional, paid)
+- X API v2 is pay-per-use by default (reports cite about $0.005 per post read in 2026). Not used unless you add it. Env var `X_BEARER_TOKEN`.
+
+## treg (optional)
+If you have your own treg account, its trends and social tools can replace Apify. Not required.
+
+Keys live in your shell or a git-ignored `.env`.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/config.example.yaml`
+- `examples/fixtures/trends.json`
+- `mcp.json`
+- `references/concept-formulas.md`
+- `references/publish-windows.md`
+- `references/relevance-and-safety.md`
+- `references/trend-sources.md`
+- `scripts/check_setup.py`
+- `scripts/scan_trends.py`
+- `scripts/score_trends.py`
+- `scripts/yaml_lite.py`
+- `templates/concept-card.md`
+- `templates/daily-brief.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

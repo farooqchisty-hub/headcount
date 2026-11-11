@@ -1,0 +1,130 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Backlink Builder: Headcount agent</title><meta name="description" content="Earns real links: journalist requests, unlinked mentions, broken links, link-bait assets, guest posts."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Backlink Builder
+
+## 1. What this agent gets you
+Real links from real sites in your niche, earned every week: quotes in articles, mentions turned into links, dead links replaced with yours, and tools or data people want to cite. Nothing bought, nothing that risks a Google penalty.
+
+## 2. Who it is for / not for
+- For: brands with at least one person who knows the subject and can be quoted, and a site with pages worth linking to.
+- Not for: anyone wanting to buy links, use private blog networks, or swap links at scale. The agent refuses those and explains why.
+
+## 3. Setup checklist
+- [ ] Join 2 or 3 request platforms as a source (Qwoted, HARO by Featured, Source of Sources, MentionMatch, SourceBottle). Route their emails to one inbox label.
+- [ ] Connect your mail tool so the agent can read digests and save drafts.
+- [ ] Fill experts in COMPANY.md: names, credentials, topics, 5 facts or numbers each, headshots.
+- [ ] Optional: DataForSEO or Ahrefs API key for faster prospecting and gap analysis.
+- Time to set up: about 45 minutes (platform sign-ups take most of it).
+- Cost: free path is $0. With DataForSEO, a few dollars a week within the cap. Featured paid tier is optional.
+
+## 4. First run
+> Run backlink-builder. Triage today's journalist requests and draft answers for my experts. Then find unlinked mentions of my brand and score them. Save drafts only, do not send.
+
+## 5. Running it on a schedule
+- Claude Code: `/schedule` "weekdays 07:30 and 13:30 run backlink-builder triage" and "Mondays 09:00 run backlink-builder weekly lanes".
+- cron: `30 7,13 * * 1-5 cd ~/headcount && claude -p "run backlink-builder triage"`
+- OpenClaw / Hermes: same prompts in the scheduler.
+
+## 6. What good output looks like
+`examples/example-output.md`: requests ranked with paid and credential-gated ones skipped, a prospect list where link farms are rejected with reasons, dead links found on a resource page, a quote that lost its link sent back to reclaim, and a competitor gap list.
+
+## 7. Tuning
+- `request_sources` and `daily_pitch_cap`: the journalist lane is the biggest win for most brands. Do fewer, better answers.
+- `min_prospect_score` and `min_monthly_traffic`: raise to be pickier.
+- `caps`: shift effort toward the lanes that win links per pitch in your log.
+
+## 8. Troubleshooting
+1. No placements after 3 weeks: answers are too generic. Add specific numbers to experts.json and answer faster.
+2. Prospect scores all low: topics in config are too narrow or missing. Add the words your niche uses.
+3. Broken link scans hang: some sites block bots. The checker times out after 10 s per link; skip those pages.
+4. Paid API spend cap reached: the run stops that lane. Raise `dataforseo_max_spend_usd` or use free sources.
+5. Links show as nofollow: normal for news sites. They still bring referral traffic, brand searches and AI citations; track them as wins.
+
+## 9. Safety and platform rules
+- No paid links, link exchanges, PBNs or keyword-rich anchor requests (Google spam policies). Paid placements must carry `rel="sponsored"` and are treated as ads.
+- Experts approve every quote in their name. No invented quotes, credentials or data.
+- Emails are saved as drafts; you send. One follow-up, then stop. Honour opt-outs immediately.
+- Follow each request platform's rules (most require submitting through the platform).
+
+
+---
+
+# Connect backlink-builder
+
+Every lane works without paid APIs. Paid data makes prospecting faster.
+
+| What | Env var | Where | Cost |
+|---|---|---|---|
+| Journalist platforms | none (accounts) | Sign up as a source: qwoted.com, featured.com (also HARO newsletter), sourceofsources.com, mentionmatch.com (formerly helpab2bwriter.com), sourcebottle.com. Route digest emails to one inbox label | Free to about $49+/month for paid tiers |
+| Mail (read digests, save drafts) | your runtime's Gmail or Outlook MCP; set `GMAIL_MCP_ENABLED=1` | Connect in your runtime's connector settings. Scopes: read, compose drafts. Sending stays manual by default | free |
+| X / Bluesky hashtags | none | search #journorequest and #prrequest in the app or web search | free |
+| DataForSEO (optional) | `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` | app.dataforseo.com > API access | pay as you go; Backlinks API is roughly cents per request, plus a monthly minimum for the Backlinks subscription (check current pricing). Capped by `dataforseo_max_spend_usd` |
+| Ahrefs API v3 (optional) | `AHREFS_API_KEY` | ahrefs.com > Account > API (enterprise plans) | included in eligible plans; costs API units |
+| Semrush API (optional) | `SEMRUSH_API_KEY` | semrush.com > Subscription info > API units | API units |
+| Search Console (free, your own links) | `GSC_SITE_URL`, `GOOGLE_APPLICATION_CREDENTIALS` | Search Console > Settings > Users > add service account; Links report | free |
+| Email finder (optional) | your own tool's key, e.g. `HUNTER_API_KEY` | only your own account | per lookup |
+
+## MCP servers (mcp.json)
+- `dataforseo` (official, Apache-2.0), optional.
+- `search-console` (MIT), optional.
+
+## Cost per week (honest)
+Free path: 0. With DataForSEO for gap and traffic checks: usually a few dollars a week within the cap. Featured paid plan if you choose it: about $49+/month.
+
+## Never
+Never store mailbox passwords. Never share API keys in chat.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/pages.json`
+- `examples/fixtures/prospects.csv`
+- `examples/fixtures/refdomains_comp_a.csv`
+- `examples/fixtures/refdomains_comp_b.csv`
+- `examples/fixtures/refdomains_comp_c.csv`
+- `examples/fixtures/refdomains_ours.csv`
+- `examples/fixtures/requests.json`
+- `mcp.json`
+- `references/journalist-platforms.md`
+- `references/lanes-playbook.md`
+- `references/link-quality-and-spam-policy.md`
+- `scripts/check_links.py`
+- `scripts/check_setup.py`
+- `scripts/gap_analysis.py`
+- `scripts/score_prospects.py`
+- `scripts/triage_requests.py`
+- `templates/asset-brief.md`
+- `templates/expert-answer.md`
+- `templates/outreach-emails.md`
+- `templates/tracker.csv`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

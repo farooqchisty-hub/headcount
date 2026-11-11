@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Outbound Operator: Headcount agent</title><meta name="description" content="Booked meetings from signal-led cold email, replies handled, angles learned."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Outbound Operator
+
+## 1. What this agent gets you
+Meetings booked from cold email that reads like a person wrote it. It writes short emails tied to a real reason to reach out, sends them safely, answers replies, books calls and remembers which angles work for which roles.
+
+## 2. Who it is for / not for
+- **For:** B2B teams and agencies with a clear offer, a deal worth a conversation, and someone who can take the calls.
+- **Not for:** mass email to thousands a day, consumer email, or anyone who wants it to send with no human ever looking. The first 20 emails of every campaign wait for your yes.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| 2 to 5 sending domains (lookalikes of yours) | yes | 30 min | about 10 to 15 USD per domain per year |
+| 2 to 3 inboxes per domain (Google Workspace or Microsoft 365) | yes | 30 min | about 6 to 8 USD per inbox per month |
+| SPF, DKIM, DMARC on each domain | yes | 20 min (the agent gives you the records) | free |
+| Instantly or Smartlead account with warm-up | yes (or Gmail API for small volume) | 20 min | from about 30 to 40 USD per month |
+| 14 days of warm-up before the first cold send | yes | waiting | included |
+| Cal.com API key | optional, for booking | 5 min | free plan works |
+
+Honest numbers: 3 domains x 2 inboxes x 30 a day = 180 sends a day once warm. At a 3 to 5% reply rate that is roughly 5 to 9 replies a day.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+> Run outbound-operator. Check my sending domains, then write a campaign for the leads in data/outbound/ready and show me the first 20 for approval.
+
+ChatGPT:
+> Use the outbound-operator skill. Here are my leads (attached). Write the emails and show them to me before anything is sent.
+
+Demo: `python3 scripts/send_queue.py examples/example-campaign.json --config examples/example-config.yaml --approvals examples/example-approvals.json --send-log examples/example-send-log.csv` (dry-run, nothing is sent).
+
+## 5. Running it on a schedule
+- cron for reply checks: `*/30 8-18 * * 1-5 cd /path/to/headcount && claude -p "outbound-operator: handle new replies"` (or your runtime's CLI equivalent)
+- Claude Code: `/schedule weekdays 08:00 run outbound-operator daily batch` and `/schedule every 30 minutes 08:00-18:00 outbound-operator replies`
+- OpenClaw or Hermes: two jobs, the daily batch and the 30-minute reply check.
+
+## 6. What good output looks like
+See `examples/`: `example-campaign.json` has one good sequence, one that fails lint on purpose (flattery, link, unfilled token) and one waiting for approval. `example-output-send-plan.txt` shows the queue. `example-output-classified.json` shows nine reply types handled. Example, fictional brands.
+
+## 7. Tuning
+1. `approval.first_n_per_campaign` (20) and `after_first_n` (sample): relax only after a campaign's first 20 needed no edits.
+2. `throttle.warmup_ramp` and `max_per_inbox_per_day` (30): add inboxes to grow, never raise the per-inbox cap.
+3. `deliverability.pause_if_bounce_rate_over` (2%): the kill switch that protects your domains.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| "capacity_today=0" | Inboxes are under 14 days old. Warm-up first; update `age_days` in config as they age. |
+| Lint fails on every email | Usually a banned phrase or a dash. Read the error lines, rewrite, re-run. |
+| DNS FAIL on SPF | Two SPF records. Merge them into one `v=spf1` record. |
+| Replies under 1% after 300 sends | Likely spam placement or a weak list. Run a placement test in your sending tool, check `dns_check.py`, tighten the ICP. |
+| Instantly 401 | API key needs `leads:create` scope (v2 keys are scoped). |
+
+## 9. Safety and platform rules
+- Real sender names only. No fake personas.
+- Every email offers an easy out; unsubscribes are honoured immediately and forever.
+- CAN-SPAM needs your postal address in the footer for US recipients. EU, UK and Canada rules are stricter: check yours.
+- Official APIs only (Instantly, Smartlead, Gmail, Cal.com). No LinkedIn automation.
+- Nothing sends without passing DNS checks, lint and your approval for the first 20.
+
+
+---
+
+# Connect: outbound-operator
+
+| Service | Env var | Where to get it | Scopes or settings | Cost | Used for |
+|---|---|---|---|---|---|
+| Instantly (API v2) | `INSTANTLY_API_KEY` | Instantly, Settings, Integrations, API keys | scope `leads:create` (or `leads:all`); add `campaigns:read` and unibox read for replies | paid plan with API | adding leads to a campaign (`POST /api/v2/leads/add`, Bearer), reading replies, pausing |
+| Smartlead | `SMARTLEAD_API_KEY` | Smartlead, Settings, API | key goes in the `api_key` query parameter (headers are not accepted) | paid plan with API | `POST /api/v1/campaigns/{id}/leads` (max 400 per call), master inbox replies |
+| Gmail API | `GMAIL_OAUTH_TOKEN` | Google Cloud console: OAuth client, scope `https://www.googleapis.com/auth/gmail.send` and `gmail.readonly` | short-lived token; refresh outside this package | free | small-volume sending from one Workspace inbox, reply reading |
+| Cal.com API v2 | `CALCOM_API_KEY` | Cal.com, Settings, Developer, API keys | send `cal-api-version` header (bookings reference listed `2026-02-25`; slots examples use `2024-08-13`): check the docs page for each endpoint | free plan works | `GET /v2/slots`, `POST /v2/bookings` |
+| HubSpot | `HUBSPOT_ACCESS_TOKEN` | Private app | `crm.objects.contacts.read/write`, `crm.objects.deals.write` | free tier | suppress customers and open deals, create deals on booking |
+| Exa | `EXA_API_KEY` | dashboard.exa.ai | none | per search | account research |
+| DNS checks | none | uses public DNS-over-HTTPS at dns.google | none | free | SPF, DKIM, DMARC, MX |
+
+## One-time platform setup (Instantly or Smartlead)
+1. Add the inboxes, turn on warm-up for all of them, wait 14 days.
+2. Create the campaign with 3 steps whose subject and body are the variables `{{step1_subject}}` / `{{step1_body}}`, `{{step2_body}}`, `{{step3_body}}` (steps 2 and 3 reply in thread).
+3. Turn off open tracking and link tracking. Set the schedule to weekdays, 08:00 to 17:00 recipient time, daily limit 30 per inbox.
+4. Copy the campaign id into `config.yaml` `sender.campaign_id`.
+
+MCP servers in `mcp.json`: HubSpot (`@shinzolabs/hubspot-mcp`, MIT), Exa (official, MIT). Cal.com publishes an official MCP (github.com/calcom/cal-mcp) but no licence file was found at time of writing, so it is not bundled; use the REST API.
+
+Verify before first live run: the Instantly add-leads body field name (`campaign_id`) and lead fields were taken from the v2 reference and a third-party connector; send one lead first and check it appears in the campaign.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-approvals.json`
+- `examples/example-campaign.json`
+- `examples/example-config.yaml`
+- `examples/example-history-classified.json`
+- `examples/example-output-classified.json`
+- `examples/example-output-send-plan.txt`
+- `examples/example-replies.json`
+- `examples/example-send-log.csv`
+- `mcp.json`
+- `references/benchmarks-and-failure-modes.md`
+- `references/deliverability-rules.md`
+- `references/email-writing-playbook.md`
+- `references/reply-playbook.md`
+- `scripts/angle_memory.py`
+- `scripts/banned_phrases.txt`
+- `scripts/check_setup.py`
+- `scripts/classify_reply.py`
+- `scripts/dns_check.py`
+- `scripts/fixtures/dns.json`
+- `scripts/lint_email.py`
+- `scripts/send_queue.py`
+- `scripts/yaml_lite.py`
+- `templates/approval-sheet.md`
+- `templates/sequence-brief.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

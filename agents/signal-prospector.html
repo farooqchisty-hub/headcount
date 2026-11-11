@@ -1,0 +1,153 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Signal Prospector: Headcount agent</title><meta name="description" content="Accounts showing buying signals today, scored and with a &quot;why now&quot;."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Signal Prospector
+
+## 1. What this agent gets you
+Every morning, a short list of companies that just did something that means they may buy from you: hired for the role you serve, raised money, dropped a competitor, got a new marketing boss. Each one has a score, the person to contact and one sentence on why now.
+
+## 2. Who it is for / not for
+- **For:** B2B software, agencies and ecommerce tool sellers with a clear ICP and a deal worth a personal email (roughly 1,000 USD a year or more).
+- **Not for:** selling to consumers; very broad ICPs ("any business") where every company fits; teams with no one to act on the list each day.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| company-brain run (ICP, competitors) | yes | once | free |
+| Fill the `icp` block in config.yaml | yes | 10 min | free |
+| Watch list of 50 to 300 accounts | yes | 20 min first time (the agent helps) | free |
+| HubSpot private app token | optional, to push to CRM | 10 min | free with HubSpot |
+| Apollo key or MCP | optional, to find people | 5 min | your Apollo plan |
+| BuiltWith, Crunchbase, X API, Exa | optional sources | 5 min each | their plans |
+
+Cost per daily run with only free sources: 0 USD. Time: about 2 seconds per page fetched, so 300 accounts with 3 pages is roughly 30 minutes unattended.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+> Run signal-prospector. Set up my ICP from the brain file, build a watch list of 100 accounts, and show me today's hot accounts.
+
+ChatGPT:
+> Use the signal-prospector skill. Here is my account list (attached). Find buying signals and score them.
+
+Demo with no setup:
+> Run signal-prospector on the example accounts in fixture mode.
+(The agent runs `job_posts.py` and `detect_tech.py` with `--fixture` and scores `examples/`.)
+
+## 5. Running it on a schedule
+- cron: `30 6 * * * cd /path/to/headcount/agents/signal-prospector && python3 scripts/job_posts.py ../../data/signals/accounts.csv --out ../../data/signals/raw/jobs-$(date +\%F).jsonl && python3 scripts/detect_tech.py ../../data/signals/accounts.csv --out ../../data/signals/raw/tech-$(date +\%F).jsonl`
+  then let the agent do Steps 3 to 7 (research, scoring, checking, CRM) when you open your session.
+- Claude Code: `/schedule daily 06:30 run signal-prospector and post the digest`
+- OpenClaw or Hermes: a daily 06:30 job with the message "Run signal-prospector daily shift".
+
+## 6. What good output looks like
+See `examples/example-output-digest.md` (example, fictional brands): four hot accounts, each with a checkable reason, for example a store that moved platforms and dropped a competitor's widget the same week.
+Good means: 5 to 20 hot accounts a day per 300 watched, every why-now line true when you click it.
+
+## 7. Tuning
+1. `icp.hiring_keywords`: the job titles that mean "they need you". The single biggest lever.
+2. `scoring.tiers.hot` (default 70): raise it if you get more hot accounts than you can contact in a day.
+3. `scoring.signal_overrides`: after 60 days, set strengths from your own win rates (Step 8 does the maths).
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| No tech change signals | Change signals need two snapshots. They start on day two. |
+| Job board returns nothing | The `ats` token is wrong. Open the careers page and copy the slug from the board URL. |
+| Every site shows the same tech | A cookie wall or bot page was fetched. Check one page in a browser; consider BuiltWith for that account. |
+| Too many hot accounts | Raise `tiers.hot` or narrow `hiring_keywords`. |
+| HubSpot 400 on push | Run `push_crm.py --create-properties --live --approved` once to create the custom fields. |
+
+## 9. Safety and platform rules
+- Only public pages and official APIs. No scraping of LinkedIn or other logged-in sites.
+- The scripts identify themselves with your contact email and wait between requests.
+- Signals about layoffs raise priority only; your emails never mention them.
+- Keep the `source_url` for every signal: it is your record of where the data came from.
+
+
+---
+
+# Connect: signal-prospector
+
+Nothing is required to start. Free sources need no key. Everything else is optional and BYOK.
+
+| Service | Env var | Where to get it | Scopes or plan | Cost | Used for |
+|---|---|---|---|---|---|
+| Greenhouse, Lever, Ashby job boards | none | public | none | free | hiring signals |
+| Company homepages | none | public | none | free | tech and page-change signals |
+| SEC EDGAR | none (set `limits.user_agent_contact`) | public | none | free | US Form D filings |
+| HubSpot | `HUBSPOT_ACCESS_TOKEN` | Settings, Integrations, Private Apps | `crm.objects.companies.read`, `crm.objects.companies.write`, `crm.objects.contacts.read`, `crm.schemas.companies.write` (for creating properties once) | free tier works | read relationships, push hot accounts and tasks |
+| Apollo | `APOLLO_API_KEY` or Apollo MCP (OAuth) | Apollo, Settings, Integrations, API | plan with API access | credits per reveal | people at accounts, company search |
+| BuiltWith | `BUILTWITH_API_KEY` | builtwith.com, API | paid for full lookups | per lookup | tech history with first-seen dates |
+| Crunchbase | `CRUNCHBASE_API_KEY` | data.crunchbase.com | Basic or Enterprise API | paid | funding rounds |
+| X API v2 | `X_BEARER_TOKEN` | developer.x.com | a paid tier with recent search | paid | pain keyword posts |
+| Exa | `EXA_API_KEY` or Exa MCP | dashboard.exa.ai | none | pay per search | news and web search |
+| Google PageSpeed Insights | `PAGESPEED_API_KEY` | Google Cloud console, enable PageSpeed Insights API | none | free quota | slow-site signal |
+| treg (optional) | your own treg account | treg.dev style registry | your account | per call | stand-in for any single source above, only if you already have an account |
+
+MCP servers in `mcp.json`: Apollo (official, MIT), HubSpot (`@shinzolabs/hubspot-mcp`, MIT), Exa (official, MIT).
+
+Verify before first live use: HubSpot task association type id 192 (task to company) is the documented HUBSPOT_DEFINED value at the time of writing; if task creation returns 400, check the associations API in your portal.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-accounts.csv`
+- `examples/example-manual-signals.jsonl`
+- `examples/example-output-digest.md`
+- `examples/example-output-hiring-signals.jsonl`
+- `examples/example-output-scored.csv`
+- `examples/example-output-tech-signals.jsonl`
+- `examples/example-output-to-resolve.csv`
+- `mcp.json`
+- `references/person-resolution.md`
+- `references/scoring-model.md`
+- `references/signal-library.md`
+- `references/sources-and-compliance.md`
+- `scripts/check_setup.py`
+- `scripts/detect_tech.py`
+- `scripts/fingerprints.json`
+- `scripts/fixtures/ats/ashby_pebblequay.json`
+- `scripts/fixtures/ats/greenhouse_lumenfield.json`
+- `scripts/fixtures/ats/lever_cobaltrail.json`
+- `scripts/fixtures/html/lumenfield.example.html`
+- `scripts/fixtures/html/pebblequay.example.html`
+- `scripts/fixtures/html/pebblequay.example__pricing.html`
+- `scripts/fixtures/html/saltmarshgoods.example.html`
+- `scripts/fixtures/snapshots/lumenfield.example__jobs.json`
+- `scripts/fixtures/snapshots/pebblequay.example.json`
+- `scripts/fixtures/snapshots/saltmarshgoods.example.json`
+- `scripts/job_posts.py`
+- `scripts/push_crm.py`
+- `scripts/score_signals.py`
+- `scripts/signals.json`
+- `scripts/yaml_lite.py`
+- `templates/daily-digest.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

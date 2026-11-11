@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Programmatic SEO: Headcount agent</title><meta name="description" content="Hundreds of data-unique pages on a proven keyword pattern."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Programmatic SEO
+
+## 1. What this agent gets you
+Hundreds of pages that each answer one specific search with real data (one trail, one city, one integration), built in small batches and scaled only when Google shows it wants them.
+
+## 2. Who it is for, and not for
+- For: businesses that own or can collect structured data about many similar things: locations, products, integrations, use cases, specs.
+- For: patterns with many low-volume searches (long tail).
+- Not for: anyone wanting thousands of AI-written pages with swapped keywords. Google's scaled content abuse policy removes those, and this agent's gate blocks them.
+- Not for: sites with under 6 months of history and no links. Start with seo-content-pipeline.
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| Keyword data: DataForSEO key or a keyword CSV export | 10 min | DataForSEO pay as you go, a few dollars per pattern study |
+| Search Console token | 15 min | free |
+| The dataset (your data, open data, manual collection) | 1 to 10 days | your time |
+| A place to publish: static host, CMS import or repo | varies | |
+Honest note: the dataset is most of the work and all of the value.
+
+## 4. First run
+> Run programmatic-seo. Find keyword patterns from data/keywords.csv, check intent on the best three, and tell me which one we can build real data for.
+
+## 5. Running it on a schedule
+- After the pilot ships, a weekly check (cron, Mondays; the decision script answers "wait" until day 28): `0 8 * * 1 cd /path/to/programmatic-seo && python3 scripts/gsc.py inspect --site sc-domain:your-site --urls site/urls.txt --out data/inspect-latest.csv`
+- Claude Code: `/schedule every 4 weeks: programmatic-seo batch decision`
+- OpenClaw or Hermes: 4-weekly job with "Run the programmatic-seo day-28 decision on the latest batch".
+
+## 6. What good output looks like
+`examples/` (fictional "Trailhen" trail guides): pattern sizing, an 11-row dataset where the gate caught a duplicate and a thin row, 9 rendered pages, and a day-35 decision to scale at 78% indexed.
+
+## 7. Tuning
+1. `gate.min_data_diff`: 0.4 is a floor. Raise it for small datasets.
+2. `pilot.scale_if_indexed_at_least`: 0.70 by default. Do not lower it to scale faster.
+3. `pilot.max_new_pages_per_week`: big jumps in page count are a spam signal and outrun your internal linking.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Gate fails under 90% | Add fields, fill blanks, remove near-duplicate rows. Do not loosen thresholds. |
+| Many "Discovered, not indexed" | Google has not crawled them: add internal links from strong pages, submit the sitemap, slow the batch size. |
+| Many "Crawled, not indexed" | Google read them and passed: pages are too similar or too thin. Add data and conditional sections. |
+| Pages indexed but no impressions | Pattern has less real demand than the tool said, or intent mismatch. Re-check Step 2. |
+| Unrendered tag error | A field in the template is missing from the CSV header. |
+
+## 9. Safety and platform rules
+- Google spam policies: scaled content abuse (many pages with little value, however produced) and site reputation abuse. Follow references/scaled-content-policy.md.
+- Use data you own or have a licence to reuse. No scraping and republishing other sites' content.
+- Every batch and every prune waits for your approval.
+
+
+---
+
+# Connect: keys and services
+
+| Env var | Service | Where to get it | Scope | Cost | Used for |
+|---|---|---|---|---|---|
+| `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` (optional) | DataForSEO: Labs keyword ideas, ranked keywords, SERP | app.dataforseo.com/api-access | API login (Basic auth) | pay as you go; check current per-task prices | pattern discovery, intent check |
+| `GSC_ACCESS_TOKEN` | Search Console API | Google Cloud OAuth, scope `https://www.googleapis.com/auth/webmasters.readonly` | read only | free; URL Inspection about 2,000 per day per property | indexing rate, impressions |
+
+Free alternative to DataForSEO: export keywords from Search Console (queries with impressions), or from any SEO tool you already pay for, as `keyword,volume` CSV.
+
+## DataForSEO endpoints the agent uses (via MCP or direct)
+- `POST https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_ideas/live`
+- `POST https://api.dataforseo.com/v3/dataforseo_labs/google/ranked_keywords/live` (competitor keywords)
+- `POST https://api.dataforseo.com/v3/serp/google/organic/live/advanced` (intent check)
+Auth: HTTP Basic with login and password.
+
+## MCP
+mcp.json: DataForSEO official server (Apache-2.0) and Search Console MCP (MIT). Both optional.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-input/keywords.csv`
+- `examples/example-input/trails.csv`
+- `examples/example-output/decision-day35.json`
+- `examples/example-output/gate-rendered.csv`
+- `examples/example-output/gate.csv`
+- `examples/example-output/patterns.csv`
+- `examples/example-output/prune.csv`
+- `examples/example-output/site/blackstone-ridge/index.html`
+- `examples/example-output/site/cedar-ridge-loop/index.html`
+- `examples/example-output/site/fernhollow-traverse/index.html`
+- `examples/example-output/site/granite-notch/index.html`
+- `examples/example-output/site/heron-lake-shore/index.html`
+- `examples/example-output/site/index.html`
+- `examples/example-output/site/millrace-canyon/index.html`
+- `examples/example-output/site/oak-savanna-path/index.html`
+- `examples/example-output/site/saguaro-wash/index.html`
+- `examples/example-output/site/sitemap.xml`
+- `examples/example-output/site/style.css`
+- `examples/example-output/site/urls.txt`
+- `examples/example-output/site/willow-creek-rail-trail/index.html`
+- `examples/fixtures/gsc_pages_batch1.csv`
+- `examples/fixtures/inspect_batch1.csv`
+- `mcp.json`
+- `references/pattern-and-dataset-playbook.md`
+- `references/pilot-and-scale.md`
+- `references/scaled-content-policy.md`
+- `scripts/_common.py`
+- `scripts/build_pages.py`
+- `scripts/check_setup.py`
+- `scripts/gsc.py`
+- `scripts/indexing_decision.py`
+- `scripts/pattern_finder.py`
+- `scripts/uniqueness_gate.py`
+- `templates/pattern-verdict.md`
+- `templates/site/index.html`
+- `templates/site/page.html`
+- `templates/site/style.css`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

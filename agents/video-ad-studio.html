@@ -1,0 +1,140 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Video Ad Studio: Headcount agent</title><meta name="description" content="Finished 15 to 30 s AI video and UGC-style ads from an angle."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Video Ad Studio
+
+## 1. What this agent gets you
+Finished 15 to 30 second video ads from one customer argument: AI scenes, your real product, a clear voiceover, captions in sync, in all three feed sizes. You approve the storyboard and the cost before anything is paid for.
+
+## 2. Who it is for / not for
+For: ecommerce and app brands that need more video creative than their editor can make, agencies running UGC-style tests, teams iterating hooks on winning videos.
+Not for: anyone wanting fake customer testimonials (it will not make them), regulated claims you cannot prove, or long brand films (use motion-graphics-studio).
+
+## 3. Setup checklist
+- [ ] company-brain has run; angle-miner recommended
+- [ ] FFmpeg installed (free; a build with libass to burn captions)
+- [ ] fal or Replicate key for clips (Seedance 2.0, Veo 3.1, Kling)
+- [ ] ElevenLabs key and one chosen voice
+- [ ] Optional: Node.js 18+ and HyperFrames for animated type and review cards
+Time to set up: 20 to 30 minutes. Cost per 20 s ad, honest range: $5 to $25 for clips (3 AI shots at 720p, 2 takes each, Seedance listed at about $0.30 per second on fal in Nov 2026; Fast and Kling are cheaper, Veo with audio dearer) plus under $1 of voiceover. A hard cap per ad is in config.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+```
+Run video-ad-studio on angle A1 from the latest angle bank. 20 seconds, problem-agitate-solve. Show me the storyboard and cost first.
+```
+ChatGPT:
+```
+Use the video-ad-studio skill. Angle: "waking up hot at 3am". Write the beat sheet and storyboard, then stop for my approval.
+```
+
+## 5. Running it on a schedule
+Usually on demand. For weekly hook iterations, Wednesday 11:15:
+- cron: `15 11 * * 3 cd /path/to/project && claude -p "Run video-ad-studio on this week's winner-remixer video rows"`
+- Claude Code: `/schedule weekly Wednesday 11:15 Run video-ad-studio on this week's winner-remixer video rows`
+Paid steps still wait for your approval.
+
+## 6. What good output looks like
+`examples/output/storyboard_v01.md` (5 beats, hook by 1.5 s, product at 5 s, cost estimate), `words.json` and `captions.*` (17 caption cards, no dead air), `qa_sample.json` (a test render passing format, length, loudness and freeze checks).
+
+## 7. Tuning (the 3 settings that matter)
+- `generation.video_model`: `seedance-2` for best motion, `seedance-2-fast` or `kling` for cheap drafts, `veo-3.1` for lip-synced speech.
+- `generation.max_spend_usd_per_ad`: your safety cap.
+- `beats.max_words_per_second`: lower to 2.4 for a calmer, clearer voice.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| "no libass" when burning captions | Install a full FFmpeg build, or render captions in HyperFrames |
+| Product changes shape in a clip | Use image to video from a clean product photo; shorten the shot; add "product does not move" |
+| Dead air flagged | Close the gap between VO lines or add a planned music hit with `--planned-pauses` |
+| Faces change between shots | Generate one character still first and start every shot from it |
+| fal or Replicate 422 error | Model schema changed; check the model page and pass `--endpoint` or adjust fields |
+
+## 9. Safety and platform rules
+AI people and AI voices carry disclosure where platforms or laws require it. AI presenters never pose as real customers. Testimonials are real and verbatim. No cloned faces or voices without written consent. Music only with an ads licence. Nothing is uploaded by this agent.
+
+
+---
+
+# Connections
+
+| Connection | Needed for | Where to get it | Scopes / access | Cost | Env var |
+|---|---|---|---|---|---|
+| FFmpeg | Assembly, captions, QA | ffmpeg.org or your package manager (needs libass for captions) | Local | Free | none |
+| fal | Seedance 2.0, Kling clips | fal.ai, Dashboard, Keys | Model calls | Per second of video (Seedance 2.0 720p listed about $0.30/s, Nov 2026) | `FAL_KEY` |
+| Replicate | Veo 3.1, Veo 3.1 Fast | replicate.com, API tokens | Predictions | Per second or per run, shown on each model page | `REPLICATE_API_TOKEN` |
+| ElevenLabs | Voiceover with word timestamps | elevenlabs.io, Profile, API keys | Text to speech | Per character on your plan | `ELEVENLABS_API_KEY` |
+| OpenAI (optional) | Whisper word timestamps when speech comes from clips | platform.openai.com | Audio | Per minute | `OPENAI_API_KEY` |
+| Gemini (optional) | Character stills for consistent faces | aistudio.google.com | Generative Language API | Per image | `GEMINI_API_KEY` |
+| HyperFrames (optional) | Animated type, review cards, split screens | `npx hyperframes` (heygen-com/hyperframes, Apache-2.0), Node.js 18+ | Local | Free locally | none |
+| treg (optional) | Only if you already have your own treg account with video models | your account | per tool | per call | `TREG_TOKEN` |
+
+One clip provider is enough. Keys stay in your environment; scripts redact them in `--dry-run` output.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/beats.json`
+- `examples/fixtures/beats_bad.json`
+- `examples/fixtures/clip1.mp4`
+- `examples/fixtures/clip2.mp4`
+- `examples/fixtures/clip3.mp4`
+- `examples/fixtures/clip4.mp4`
+- `examples/fixtures/edit.json`
+- `examples/fixtures/el_alignment.json`
+- `examples/fixtures/endcard.png`
+- `examples/fixtures/music.m4a`
+- `examples/fixtures/shot_prompt.json`
+- `examples/fixtures/vo.m4a`
+- `examples/output/beats_check_v01.json`
+- `examples/output/captions.ass`
+- `examples/output/captions.json`
+- `examples/output/captions.srt`
+- `examples/output/qa_sample.json`
+- `examples/output/storyboard_v01.md`
+- `examples/output/words.json`
+- `mcp.json`
+- `references/ad-structures.md`
+- `references/production-pipeline.md`
+- `references/qa-and-specs.md`
+- `scripts/_common.py`
+- `scripts/assemble.py`
+- `scripts/beat_sheet.py`
+- `scripts/captions.py`
+- `scripts/check_setup.py`
+- `scripts/gen_clip.py`
+- `scripts/qa_video.py`
+- `scripts/voiceover.py`
+- `templates/approval-request.md`
+- `templates/beat-sheet.example.json`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

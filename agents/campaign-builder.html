@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Campaign Builder: Headcount agent</title><meta name="description" content="The month&#x27;s campaigns planned and built in your ESP, ready to schedule."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Campaign Builder
+
+## 1. What this agent gets you
+Next month's emails planned around your promos, stock and holidays, built in your ESP, checked for broken links and spam triggers, and test-sent to you. You approve, it schedules.
+
+## 2. Who it is for / not for
+For: ecommerce brands sending 8 to 20 campaigns a month on Klaviyo, Brevo, Mailchimp or HubSpot.
+Not for: automations (use flow-architect) or lapsed-customer offers (use winback-analyst).
+
+## 3. Setup checklist
+- [ ] company-brain has run (voice, discount rules, design tokens)
+- [ ] ESP key or MCP; Shopify read access
+- [ ] `OWNER_TEST_EMAIL` set
+- [ ] A master template in your ESP for the agent to clone
+- [ ] Edit config.yaml: send_days, max_sends_per_week, max_discount_sends
+- [ ] `python3 scripts/check_setup.py`
+Time: 20 minutes. API cost: $0.
+
+## 4. First run
+Claude Code: `Use campaign-builder: plan and build December. Promos: <list>.`
+ChatGPT / Codex: load SKILL.md, same message.
+OpenClaw / Hermes: `run campaign-builder "plan next month"`
+
+## 5. Schedule
+- Claude Code: `/schedule monthly on the 20th 9am: campaign-builder plan next month` and `/schedule every Monday 9am: campaign-builder build next 10 days`
+- cron: `0 9 20 * * cd /path/to/headcount && claude -p "run campaign-builder monthly plan"`
+
+## 6. What good output looks like
+`examples/example-output.md`: a dated table per send with segment and feature, a no-discount share, blocked low-stock products, and a QA report that blocks bad drafts.
+
+## 7. Tuning
+- `max_sends_per_week`: the main lever on revenue vs unsubscribes.
+- `max_discount_sends`: protects margin.
+- `low_stock_days`: stops you promoting what you cannot ship.
+
+## 8. Troubleshooting
+1. **QA fails on UTM:** links added after the build; re-run Step 5 link pass.
+2. **Gmail clipping:** HTML over 102 KB; remove inline CSS duplicates or images.
+3. **Brevo test send rejected:** the test address must be allowed in your Brevo account settings.
+4. **Mailchimp schedule error:** times must be on the quarter hour, UTC.
+5. **Too few slots:** raise `send_days` or `max_sends_per_week`; promos always take priority.
+
+## 9. Safety and platform rules
+- Nothing goes to a real audience without your yes. Tests go to you only.
+- Gmail and Yahoo bulk sender rules: spam complaints under 0.3%, one-click unsubscribe.
+- CAN-SPAM: postal address and working unsubscribe in every email. SMS only to consented numbers, outside quiet hours.
+
+
+---
+
+# Connections: campaign-builder
+
+| What | Why | Where | Scopes | Cost | Env var |
+|---|---|---|---|---|---|
+| Klaviyo private key | Build drafts, test send, schedule after yes | Klaviyo, Settings, API keys | campaigns:read, campaigns:write, templates:read, templates:write, segments:read, lists:read, metrics:read | Free | `KLAVIYO_PRIVATE_KEY` |
+| Brevo | Same | Brevo, SMTP and API, API keys, or the official Brevo MCP (https://mcp.brevo.com, OAuth) | Full key | Free | `BREVO_API_KEY` |
+| Mailchimp | Same | Account, Extras, API keys | Full key | Free | `MAILCHIMP_API_KEY` |
+| HubSpot | Marketing email drafts | Private app | content, marketing-email | Plan dependent | `HUBSPOT_ACCESS_TOKEN` |
+| Shopify | Stock days of cover, new arrivals, discount codes check | Develop apps | read_products, read_inventory, read_orders, read_discounts | Free | `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_STORE` |
+| Owner test inbox | Where tests go | Your email | n/a | n/a | `OWNER_TEST_EMAIL` |
+
+MCP servers in `mcp.json`: Klaviyo MCP (official, set READ_ONLY to "false" only when you want the agent to create drafts), Brevo MCP (official, remote), `@hubspot/mcp-server` (MIT), `shopify-mcp` (MIT). Keep only your ESP.
+`qa_email.py --check-links` makes HEAD requests to links in your own email only; no paid calls.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output-calendar.csv`
+- `examples/example-output-calendar.txt`
+- `examples/example-output-qa.txt`
+- `examples/example-output.md`
+- `examples/fixtures/email.html`
+- `examples/fixtures/month.json`
+- `mcp.json`
+- `references/esp-build-endpoints.md`
+- `references/send-calendar-rules.md`
+- `scripts/check_setup.py`
+- `scripts/plan_calendar.py`
+- `scripts/qa_email.py`
+- `templates/campaign-brief.md`
+- `templates/month-plan.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

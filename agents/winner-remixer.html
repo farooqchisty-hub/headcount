@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Winner Remixer: Headcount agent</title><meta name="description" content="Endless fresh creative from proven winners (yours and competitors&#x27; long-running ads)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Winner Remixer
+
+## 1. What this agent gets you
+Fresh ads every week built from what already works: your own winners, improved one change at a time, plus the skeletons of competitors' longest running ads filled with your own arguments. New ads arrive in your account paused, waiting for your yes.
+
+## 2. Who it is for / not for
+For: brands and agencies spending on Meta with at least a few ads that have converted, or with competitors who advertise.
+Not for: accounts with no spend history and no competitors on Meta (start with angle-miner and static-ad-factory), or anyone wanting ads switched on automatically (that is roas-autopilot, behind its own approvals).
+
+## 3. Setup checklist
+- [ ] company-brain has run (ad account id, target CPA or ROAS, competitor page ids)
+- [ ] Meta system user token with `ads_read` (and `ads_management` only if you enable paused uploads). 15 minutes.
+- [ ] Optional: Ad Library API access (developer identity verification, a few days the first time), or use CSV from the Ad Library website
+- [ ] angle-miner has run (for net new concepts)
+Time to set up: 20 to 40 minutes. API cost: $0 (Meta APIs are free). Making the new ads costs whatever static-ad-factory and video-ad-studio spend, each with its own approval.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+```
+Run winner-remixer for act_XXXXXXXX. Target CPA $30. Competitors are in COMPANY.md. Build this week's iteration matrix.
+```
+ChatGPT:
+```
+Use the winner-remixer skill. Here are my ads export (CSV) and an Ad Library CSV for two competitors. Build the matrix and briefs.
+```
+
+## 5. Running it on a schedule
+Weekly, Monday 10:40 (after monday-standup):
+- cron: `40 10 * * 1 cd /path/to/project && claude -p "Run winner-remixer weekly"`
+- Claude Code: `/schedule weekly Monday 10:40 Run winner-remixer weekly`
+- OpenClaw or Hermes: scheduled task with the same prompt.
+Meta reads are capped at 2 per day by default.
+
+## 6. What good output looks like
+`examples/output/`: `own_ads.json` (2 winners, 1 fatigued, 2 losers, 1 too new to judge), `competitor_ads.json` (2 unique long runners, a stopped sale ad ignored), `matrix.csv` (30 rows: 18 one-lever iterations, 4 adaptations, 8 net new).
+
+## 7. Tuning (the 3 settings that matter)
+- `own_ads.target_cpa` or `target_roas`: everything is judged against it.
+- `matrix.min_net_new_share`: raise to 0.5 when results plateau; lower to 0.2 when a few winners carry the account.
+- `competitors.min_days_running`: 30 is standard; use 60 in slow categories where brands leave ads on longer.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Graph API code 190 | Token expired. Use a system user token (does not expire) |
+| Graph API code 17 or 613 | Rate limit. The script backs off; keep reads to twice a day |
+| Ad Library API returns nothing | Commercial ads only come back for EU or UK delivery. Use EU country codes or the website CSV route |
+| Everything is "not_enough_data" | Lower `min_spend_multiple_of_cpa` to 1.5, or wait a week |
+| Upload error on image | Use the 4:5 or 1:1 PNG under 30 MB; check `ads_management` permission |
+
+## 9. Safety and platform rules
+Official Meta APIs first. Ad Library website reads stay at a human pace with no login bypass. Competitor ads are studied, never copied: no words, images, music or people reused. New ads are uploaded paused only, never switched on by this agent.
+
+
+---
+
+# Connections
+
+| Connection | Needed for | Where to get it | Scopes / access | Cost | Env var |
+|---|---|---|---|---|---|
+| Meta Marketing API | Own ad insights; paused uploads | Business Settings, Users, System users: generate a token for your app with the ad account assigned | `ads_read` (insights); add `ads_management` and `pages_read_engagement` only for paused uploads | Free | `META_ACCESS_TOKEN` |
+| API version | Graph API version | developers.facebook.com/docs/graph-api/changelog | none | Free | `META_API_VERSION` (default v25.0) |
+| Meta Ad Library API | Competitor long runners (EU and UK delivered commercial ads) | facebook.com/ads/library/api: confirm identity, create an app, get a user token | Ad Library access | Free | `META_ADLIB_TOKEN` |
+| Ad Library website | Competitor ads in every country | None | Public | Free | none |
+| Playwright MCP | Reading the Ad Library website and snapshots | `npx @playwright/mcp` (Apache-2.0) | none | Free | none |
+| Meta Ads MCP (optional) | Chat access to your account for ad hoc questions | mikusnuz/meta-ads-mcp (MIT) | Same token | Free | `META_ACCESS_TOKEN` |
+| Apify (optional) | Ad Library website at scale | console.apify.com | Run actors | Paid per run | `APIFY_TOKEN` |
+| treg (optional) | Only if you already have your own treg account with ad library tools | your account | per tool | per call | `TREG_TOKEN` |
+
+Do not use pipeboard meta-ads-mcp: its BSL licence forbids this kind of resale.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/adlib.json`
+- `examples/fixtures/angles.json`
+- `examples/fixtures/deconstructions.json`
+- `examples/fixtures/insights.json`
+- `examples/fixtures/manifest.json`
+- `examples/output/competitor_ads.json`
+- `examples/output/matrix.csv`
+- `examples/output/matrix.json`
+- `examples/output/own_ads.json`
+- `mcp.json`
+- `references/ad-library-guide.md`
+- `references/deconstruction-framework.md`
+- `references/iteration-playbook.md`
+- `scripts/_common.py`
+- `scripts/_meta.py`
+- `scripts/ad_library.py`
+- `scripts/check_setup.py`
+- `scripts/iteration_matrix.py`
+- `scripts/meta_insights.py`
+- `scripts/upload_paused.py`
+- `templates/remix-brief.md`
+- `templates/teardown-card.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reddit Buying Signals: Headcount agent</title><meta name="description" content="Finds Reddit threads with buying intent and drafts ready-to-post, disclosed replies."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Reddit Buying Signals
+
+## 1. What this agent gets you
+People on Reddit asking "what should I buy" in your category, found every morning, each with a helpful, honest reply ready for you to post. You see which replies bring visitors and signups.
+
+## 2. Who it is for / not for
+- For: products whose buyers ask for recommendations on Reddit (software, tools, considered consumer goods), and a real person on the team willing to post under their own name.
+- Not for: anyone wanting to post without disclosure, run several accounts, or buy upvotes. The agent refuses all of that.
+
+## 3. Setup checklist
+- [ ] Reddit app (client id and secret). New apps need Reddit's approval, about a week. See CONNECT.md for what to write.
+- [ ] A user agent string.
+- [ ] Optional: a refresh token for your own account if you want the agent to post approved replies for you.
+- [ ] Optional: a Google search API for old threads that still rank.
+- [ ] company-brain run (product, prices, competitors, who posts).
+- Time to set up: 20 minutes plus Reddit's approval wait.
+- Cost per run: free (Reddit free tier, about 100 to 300 requests a day). Optional Google search: free up to 100 queries a day on Google Programmable Search.
+
+## 4. First run
+> Run reddit-buying-signals. Build my query set and subreddit list, read every subreddit's rules, then show me today's hot threads with drafts. Do not post anything.
+
+## 5. Running it on a schedule
+- Claude Code: `/schedule` "every day 08:00 run reddit-buying-signals daily", plus "every Monday 08:30 run reddit-buying-signals evergreen sweep and tracking".
+- cron: `0 8 * * * cd ~/headcount && claude -p "run reddit-buying-signals daily"`
+- OpenClaw / Hermes: same prompts in the scheduler.
+
+## 6. What good output looks like
+`examples/example-output.md`: six threads scored, two skipped for rules or archive, one held because the person was venting, drafts that answer first and disclose, and last week's replies tracked to sessions and signups.
+
+## 7. Tuning
+- `subreddits` with `fit`: the biggest lever. Five well-chosen communities beat fifty.
+- `max_replies_per_day`: keep at 5 or lower. Quality and account health beat volume.
+- `competitors`: the "alternative to" and "worth it" threads are where most buyers are.
+
+## 8. Troubleshooting
+1. Reddit app not approved: use the Google fallback and manual reading until it is; reapply with source link and request volume.
+2. HTTP 429: too many requests. The script backs off automatically; lower `max_queries_per_run`.
+3. Replies removed by AutoModerator: account too new or low karma. Post helpful non-promotional comments for 2 to 3 weeks first.
+4. Replies downvoted: they read as ads. Move the product sentence to the end, answer more specifically, or skip that subreddit.
+5. No hot threads: queries too narrow. Add the words your customers use, from support tickets and reviews.
+
+## 9. Safety and platform rules
+- Official API only, within the free tier limits and Reddit's Developer and Data API Terms. No scraping at scale, no data resale.
+- Every reply that names your product says you work there.
+- One real person, one account. No vote manipulation, no sockpuppets, no planted questions, no cold DMs.
+- Each subreddit's rules are read and followed; stricter rules always win.
+- Paid reach goes through Reddit Ads, labelled "Promoted".
+
+
+---
+
+# Connect reddit-buying-signals
+
+| What | Env var | Where | Scopes | Cost |
+|---|---|---|---|---|
+| Reddit app client id | `REDDIT_CLIENT_ID` | reddit.com/prefs/apps > create app ("script" for your own account). New apps need approval under Reddit's Responsible Builder Policy (since Nov 2025); expect about a week | read (app-only) | free tier, 100 queries/min |
+| Reddit app secret | `REDDIT_CLIENT_SECRET` | same page | | free |
+| User agent | `REDDIT_USER_AGENT` | you write it: `macos:yourbrand-answers:1.0 (by /u/yourname)` | | free |
+| Refresh token (optional, posting) | `REDDIT_REFRESH_TOKEN` | OAuth code flow on your own account with scopes `submit read identity`, duration=permanent | submit, read | free |
+| Google results for evergreen threads (one of, optional) | `GOOGLE_CSE_KEY` + `GOOGLE_CSE_ID`, or `SERPAPI_KEY`, or `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` | Google Programmable Search JSON API, SerpAPI, or DataForSEO SERP API | | Google CSE: 100 free queries/day; others pay per query (about $0.0006 to $0.01). Or use your runtime's web search tool for free |
+| UTM sessions | GA4 or PostHog export | see cro-test-runner CONNECT.md | read | free |
+
+## Writing the application to Reddit
+Say: personal or company tool, reads public posts in under 20 named subreddits, under 2,000 requests a day, posts only from the owner's account after human approval, no data resale, no model training, deletes removed content. Link this folder or your repo.
+
+## MCP (optional)
+`reddit-mcp-buddy` (MIT) for interactive browsing inside the runtime. Not required.
+
+## Never
+Never share your Reddit password with the agent. Never use tokens for any account but your own.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/approvals.json`
+- `examples/fixtures/reply_1abc01.md`
+- `examples/fixtures/subreddits.json`
+- `examples/fixtures/threads.json`
+- `examples/fixtures/tracking.json`
+- `examples/fixtures/utm_sessions.csv`
+- `mcp.json`
+- `references/intent-signals.md`
+- `references/reddit-api-terms.md`
+- `references/reply-playbook.md`
+- `scripts/check_setup.py`
+- `scripts/reddit_api.py`
+- `scripts/score_threads.py`
+- `scripts/track_replies.py`
+- `templates/daily-digest.md`
+- `templates/reply-draft.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

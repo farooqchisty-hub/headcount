@@ -1,0 +1,139 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DM Closer: Headcount agent</title><meta name="description" content="Turns comments and DMs into sales (comment-to-DM keyword funnels, qualification, offer, checkout link)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># DM Closer
+
+## 1. What this agent gets you
+Sales from your comments and DMs. Someone comments a keyword, gets a private message in seconds, a quick question, the right product and a checkout link. Hard cases go to you.
+
+## 2. Who it is for / not for
+For: brands selling products or bookings under about $300 on Instagram, Facebook or WhatsApp, with posts that get comments.
+Not for: cold DMs to strangers (not allowed by Meta and not what this does), regulated health or finance advice, or anyone who wants to fake being a human.
+
+## 3. Setup checklist
+- [ ] company-brain done.
+- [ ] Instagram professional account linked to a Meta app (CONNECT.md, 30 to 45 minutes the first time).
+- [ ] A webhook endpoint (Cloudflare Worker or similar, 20 minutes with the agent's help).
+- [ ] knowledge.json: products, real prices, checkout links, FAQs from your real policies (agent drafts it, you confirm, 15 minutes).
+- [ ] `python3 scripts/dm_router.py --selftest` shows all PASS.
+Cost: Meta messaging on Instagram and Messenger is free. WhatsApp template messages are billed by Meta. LLM cost is fractions of a cent per conversation (most replies come from the knowledge file).
+
+## 4. First run
+Claude Code / Codex / OpenClaw / Hermes:
+> Run dm-closer setup. Build my knowledge file from COMPANY.md and my store, design a comment-to-DM funnel for my next reel with the keyword GUIDE, and show me the full message chain.
+
+ChatGPT:
+> Use the dm-closer skill. Here is my product list and FAQ page. Write the knowledge file and a keyword funnel for my next post.
+
+## 5. Running it on a schedule
+The funnel itself runs on webhooks, always on. Schedule two jobs:
+- Hourly: follow-up check (`decide_followup` for conversations in "offered" stage).
+- Monday 09:00: `Run dm-closer weekly funnel review` (Claude Code `/schedule`, cron `0 9 * * 1`, or the OpenClaw/Hermes scheduler).
+
+## 6. What good output looks like
+`examples/example-output.md`: a full conversation from keyword comment to checkout link, a refund that went to a human, and a weekly funnel report that finds the broken step.
+
+## 7. Tuning (the 3 settings that matter)
+- `funnels[].opener`: the first message decides the reply rate. Keep it link-free with 2 quick replies.
+- `qualify.ask_before_offer`: turn off for single-product funnels; one less step.
+- `auto_send`: start all false, then turn on `keyword_opener` and `faq_answer` after 20 clean approvals.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Comments arrive but no DM goes out | Check `instagram_business_manage_messages` scope and that the comment is under 7 days old; check `dm_sent` rate in the report |
+| "signature invalid" | Endpoint is parsing the body before verifying. Pass the raw bytes and the header untouched |
+| Error 10 or "outside of allowed window" | You tried to message after 24 h. Only a human with HUMAN_AGENT within 7 days, or a WhatsApp template |
+| Clicks low (under 30%) | Shorten the offer message, price before link, one link |
+| Bot answers wrong product | Add the words people really type to `keywords` in knowledge.json |
+
+## 9. Safety and platform rules
+- Messages only to people who commented or messaged first. One private reply per comment, within 7 days.
+- Automated messages only inside 24 h of the person's last message. No bot use of the HUMAN_AGENT tag.
+- Every "stop" honoured. A human is always reachable. The bot says it is automated when asked.
+- No card details in chat. No invented prices, policies or discounts.
+- Details: references/meta-messaging-policy.md.
+
+
+---
+
+# Connect: dm-closer
+
+Keys live in env vars. The agent never prints them. Connect one channel to start (Instagram is the usual one).
+
+| Env var | What it is | Where to get it | Scopes | Cost |
+|---|---|---|---|---|
+| `IG_ACCESS_TOKEN`, `IG_USER_ID` | Instagram professional account token | developers.facebook.com: Business app, add "Instagram API with Instagram Login", generate long-lived token (60 days, refreshable) | `instagram_business_basic`, `instagram_business_manage_messages`, `instagram_business_manage_comments` | Free |
+| `FB_PAGE_ACCESS_TOKEN`, `FB_PAGE_ID` | Page token for Messenger | Same app, Messenger product | `pages_messaging`, `pages_manage_metadata`, `pages_read_engagement` | Free |
+| `WA_ACCESS_TOKEN`, `WA_PHONE_NUMBER_ID` | WhatsApp Cloud API (optional) | business.facebook.com, WhatsApp Manager, add a number; system user token | `whatsapp_business_messaging`, `whatsapp_business_management` | Service replies inside 24 h: free. Templates: per-message Meta pricing by country and category |
+| `META_APP_SECRET` | Verifies webhook signatures | App settings, Basic | n/a | n/a |
+| `META_VERIFY_TOKEN` | Any random string you choose for the webhook handshake | You make it | n/a | n/a |
+| `META_GRAPH_VERSION` | Graph API version, default v24.0 | Check developers.facebook.com/docs/graph-api/changelog | n/a | n/a |
+| `SHOPIFY_STORE_DOMAIN` | Your store domain for cart permalinks and the Storefront MCP | Shopify admin | none for permalinks | Free |
+| `STRIPE_SECRET_KEY` | Restricted key to create Payment Links (optional) | dashboard.stripe.com, Developers, API keys, create restricted key with Payment Links write | `payment_links: write`, `prices: read` | Stripe fees on sales only |
+| `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Payment Links (optional, India) | dashboard.razorpay.com, API keys | Payment Links | Razorpay fees on sales only |
+
+## Webhook endpoint
+You need a public HTTPS endpoint that receives Meta webhooks and calls `dm_router.py` (or a port of `decide()`). Options: a Cloudflare Worker, a Vercel or Netlify function, or an n8n webhook node running the script. It must answer the GET verification (`hub.challenge`) and return 200 to POSTs within a few seconds.
+
+## MCP servers (mcp.json)
+- `shopify-storefront`: Shopify's official Storefront MCP endpoint on your store (`/api/mcp`), for product and cart lookups. Official vendor server.
+- `stripe`: Stripe's official remote MCP (`mcp.stripe.com`) for creating Payment Links. Official vendor server. Use a restricted key.
+- Not used: unofficial Instagram DM libraries. They log in as you, break Meta terms and get accounts locked.
+
+## Optional alternative
+If you already pay for ManyChat or a similar Meta Business Partner, keep it for delivery and use this agent for the knowledge file, scripts, approval rules and weekly funnel review.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/funnel_events.csv`
+- `examples/fixtures/ig_comment_keyword.json`
+- `examples/fixtures/ig_comment_old.json`
+- `examples/fixtures/ig_dm_answer_qualify.json`
+- `examples/fixtures/ig_dm_faq.json`
+- `examples/fixtures/ig_dm_quick_reply.json`
+- `examples/fixtures/ig_echo.json`
+- `examples/fixtures/knowledge.json`
+- `examples/fixtures/messenger_refund.json`
+- `examples/fixtures/whatsapp_text.json`
+- `mcp.json`
+- `references/comment-to-dm-funnels.md`
+- `references/dm-sales-scripts.md`
+- `references/meta-messaging-policy.md`
+- `scripts/check_setup.py`
+- `scripts/dm_router.py`
+- `scripts/funnel_report.py`
+- `scripts/yaml_lite.py`
+- `templates/approval-inbox.md`
+- `templates/knowledge.template.json`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

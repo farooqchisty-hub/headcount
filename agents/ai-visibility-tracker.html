@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Visibility Tracker: Headcount agent</title><meta name="description" content="Your share of voice in ChatGPT, Claude, Perplexity, Gemini, tracked weekly."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># AI Visibility Tracker
+
+## 1. What this agent gets you
+Every week you learn how often ChatGPT, Claude, Perplexity and Gemini recommend you, where you rank in their answers, and which pages they cite instead of you. Real moves are separated from random noise, so you stop chasing phantom wins.
+
+## 2. Who it is for, and not for
+- For: brands that sell in a category people ask AI assistants about ("best X for Y", "X vs Y", "alternatives to X").
+- For: teams doing content, PR or GEO work who need proof it moved anything.
+- Not for: local services that live on Google Maps (use your Business Profile insights), or brands with under 10 branded searches a month. The assistants will not know you yet; work on getting mentioned first (geo-citation-closer).
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| Company brain filled (company-brain agent) | 20 min, once | free |
+| At least one key: OpenAI, Anthropic, Perplexity or Gemini (CONNECT.md) | 5 min each | pay as you go |
+| Brand, aliases, domains, competitors in config.yaml | 5 min | free |
+| Review the generated prompt set | 15 min, once a quarter | free |
+
+Honest running cost: 60 prompts x 4 models x 3 samples is about 720 calls. At planning rates in config.yaml (2 to 4 cents a call including the search fee) that is roughly $15 to $25 a week. One model only: about $5. Check each vendor's pricing page; prices change.
+
+## 4. First run
+Type this in Claude Code, ChatGPT (with the files uploaded), Codex, OpenClaw or Hermes:
+
+> Run ai-visibility-tracker. Build my prompt set from the company brain, show me the prompts and the cost, then run it and give me the report.
+
+The agent writes prompts, shows the cost, waits for your yes, runs, checks 20 answers by hand, and writes `reports/<week>.md`.
+
+## 5. Running it on a schedule
+- Cron (Monday 06:00): `0 6 * * 1 cd /path/to/ai-visibility-tracker && python3 scripts/run_prompts.py --yes && python3 scripts/score.py --run data/runs/$(date +\%G-W\%V).jsonl --report-out reports/$(date +\%G-W\%V).md --gaps-out data/gaps/$(date +\%G-W\%V).json`
+- Claude Code: `/schedule every Monday 6am: run ai-visibility-tracker weekly shift`
+- OpenClaw or Hermes: add a weekly job with the same message as First run.
+Cron skips the hand check in Step 5. Ask the agent to review the answers when you read the report.
+
+## 6. What good output looks like
+See `examples/example-output/report-2026-W46.md` (fictional brand "Trailhen"). Good output has: one headline number, a table by model with a 95% range, a clear "real move" or "noise" label on every change, and the exact pages winning instead of you.
+
+## 7. Tuning (the 3 settings that matter)
+1. `competitors`: the share of voice is only as good as this list. Add every brand that shows up in "Who wins instead".
+2. `brand.aliases`: missed product line names cause false "not mentioned". Add them; re-scoring is free.
+3. `run.samples_per_prompt`: keep at 3 or more. AI answers change from one call to the next; 1 sample tells you nothing.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| 404 or "model not found" | Model ids changed. Update `models.*` from the vendor's model list. |
+| 401 | Key wrong or not exported in this shell. `echo ${OPENAI_API_KEY:+set}` |
+| 429 rate limit | Raise `run.pause_seconds` to 4; keep concurrency at 1. |
+| Brand never found but you see it in answers | Missing alias. Read 10 answers, add the spelling used. |
+| Gemini gaps show only domains | Gemini cites through Google redirect links. The agent resolves the page in Step 7. |
+
+## 9. Safety and platform rules
+- Uses only official vendor APIs with your keys. No scraping of chat apps, no logged-in browser automation.
+- API answers are close to, but not identical to, what users see in the consumer apps (different defaults, personalisation, location). Treat numbers as a consistent panel, not an exact replica.
+- Citations returned by OpenAI and Anthropic must be shown as links when you display answers to others (vendor terms).
+- Budget cap in config.yaml blocks runs over your limit.
+
+
+---
+
+# Connect: keys and services
+
+All keys are read from environment variables. Never paste keys into config.yaml or chat.
+
+| Env var | Service | Where to get it | Scopes / plan | Cost (check vendor page) |
+|---|---|---|---|---|
+| `OPENAI_API_KEY` | OpenAI Responses API with `web_search` tool | platform.openai.com, API keys | Project key with Responses access | Tokens plus a per-search fee |
+| `ANTHROPIC_API_KEY` | Claude Messages API with web search tool | platform.claude.com, API keys | Web search must be enabled by your org admin in Console settings | $10 per 1,000 searches plus tokens |
+| `PERPLEXITY_API_KEY` | Perplexity Agent API (`POST /v1/agent`) | perplexity.ai, API settings | Any API tier | Per request and tokens; response `usage` shows cost |
+| `GEMINI_API_KEY` | Gemini `generateContent` with `googleSearch` grounding | aistudio.google.com, API keys | Paid tier for volume; free tier has low daily limits | Tokens plus grounding fee above free quota |
+
+## Setting keys
+```bash
+export OPENAI_API_KEY=...        # add to ~/.zshrc or a .env your runtime loads
+export ANTHROPIC_API_KEY=...
+export PERPLEXITY_API_KEY=...
+export GEMINI_API_KEY=...
+python3 scripts/check_setup.py
+```
+
+## Notes per provider
+- **OpenAI:** request `{"model", "input", "tools": [{"type": "web_search"}]}` to `https://api.openai.com/v1/responses`. Citations are `url_citation` annotations on `output_text`.
+- **Anthropic:** header `anthropic-version` is set in `models.anthropic_version`. Tool `web_search_20250305` with `max_uses: 5`. If your org disabled web search the API returns 400; ask your admin.
+- **Perplexity:** Sonar chat completions support ended 27 Sep 2026; this agent uses the Agent API. With `models.perplexity_model` empty it uses the `effort` preset (closest to the Perplexity app). Set a `provider/model` id to pin a model.
+- **Gemini:** cited links are Google redirect URLs; the title field carries the source domain.
+
+## Optional
+- **treg (only if you have your own account):** some registries resell AI visibility checks. Not needed; direct APIs above are the primary path.
+- **Open-source alternative:** elmohq/elmo (MIT) is a self-hostable AEO tracker with a UI. Install separately if you want dashboards; this agent does not bundle it.
+
+## MCP
+mcp.json lists no required servers. The scripts call vendor APIs directly so runs are reproducible from cron.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-config.yaml`
+- `examples/example-input/icp.json`
+- `examples/example-output/gaps-2026-W46.json`
+- `examples/example-output/prompts.csv`
+- `examples/example-output/report-2026-W46.md`
+- `examples/example-output/score-2026-W46.json`
+- `examples/fixtures/raw_anthropic.json`
+- `examples/fixtures/raw_gemini.json`
+- `examples/fixtures/raw_openai.json`
+- `examples/fixtures/raw_perplexity.json`
+- `examples/fixtures/run_week1.jsonl`
+- `examples/fixtures/run_week2.jsonl`
+- `mcp.json`
+- `references/metrics-and-variance.md`
+- `references/prompt-set-design.md`
+- `references/provider-request-shapes.md`
+- `scripts/_common.py`
+- `scripts/check_setup.py`
+- `scripts/gen_prompts.py`
+- `scripts/run_prompts.py`
+- `scripts/score.py`
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

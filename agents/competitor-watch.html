@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Competitor Watch: Headcount agent</title><meta name="description" content="Every competitor move caught the same day; weekly brief."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Competitor Watch
+
+## 1. What this agent gets you
+You hear the same day when a competitor starts a sale, changes prices, launches a product, floods Meta with new ads or publishes a page comparing itself to you. Every Monday you get one page: what they did, what still runs, and what we should do.
+
+## 2. Who it is for / not for
+**For:** ecommerce and DTC brands with 2 to 10 direct competitors who sell online and advertise on Meta.
+**Not for:** spying on private data, B2B deal tracking, or social listening across millions of posts.
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| Competitor list, pages, Shopify flag, Page ids in config.yaml | 20 min (the agent drafts it) | free |
+| Your contact address in `site.user_agent` | 1 min | free |
+| Meta Ad Library API access + token | 15 min plus Meta's ID check (can take a day) | free |
+| Optional Playwright MCP for JavaScript pages | 5 min | free |
+
+API cost per run: zero by default. About 5 page requests per competitor per day plus one Ad Library call per 10 Pages.
+
+## 4. First run
+```
+Run competitor-watch. Our competitors are Kettle & Kin (kettleandkin.example) and Moonbrew (moonbrew.example). Set them up, take today's baseline and tell me what you can and cannot see.
+```
+
+## 5. Running it on a schedule
+- **Claude Code:** `/schedule` then "every day at 07:30 run competitor-watch; Mondays include the weekly brief".
+- **cron:** `30 7 * * * cd /path/to/workspace && claude -p "run competitor-watch daily"`
+- **OpenClaw / Hermes:** daily job at 07:30 with the prompt "run competitor-watch daily".
+
+## 6. What good output looks like
+`examples/example-output.md`: a fictional tea brand's two competitors. Day two caught a 25% sitewide sale with a code and end date, an advent calendar launch, a 6-ad burst, a "Moonbrew vs Fernhollow" comparison page, a 36 day ad switched off, and two long-running ads sent to winner-remixer.
+
+## 7. Tuning: the 3 settings that matter most
+1. `competitors.<slug>.pages`: watch the pages that change when they make moves (home, pricing, bestseller collection). More pages is more noise.
+2. `ad_library.countries`: EU markets they sell in. Wrong countries means zero ads.
+3. `severity.alert_same_day`: which event types interrupt you. Everything else waits for Monday.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| Ad Library returns zero ads | They do not deliver in the countries you set, or the Page id is wrong. Check their ads on the Ad Library website |
+| Error code 10 or 2332 from the Ad Library API | Your Facebook account has not finished identity confirmation, or you did not accept the API terms |
+| No prices captured | Prices load with JavaScript: use the Playwright MCP and `--from-dir` |
+| "skip (robots.txt)" | That path is disallowed. Pick another public page; do not override |
+| Too many HEADLINE_CHANGE events | The page rotates headlines; remove it from `pages` or rely on promos and prices |
+
+## 9. Safety and platform rules
+Public pages and the official Meta Ad Library API only. robots.txt respected, honest user agent with your contact, 2 seconds between requests, no logins or fake accounts. Competitor ads are used as reference for original work, never copied. This agent changes nothing and publishes nothing.
+
+
+---
+
+# Connect competitor-watch
+
+Most of this agent needs no keys: it reads public web pages with the Python standard library.
+
+## Meta Ad Library API (for competitor ads)
+| Env var | What | Where |
+|---|---|---|
+| `META_ADLIB_ACCESS_TOKEN` | user access token from a Facebook account that completed Meta's identity confirmation | developers.facebook.com: create an app, accept the Ad Library API terms at facebook.com/ads/library/api, generate a user token (Graph API Explorer). Falls back to `META_ACCESS_TOKEN` if you already have one with access |
+| `META_API_VERSION` | optional, default `v26.0` | |
+
+Cost: free. Limits: standard Graph API rate limits; commercial ads only when delivered in the EU (see references/meta-ad-library-access.md). Long-lived user tokens expire after 60 days: renew them.
+
+## Optional
+| What | Env var | Cost | Why |
+|---|---|---|---|
+| Playwright MCP (microsoft/playwright-mcp, Apache-2.0) | none | free | pages that render prices with JavaScript; reading the Ad Library website by eye for non-EU markets |
+| Exa MCP (exa-labs/exa-mcp-server, MIT) | `EXA_API_KEY` | paid per search, your own account | press, launches and reviews that mention competitors |
+| changedetection.io (dgtlmoon/changedetection.io, Apache-2.0) | none | free self-hosted | if you prefer a visual page-diff tool alongside this agent; install separately |
+| treg | `TREG_MCP_URL`, `TREG_API_KEY` | your own account | only if you have one, e.g. for Ad Library data in markets outside the EU |
+
+## Check it works
+```
+python3 scripts/check_setup.py
+python3 scripts/site_snapshot.py --config config.yaml --dry-run    # lists every URL it would fetch
+python3 scripts/ad_library.py --config config.yaml --dry-run       # prints the exact API requests
+```
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/ads-2026-11-09.json`
+- `examples/ads-2026-11-10.json`
+- `examples/config-example.yaml`
+- `examples/events/events-2026-11-10.json`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/pages/2026-11-09/kettle-and-kin__home.html`
+- `examples/pages/2026-11-09/kettle-and-kin__products.json`
+- `examples/pages/2026-11-09/kettle-and-kin__sitemap.xml`
+- `examples/pages/2026-11-09/moonbrew__home.html`
+- `examples/pages/2026-11-09/moonbrew__sitemap.xml`
+- `examples/pages/2026-11-10/kettle-and-kin__home.html`
+- `examples/pages/2026-11-10/kettle-and-kin__products.json`
+- `examples/pages/2026-11-10/kettle-and-kin__sitemap.xml`
+- `examples/pages/2026-11-10/moonbrew__home.html`
+- `examples/pages/2026-11-10/moonbrew__sitemap.xml`
+- `examples/site-2026-11-09.json`
+- `examples/site-2026-11-10.json`
+- `mcp.json`
+- `references/meta-ad-library-access.md`
+- `references/polite-monitoring-rules.md`
+- `references/response-playbook.md`
+- `references/signals-and-scoring.md`
+- `scripts/ad_library.py`
+- `scripts/check_setup.py`
+- `scripts/diff_engine.py`
+- `scripts/site_snapshot.py`
+- `scripts/yaml_lite.py`
+- `templates/same-day-alert.md`
+- `templates/weekly-brief.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

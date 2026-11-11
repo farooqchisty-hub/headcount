@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Influencer Farm: Headcount agent</title><meta name="description" content="Creates, launches and grows a roster of disclosed AI influencer personas that promote your products."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># AI Influencer Farm
+
+## 1. What this agent gets you
+A small roster of AI creator accounts, openly labelled as AI and as made by your brand, that post useful content in your niche every week and sell your products. No shoots, no creator fees.
+
+## 2. Who it is for / not for
+For: product brands that want steady social content and UGC-style ad creative at low cost, and are comfortable being upfront that the creator is AI.
+Not for: anyone who wants AI accounts to pass as real people, fake reviews, lookalikes of celebrities, bought followers, or adult content. The agent refuses those and the lint blocks them.
+
+## 3. Setup checklist
+- [ ] company-brain done (products, buyer, pillars).
+- [ ] One generation key: Replicate (default), fal, or your Higgsfield account (CONNECT.md, 5 minutes).
+- [ ] You create the social accounts yourself (templates/account-setup-checklist.md, 15 minutes per persona per platform).
+- [ ] Optional: TikTok Content Posting API and YouTube API for labelled API posting.
+Cost: identity training about 1 to 3 USD per persona once. A month for one persona on 2 platforms (about 36 posts, 72 stills, 28 short clips) estimates around 25 to 30 USD at current list prices. The budget cap defaults to 60 USD a month.
+
+## 4. First run
+Claude Code / Codex / OpenClaw / Hermes:
+> Run ai-influencer-farm. Propose 3 persona concepts for my brand, then write the persona bible for the one I pick and run the lint.
+
+ChatGPT:
+> Use the ai-influencer-farm skill. Propose 3 disclosed AI creator personas for my product and write the first persona bible.
+
+## 5. Running it on a schedule
+- Monday 09:00: production batch for the week (`0 9 * * 1`).
+- Friday 16:00: growth review (`0 16 * * 5`).
+- First of the month: next month's calendar.
+Use Claude Code `/schedule`, cron, or the OpenClaw/Hermes scheduler. Posting still waits for your approval.
+
+## 6. What good output looks like
+`examples/example-output.md`: one persona passing lint, one blocked (credential claim, lookalike, missing disclosure), a labelled 4-week calendar with cost estimate, a caption that failed for a fake testimonial, and a growth review that pivots a weak persona.
+
+## 7. Tuning (the 3 settings that matter)
+- `content_mix.product` (0.25): lower it if product posts drag engagement under half of normal.
+- `roster.review_after_weeks` (8): how long a persona gets before a pivot call.
+- `generation.monthly_budget_usd` (60): hard stop on spend.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Face changes between posts | Retrain the LoRA with 15 to 20 tighter references; always image-to-video from an approved still |
+| Lint fails "lookalike check not done" | Run reverse image search on 3 references and record "no match" in the persona file |
+| Instagram post shows no AI label | Post in the app with the AI label toggle, or edit the post to add it; keep C2PA metadata in files |
+| TikTok API post rejected | Your app needs Content Posting API audit for public posts; until then post in the app with the AIGC toggle |
+| Engagement low on product posts | Make them value-first (a recipe or how-to that happens to use the product), 1 in 6 posts |
+
+## 9. Safety and platform rules
+- Every persona says it is AI and who made it, in the bio and every post. Platform AI labels always on.
+- Fictional backstories, adult appearance, never resembling a real person, synthetic designed voices only.
+- No testimonials, reviews, "I tried it" or results claims. No credentials.
+- You create accounts. No bought engagement, no pods, no personas boosting each other.
+- Why disclosed AI creators still work, with real cases and honest caveats: references/why-disclosed-ai-creators-work.md.
+
+
+---
+
+# Connect: ai-influencer-farm
+
+Bring your own keys. Env vars only. The agent never creates accounts: you create each persona's social accounts yourself (checklist in `templates/account-setup-checklist.md`).
+
+| Env var | What it is | Where to get it | Scopes | Cost (check current pricing) |
+|---|---|---|---|---|
+| `REPLICATE_API_TOKEN` | Image models, LoRA training, image-to-video (Seedance, Kling, others) | replicate.com, Account, API tokens | n/a | Pay per run. Roughly a few cents per image, 1 to 3 USD per LoRA training, tens of cents per 5 s video |
+| `FAL_KEY` | Alternative provider (Flux LoRA, Kling video) | fal.ai dashboard, Keys | n/a | Pay per run, similar range |
+| `HIGGSFIELD_API_KEY` | Only if you already use Higgsfield Soul ID | higgsfield.ai | n/a | Your Higgsfield plan |
+| `ELEVENLABS_API_KEY` | Designed synthetic voice for talking clips (optional) | elevenlabs.io | n/a | Plan based. Use Voice Design or the library; never clone a real person |
+| `TIKTOK_ACCESS_TOKEN` | Content Posting API (Direct Post) with `is_aigc` | developers.tiktok.com, app with Content Posting API, audit required for public posting | `video.publish`, `video.upload` | Free |
+| `YOUTUBE_OAUTH_TOKEN` | Shorts upload with `status.containsSyntheticMedia` | console.cloud.google.com, YouTube Data API v3 | `youtube.upload` | Free, 1,600 quota units per upload (check current) |
+| `IG_ACCESS_TOKEN`, `IG_USER_ID` | Optional Instagram API publishing | Meta app, Instagram API | `instagram_business_content_publish` | Free. API has no documented AI-label parameter: post in the app with the AI label on, or verify the label after API publishing |
+
+## MCP servers (mcp.json)
+- `replicate`: Replicate's official MCP server (`replicate-mcp` on npm). Official vendor server. Verify the package name on replicate.com/docs before install.
+- Optional: treg, only with your own treg account, as another route to Seedance and image models.
+
+## Generation budget
+`generation.monthly_budget_usd` (default 60). `build_calendar.py` estimates the month before any job runs and flags `over_budget`. The agent asks before submitting jobs.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/persona_followers.csv`
+- `examples/fixtures/persona_posts.csv`
+- `examples/fixtures/personas.json`
+- `examples/fixtures/posts.json`
+- `mcp.json`
+- `references/consistent-identity.md`
+- `references/disclosure-and-platform-rules.md`
+- `references/growth-and-monetisation.md`
+- `references/why-disclosed-ai-creators-work.md`
+- `scripts/build_calendar.py`
+- `scripts/check_setup.py`
+- `scripts/farm_lint.py`
+- `scripts/growth_review.py`
+- `scripts/yaml_lite.py`
+- `templates/account-setup-checklist.md`
+- `templates/persona-bible.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

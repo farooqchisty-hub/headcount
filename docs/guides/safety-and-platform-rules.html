@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>safety-and-platform-rules: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Safety and platform rules
+
+Headcount agents are built to keep your accounts alive and your brand trusted. These rules are on by default. Some can be relaxed per action class in an agent's config.yaml; none can be relaxed globally.
+
+## 1. Approval by default
+- Anything public (posts, replies, reviews responses), paid (budgets, bids, creator fees) or sent (emails, DMs, proposals) waits for your yes.
+- config.yaml may allow a named, bounded class, for example "pause ad sets with CPA above 2x target" or "reply to 5 star reviews with a thank you". Each allowance is logged every time it is used.
+- Budget changes are capped by `daily_spend_change_limit_pct` in COMPANY.md.
+
+## 2. Honesty and disclosure
+- Claims only from COMPANY.md "We can say (with proof)". Never-say items are hard blocks.
+- Community replies (Reddit, forums, comments) disclose affiliation ("I work at X" or "founder here").
+- Paid creators, affiliates and gifted posts use the platform's paid partnership label or a clear #ad.
+- AI personas (ai-influencer-farm) are labelled as AI in the bio and with platform AI labels on content. They never claim to be human, never give personal testimonials of using a product, and never impersonate a real person.
+- No fake reviews, no review gating (asking only happy customers), no incentives for positive reviews.
+- No vote manipulation, no sockpuppets, no buying followers, likes or engagement.
+
+## 3. Platform rules agents follow
+| Platform | Rules that matter |
+|---|---|
+| Meta | official Marketing and Graph APIs only; ads created paused; special ad categories declared (credit, employment, housing, politics); no personal attributes in ad copy ("Are you struggling with..."); comment and DM automation only inside Meta's messaging windows |
+| Google Ads | no auto-apply without your yes; trademark terms in ads only with rights; healthcare and financial policies respected |
+| X | automation rules: no automated mentions or replies to people who did not engage, no duplicate content across accounts, disclose automated accounts |
+| LinkedIn | no browser bots or scraping of logged-in pages; agents draft, you post comments and DMs |
+| Reddit | follow each subreddit's self-promotion rules; disclose; space replies out; never use multiple accounts |
+| TikTok, YouTube | label AI generated realistic content; respect upload quotas; no reused content farms |
+| Email and SMS | consent only, unsubscribe in every message, physical address, SPF, DKIM and DMARC, SMS quiet hours (CAN-SPAM, GDPR and PECR, CASL, TCPA) |
+| Cold email (outbound-operator) | B2B only where lawful, real sender identity, opt out honoured within 1 business day, low daily volume per inbox, warmed domains separate from your main domain |
+
+## 4. Rate limits
+Every script backs off on HTTP 429 and platform throttling codes, and agents keep daily caps in config.yaml (posts per day, replies per hour, emails per inbox per day). Do not raise caps above platform guidance.
+
+## 5. Data and keys
+- Keys live in environment variables or a `.env` file outside git. Never in COMPANY.md, never in chat.
+- Use read only keys where an agent only reads (Stripe restricted keys, Meta `ads_read`, GA4 Viewer).
+- Customer personal data stays in your accounts. Agents export only what a step needs to `data/` and you can delete it.
+- Enrichment (enrichment-waterfall, signal-prospector) uses providers that state a lawful basis; respect opt outs and GDPR rights requests.
+
+## 6. Licences
+Headcount bundles only MIT, Apache-2.0 or BSD code. AGPL tools (Firecrawl, Postiz) are used as separate services, never bundled. BSL licensed pipeboard meta-ads-mcp is not used. See LICENSES.md.
+
+## 7. If something goes wrong
+Stop schedules (guides/scheduling.md), revoke the key at the platform, check the agent's log for exactly what it did, and set the relevant config.yaml action class back to "ask".
+
+Sources: FTC Endorsement Guides (16 CFR 255) and Consumer Reviews and Testimonials Rule (2024); Meta Advertising Standards and Platform Terms; Google Ads policies; X Automation rules; LinkedIn User Agreement section 8.2; Reddit Content Policy and self-promotion guidance; CAN-SPAM Act; GDPR; CASL; TCPA; YouTube and TikTok AI content labelling policies.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

@@ -1,0 +1,138 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Sales Closer: Headcount agent</title><meta name="description" content="Closes deals: qualifies inbound, follows up, handles objections, sends proposal and payment link."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># AI Sales Closer
+
+## 1. What this agent gets you
+Every inbound lead answered in minutes, qualified, shown a demo, quoted from your real prices and sent a payment link. It keeps following up until the lead pays or says no, and hands you the big deals.
+
+## 2. Who it is for / not for
+- **For:** businesses with inbound leads and a clear price list: SaaS, agencies with packages, B2B services, high-ticket ecommerce, course and coaching sellers.
+- **Not for:** fully custom enterprise deals with no price list (use it only for first response and qualification), or anyone who wants it to invent discounts.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| Pricing file (`./data/sales/pricing.json`) | yes | 20 min | free |
+| Stripe or Razorpay API key | yes, for payment links | 10 min | their normal fees per payment |
+| CRM (HubSpot private app) | recommended | 10 min | free tier works |
+| Cal.com API key | optional, for booking | 5 min | free plan works |
+| WhatsApp Business Platform number plus approved templates | optional | 1 to 3 days for Meta approval | Meta per-message fees |
+| 2 to 3 short demo recordings | recommended | 30 min | free |
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+> Run ai-sales-closer. Here is my pricing (attached). Check the open leads and tell me what you would send to each.
+
+ChatGPT:
+> Use the ai-sales-closer skill. New lead from my site: "<paste>". Reply and qualify them.
+
+Demo: `python3 scripts/next_best_action.py --selftest` and `python3 scripts/render_proposal.py --pricing examples/example-pricing.json --deal examples/example-deal.json --dry-run`.
+
+## 5. Running it on a schedule
+- New leads every 5 minutes in working hours: `*/5 8-20 * * * cd /path/to/headcount && claude -p "ai-sales-closer: handle new leads"` (or a form webhook that starts the same message).
+- Daily follow-ups: Claude Code `/schedule daily 09:00 run ai-sales-closer follow-ups`.
+- OpenClaw or Hermes: a 5-minute job and a daily 09:00 job.
+
+## 6. What good output looks like
+See `examples/` (example, fictional brands): `example-output-actions.txt` shows 13 leads with the right action for each (reply now, qualify, hand off a 48k deal, refuse a 25% discount without a human, stop after an explicit no). `example-output-proposal.md` is a finished quote.
+Good means: median first response under 5 minutes, every quote matches the pricing file, no lead left without a next step.
+
+## 7. Tuning
+1. `handoff.deal_value_usd` (10,000): above this a human owns the deal.
+2. `discounts.max_pct_without_approval` (10%): the most the agent may offer alone.
+3. `cadence.followup_days` and `max_touches`: match your sales cycle; longer cycles need wider gaps, not more touches.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| render_proposal exits 5 | A rule failed (SKU missing, discount over limit). Read the message; get approval or fix the deal file. |
+| WhatsApp message blocked (exit 6) | Outside the 24-hour window or no opt-in. Use the approved template or email. |
+| Stripe 400 on price_data | Your Stripe API version may predate inline prices on Payment Links; create a Price first or update the API version. |
+| Razorpay 400 "reference_id already exists" | Each link needs a unique reference; add a suffix to the deal id. |
+| Leads get duplicate replies | Two triggers fire (webhook plus poll). Keep one. |
+
+## 9. Safety and platform rules
+- Every message from the agent says it is an AI assistant unless a named person approved it.
+- Never collects card details: payments only through Stripe or Razorpay hosted links.
+- WhatsApp: opt-in only, templates outside the 24-hour window, marketing templates off by default. Meta can lower your number's limits if people block you.
+- Follow-ups stop at the first clear no or unsubscribe.
+
+
+---
+
+# Connect: ai-sales-closer
+
+| Service | Env var | Where to get it | Scopes or settings | Cost | Used for |
+|---|---|---|---|---|---|
+| Stripe | `STRIPE_SECRET_KEY` (use a restricted key) | Dashboard, Developers, API keys, create restricted key | Payment Links write, Products and Prices write, Checkout Sessions read | Stripe fees per payment | `POST /v1/payment_links` with inline `price_data` |
+| Razorpay | `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Dashboard, Account and Settings, API keys | Basic auth | Razorpay fees per payment | `POST /v1/payment_links` |
+| HubSpot | `HUBSPOT_ACCESS_TOKEN` | Private app | `crm.objects.contacts.read/write`, `crm.objects.deals.read/write` | free tier works | leads, deals, stages |
+| Cal.com | `CALCOM_API_KEY` | Settings, Developer, API keys | send the `cal-api-version` header listed on each endpoint's doc page | free plan works | slots and bookings |
+| WhatsApp Business Platform (Cloud API) | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID` | Meta for Developers app, WhatsApp product, permanent system user token | `whatsapp_business_messaging` | Meta per-message rates by country and category | messages and templates |
+| Gmail API | `GMAIL_OAUTH_TOKEN` | Google Cloud OAuth client | `gmail.send`, `gmail.readonly` | free | email replies |
+| DocuSeal (optional e-sign) | `DOCUSEAL_API_KEY` | docuseal.com (hosted) | API | paid plans | contracts. DocuSeal is AGPL-3.0: use the hosted API as a service; do not bundle its code |
+
+MCP servers in `mcp.json`:
+- Stripe official remote MCP (`https://mcp.stripe.com`, OAuth; toolkit repo stripe/agent-toolkit is MIT).
+- Razorpay official MCP (razorpay/razorpay-mcp-server, MIT) via `mcp-remote` to `https://mcp.razorpay.com/mcp` with a Basic auth header.
+- HubSpot (`@shinzolabs/hubspot-mcp`, MIT).
+
+Verify before first live use:
+- Stripe inline `price_data` on Payment Links appeared in the 2025-07-30 API release; older pinned API versions need a Price created first.
+- WhatsApp Graph API version in `config.yaml` (`v25.0`) must be one Meta still supports.
+- HubSpot deal stage ids differ per pipeline: map `crm.stages` to your pipeline's internal stage ids on first run.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-deal.json`
+- `examples/example-leads.json`
+- `examples/example-output-actions.txt`
+- `examples/example-output-proposal.md`
+- `examples/example-output-quote.json`
+- `examples/example-pricing.json`
+- `mcp.json`
+- `references/channel-rules.md`
+- `references/closing-playbook.md`
+- `references/objection-playbook.md`
+- `references/speed-to-lead.md`
+- `scripts/check_setup.py`
+- `scripts/fixtures/leads.json`
+- `scripts/next_best_action.py`
+- `scripts/payment_link.py`
+- `scripts/render_proposal.py`
+- `scripts/whatsapp_message.py`
+- `scripts/yaml_lite.py`
+- `templates/messages.md`
+- `templates/pricing.example.json`
+- `templates/proposal.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

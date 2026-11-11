@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Viral Reel Cloner: Headcount agent</title><meta name="description" content="Finds outlier reels in your niche, deconstructs why they won, remakes them for your brand."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Viral Reel Cloner
+
+## 1. What this agent gets you
+Every week: the reels in your niche that did 3x or more their account's normal views, why each one won in one sentence, and 3 remakes built on the same mechanism for your brand. Seven days later it tells you whether the mechanism worked for you too.
+
+## 2. Who it is for, and not for
+- For: brands and founders posting reels at least weekly who want proven ideas instead of guesses.
+- For: teams that can either film 20 minutes a week or are fine with faceless reels (VO, b-roll, captions).
+- Not for: anyone who wants to repost other people's videos. This agent never copies footage, audio or wording.
+- Not for: accounts with no posting history. You need about 12 reels of your own before remake tracking means anything.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost per weekly run |
+|---|---|---|---|
+| COMPANY.md (run company-brain) | yes | 15 min once | free |
+| Instagram professional account + Meta app token | recommended | 30 to 45 min once | free |
+| Apify or ScrapeCreators key | only if your watchlist has accounts Business Discovery cannot see | 5 min | roughly $1 to $5 for 30 accounts x 30 reels (check vendor pricing) |
+| ffmpeg + local Whisper | optional, for transcripts | 10 min | free |
+| Python 3.9+ | yes | | free |
+Run `python3 scripts/check_setup.py` to see what is ready.
+
+## 4. First run
+- **Claude Code:** `Run viral-reel-cloner. My watchlist is a, b, c. Propose the rest. Faceless by default.`
+- **ChatGPT (custom GPT or project with these files):** `Use the viral-reel-cloner instructions. Here is my reels export CSV. Find the outliers and write 3 remake briefs.`
+- **Codex:** `Follow agents/viral-reel-cloner/SKILL.md. Run the scripts in dry-run first, then live with source ig.`
+- **OpenClaw / Hermes:** load the folder as a skill, then: `viral-reel-cloner: weekly scan, watchlist in config.yaml`.
+Try it without keys: `python3 scripts/fetch_reels.py --dry-run --out data/reels.json && python3 scripts/outlier_score.py --in data/reels.json`.
+
+## 5. Running it on a schedule
+- cron (Mondays 08:10): `10 8 * * 1 cd /path/to/viral-reel-cloner && claude -p "Run viral-reel-cloner weekly scan"`
+- Claude Code: `/schedule weekly Monday 8am: run viral-reel-cloner`
+- OpenClaw / Hermes: add a weekly job with the same prompt.
+Scheduled runs stop at the pick list and wait for you, unless you change `approvals` in config.yaml.
+
+## 6. What good output looks like
+See `examples/example-output.md`: a winners table with a mechanism per reel, scored picks with reasons, a remake brief with 3 ranked hooks, a founder shot list, and last week's verdicts.
+
+## 7. Tuning (the 3 settings that matter)
+- `scoring.outlier_threshold` (3.0): lower to 2.5 in slow niches, raise to 5 when you get too many winners.
+- `watchlist.accounts`: the list is the strategy. Mix small, mid and large accounts in your audience, not just competitors.
+- `remake.default_mode`: faceless or founder. Founder reels usually build more trust; faceless scales.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Business Discovery error for a handle | That account is personal, not Business or Creator. Use Apify or ScrapeCreators for it, or drop it. |
+| `insufficient_history` on most accounts | Accounts post too little. Raise `scoring.baseline_days` to 120 or pick more active accounts. |
+| Too many outliers from one account | Its reach is falling or it boosts posts. Drop the account. |
+| `similarity_check.py` fails | The script reused a phrase. Rewrite that line in your own words. |
+| Remakes keep scoring under 1.5x | Check first frame and hook first. If they match the brief, the audience differs: change the watchlist. |
+
+## 9. Safety and platform rules
+- Uses Meta's official Graph API first. Third-party scrapers are your choice and your account; read their terms.
+- Ideas and formats are free to use; footage, music, voice and scripts are not. The agent enforces this.
+- Use paid partnership and AI labels where they apply. No buying views, no engagement pods.
+- Stays under Meta rate limits (default 150 calls per hour).
+
+
+---
+
+# Connections
+
+You need ONE reel data source. Instagram Graph API is the default and free.
+
+## Instagram Graph API (Business Discovery), primary
+- What: reads public reels and counts of other Business or Creator accounts.
+- Get it: create a Meta app at developers.facebook.com, add the Instagram product (Instagram API with Facebook Login), connect your Instagram professional account to a Facebook Page, generate a long-lived user token.
+- Permissions: `instagram_basic`, `pages_show_list`, `pages_read_engagement`; for tracking your own reels also `instagram_manage_insights`. Business Discovery on accounts you do not own may need Advanced Access via Meta App Review.
+- Env vars: `IG_ACCESS_TOKEN` (long-lived, refresh every 60 days), `IG_USER_ID` (your Instagram professional account id, not the Page id).
+- Cost: free. Limits: Meta's changelog reports up to 1,000 Discovery queries per user per hour (raised from 240). We default to 150. Verify on Meta's rate-limit docs.
+- Cannot see: personal accounts, stories, reels audio name.
+
+## Apify (BYOK), optional
+- What: reel scraper actors for any public account.
+- Get it: apify.com, Settings, Integrations, API token.
+- Env var: `APIFY_TOKEN`. Actor default `apify/instagram-reel-scraper` (change with `--apify-actor`).
+- Cost: pay per result; free plan includes monthly credit. A 30 x 30 pull usually costs a few dollars. Check the actor's price page. Capped by `budget.monthly_data_cap_usd`.
+- MCP: `apify` in mcp.json (MIT).
+
+## ScrapeCreators (BYOK), optional
+- What: REST endpoints for Instagram reels and transcripts.
+- Get it: scrapecreators.com, dashboard, API key.
+- Env var: `SCRAPECREATORS_API_KEY`. Header `x-api-key`.
+- Cost: prepaid credits, about one credit per request. Check current pricing.
+
+## Manual mode (no keys)
+Export a CSV with columns `handle,reel_id,timestamp,views,likes,comments,caption,permalink,duration` (from your own tools or by hand) and run `fetch_reels.py --source csv --csv file.csv`.
+
+## Local tools, optional
+- `ffmpeg` (LGPL/GPL build, install via your package manager): frames for deconstruction.
+- `openai-whisper` (MIT, `pip install openai-whisper`) or `whisper.cpp` (MIT): local transcripts, free.
+
+## treg, optional
+If you have your own treg account, its social data tools can replace Apify or ScrapeCreators. Not required.
+
+Never paste keys into chat or files. Put them in your shell profile or a `.env` that is git-ignored.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/own_reels.json`
+- `examples/fixtures/reels.json`
+- `examples/fixtures/remakes.csv`
+- `examples/fixtures/watchlist.csv`
+- `mcp.json`
+- `references/deconstruction-rubric.md`
+- `references/hook-taxonomy.md`
+- `references/outlier-method.md`
+- `references/remake-rules.md`
+- `scripts/check_setup.py`
+- `scripts/fetch_reels.py`
+- `scripts/outlier_score.py`
+- `scripts/similarity_check.py`
+- `scripts/track_remake.py`
+- `templates/deconstruction.md`
+- `templates/remake-brief.md`
+- `templates/shot-list.md`
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

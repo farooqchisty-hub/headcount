@@ -1,0 +1,163 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ROAS Autopilot: Headcount agent</title><meta name="description" content="Give it a ROAS target and a budget. It builds, launches and optimises Meta campaigns to hit it."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># ROAS Autopilot
+
+## 1. What this agent gets you
+Tell it the ROAS you need and what you can spend a day. It checks your tracking, builds the Meta campaigns, and every morning pauses losers, scales winners in safe steps and asks for fresh creative before ads tire. Every Monday it tells you straight whether the target is being hit, and if the data says it cannot be hit at this budget, it says that too.
+
+## 2. Who it is for / not for
+**For:** ecommerce and DTC brands spending roughly 50 to 5,000 a day on Meta who sell online with a working pixel, and want a disciplined media buyer that follows written rules.
+**Not for:** lead gen or app installs (rules are built for purchases and purchase value), brands with no purchase tracking, special ad categories (housing, jobs, credit) without manual setup, or anyone who wants a black box that spends without asking.
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| Meta app + System User token (`META_ACCESS_TOKEN`) | 20 min | free |
+| Ad account id (`META_AD_ACCOUNT_ID`) | 1 min | free |
+| Page id, pixel id, countries in config.yaml | 5 min | free |
+| Target ROAS, daily budget, AOV in config.yaml | 2 min | free |
+| Run `python3 scripts/check_setup.py --live` | 1 min | free |
+
+API cost per run: zero. The Meta Marketing API is free; a daily run makes about 6 read calls. The only money spent is your ad budget, and only after you approve. Optional: static-ad-factory for first creatives if you have none (its own costs apply).
+
+## 4. First run
+Type this in Claude Code, Codex, OpenClaw or Hermes (in ChatGPT, upload the folder as a project and paste the same):
+
+```
+Run roas-autopilot. Target ROAS 2.5, budget 300 a day, selling our bestseller bundle at
+https://example.com/products/bundle. Use the 8 creatives in ./creatives. Plan first, check tracking, then show me the launch pack.
+```
+It will show the plan and tracking check, then a launch pack. Nothing is created until you say yes, and nothing goes live until a second yes.
+
+## 5. Running it on a schedule
+- **Claude Code:** `/schedule` then "every day at 08:00 run roas-autopilot daily loop; Mondays also run the weekly report".
+- **cron (any runtime with a CLI):** `0 8 * * * cd /path/to/workspace && claude -p "run roas-autopilot daily loop"` and `30 8 * * 1 ... "run roas-autopilot weekly report"`.
+- **OpenClaw / Hermes:** add a daily job at 08:00 ad account time with the prompt "run roas-autopilot daily loop".
+Run it after 07:00 in the ad account time zone so yesterday's numbers are mostly in.
+
+## 6. What good output looks like
+See `examples/example-output.md`: a plan, a tracking check, a day-22 decision table (3 pauses, 1 scale, 2 creative requests), the approval message, two weekly reports (on target, and an honest "not reachable at this budget"), and the exact API request for an approved change. All from a fictional brand.
+
+## 7. Tuning: the 3 settings that matter most
+1. `goal.target_roas` and `goal.average_order_value`: together they set target cost per purchase, which every kill and scale line is a multiple of. Get AOV right.
+2. `rules.kill_no_purchase_spend_x_cpa` (default 2.0): lower to 1.5 if cash is tight, raise to 3.0 if your product has a long consideration cycle.
+3. `approvals.autopilot_band`: off by default. Turn on with `allow_pause_ad: true` first; add budget classes once you trust the calls. `max_account_daily_budget` is the hard cap it can never cross.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| `check_setup` says token cannot see the account | Assign the ad account to the System User in Business Settings, then regenerate the token |
+| Health gate blocks on "purchases carry no value" | Pass `value` and `currency` in the Purchase event (platform plugin settings), then re-run |
+| Meta error 100 on create-adset mentioning DSA | You target an EU country: fill `eu_dsa_beneficiary` and `eu_dsa_payor` |
+| Every ad shows zero purchases today | Tracking broke. The agent holds all kills and re-runs the health gate; check Events Manager |
+| "refused: above the 20% step limit" | Working as designed. Approve +20% today, the next step tomorrow |
+
+## 9. Safety and platform rules
+- Uses only the official Meta Marketing API with your own token. No scraping, no browser automation on Ads Manager.
+- Creates everything PAUSED. Every launch, pause, budget and bid change needs your yes unless you enabled that class in the autopilot band, which has hard caps.
+- Respects Meta's rate limits with backoff. Follows Meta advertising policies: the agent checks copy against your COMPANY.md claims list and will not write restricted health, finance or before-and-after claims.
+
+
+---
+
+# Connect roas-autopilot
+
+Bring your own keys. Nothing here ships with a token. Keys live in environment variables only.
+
+## Required
+
+### 1. Meta Marketing API access token
+- **Env var:** `META_ACCESS_TOKEN`
+- **What:** a System User token from your Business Manager (recommended, does not expire) or a long-lived user token (60 days).
+- **Scopes:** `ads_read`, `ads_management`. Add `business_management` for the match quality call. `catalog_management` only if you run catalog ads.
+- **Where:**
+  1. Create an app at developers.facebook.com (type Business), add the Marketing API product.
+  2. Business Settings, Users, System users: add a system user with Admin or Employee role.
+  3. Assign assets to it: the ad account (Manage campaigns), the pixel / dataset, the Page, the catalog.
+  4. Generate token for your app with the scopes above. Copy it once into your secret store.
+- **Access level:** new apps start with standard access and lower rate limits. That is enough for one ad account. Apply for advanced access only if you manage many accounts.
+- **Cost:** free. Ad spend is billed by Meta to your ad account as normal.
+
+### 2. Ad account id
+- **Env var:** `META_AD_ACCOUNT_ID` (numbers only, no `act_`). Ads Manager, account dropdown.
+
+### 3. In config.yaml (not secret)
+`account.page_id`, `account.pixel_id`, optional `instagram_user_id`, `catalog_id`, `countries`, and for EU targeting `eu_dsa_beneficiary` and `eu_dsa_payor` (Meta requires both for any ad reaching the EU).
+
+## Optional
+| Env var | What | Why |
+|---|---|---|
+| `META_APP_SECRET` | your app secret | adds `appsecret_proof` to every call; turn on "Require app secret" in app settings for extra safety |
+| `META_API_VERSION` | e.g. `v26.0` | default is v26.0, the latest version in Meta's changelog as of Nov 2026. Bump it when Meta ships a new one |
+| `HC_SLACK_WEBHOOK` (name is yours, set in `approvals.notify_slack_webhook_env`) | Slack incoming webhook | approval messages to a channel instead of a file |
+
+## Optional MCP servers (mcp.json)
+- **meta-ads** (mikusnuz/meta-ads-mcp, MIT licence, npm `@mikusnuz/meta-ads-mcp`): handy for ad hoc questions in chat. The agent's writes still go through `scripts/meta_api.py` so the step limits and PAUSED default always apply.
+- **treg**: only if you have your own treg account. Not needed for anything in this agent.
+
+## API version notes
+- Graph API v26.0 released 29 July 2026; v25.0 expires 29 July 2028. Check https://developers.facebook.com/docs/graph-api/changelog/versions before bumping.
+- From v25.0, `smart_promotion_type` is no longer used to create Advantage+ campaigns. The agent creates a normal `OUTCOME_SALES` campaign with campaign budget, Advantage+ audience and no placement targeting; Meta reports it as `ADVANTAGE_PLUS_SALES` in `advantage_state_info`.
+
+## Rate limits
+Ads Management calls are rate limited per ad account (business use case limits). The script retries codes 4, 17, 32, 613, 80000 and 80004 with 30, 60 second waits. A daily run uses about 6 read calls.
+
+## Check it works
+```
+python3 scripts/check_setup.py            # offline checks
+python3 scripts/check_setup.py --live     # one free read call: lists your ad accounts
+```
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/config-example.yaml`
+- `examples/decisions.json`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/health.json`
+- `examples/snapshot-target-not-reachable.json`
+- `examples/snapshot.json`
+- `mcp.json`
+- `references/account-structure-and-budget-bands.md`
+- `references/bid-strategy-ladder.md`
+- `references/creative-fatigue-and-refresh.md`
+- `references/kill-hold-scale-rules.md`
+- `references/tracking-health-gate.md`
+- `scripts/check_setup.py`
+- `scripts/meta_api.py`
+- `scripts/rules_engine.py`
+- `scripts/yaml_lite.py`
+- `templates/creative-refresh-request.md`
+- `templates/daily-decisions.md`
+- `templates/launch-approval.md`
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

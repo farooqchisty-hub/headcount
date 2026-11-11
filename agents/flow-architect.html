@@ -1,0 +1,113 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flow Architect: Headcount agent</title><meta name="description" content="Missing email/SMS flows found and built; flow revenue up."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Flow Architect
+
+## 1. What this agent gets you
+A list of the email and SMS automations you are missing or running badly, each with a monthly dollar estimate, and the missing ones built as drafts with copy, timing and splits.
+
+## 2. Who it is for / not for
+For: ecommerce stores on Klaviyo, Brevo, Mailchimp or HubSpot with 20k+ monthly sessions.
+Not for: stores with under 200 orders a month (benchmarks get noisy; build welcome, cart and checkout and stop).
+
+## 3. Setup checklist
+- [ ] company-brain has run
+- [ ] ESP key with read scopes (see CONNECT.md), or a CSV export of your flows
+- [ ] Shopify read_orders (optional but better numbers)
+- [ ] Edit config.yaml: esp, channels, discount_policy
+- [ ] `python3 scripts/check_setup.py`
+Time: 15 minutes. API cost: $0 (ESP and Shopify APIs are free).
+
+## 4. First run
+Claude Code: `Use flow-architect: audit my Klaviyo flows and show me revenue at stake.`
+ChatGPT / Codex: load SKILL.md, same message.
+OpenClaw / Hermes: `run flow-architect "audit flows"`
+
+## 5. Schedule
+- Claude Code: `/schedule monthly on the 1st 9am: run flow-architect re-audit`
+- cron: `0 9 1 * * cd /path/to/headcount && claude -p "run flow-architect monthly re-audit"`
+
+## 6. What good output looks like
+`examples/example-output.md`: a ranked table of flows with dollars at stake, cause and fix per weak flow, and draft specs waiting for your yes.
+
+## 7. Tuning
+- `identified_visitor_share`: the biggest driver of browse and cart estimates. Check it in your ESP's identified-profile report.
+- `discount_policy.max_discount_pct`: protects margin across every flow.
+- `skip_flows`: drop replenishment if you do not sell consumables.
+
+## 8. Troubleshooting
+1. **Klaviyo 429 on flow-values-reports:** limit is 2 per minute and 225 per day; the script makes one call. Wait a minute.
+2. **"no Placed Order metric":** connect Shopify to Klaviyo first.
+3. **Estimate looks too big:** the script warns over 25% of revenue; lower identified share.
+4. **Brevo flows not listed:** Brevo has no workflow list API. Export the list to CSV.
+5. **Create flow rejected:** build in the UI from the spec; templates are already created.
+
+## 9. Safety and platform rules
+- Drafts only. You switch flows live.
+- Follow Gmail and Yahoo bulk sender rules: one-click unsubscribe, spam rate under 0.3%.
+- SMS only with recorded consent; quiet hours respected.
+
+
+---
+
+# Connections: flow-architect
+
+You need one of: an ESP API key, the ESP's official MCP, or a CSV export of your flows.
+
+| What | Why | Where | Scopes | Cost | Env var |
+|---|---|---|---|---|---|
+| Klaviyo private key | Read flows and performance; create draft templates and flows after your yes | Klaviyo, Settings, API keys, Create private key | Read: flows:read, metrics:read, lists:read, segments:read, templates:read. Write (optional): flows:write, templates:write | Free | `KLAVIYO_PRIVATE_KEY` |
+| Klaviyo MCP (official) | Same, inside your runtime | `uvx klaviyo-mcp-server@latest` (PyPI, Klaviyo Developer Experience Team); guide at developers.klaviyo.com/en/docs/klaviyo_mcp_server | Uses the private key. Set READ_ONLY true for audits | Free | `KLAVIYO_PRIVATE_KEY` |
+| Brevo | Workflow revenue, template creation | Brevo, SMTP and API, API keys; or the official Brevo MCP (https://mcp.brevo.com, OAuth, all plans) | API key full access (Brevo keys are not scoped) | Free | `BREVO_API_KEY` |
+| Mailchimp | Classic automations, emails | Account, Extras, API keys | Full key; dc is the suffix after the dash | Free | `MAILCHIMP_API_KEY` |
+| HubSpot | Workflows, marketing emails | Settings, Integrations, Private apps | automation, content, crm.objects.contacts.read | Free on your plan | `HUBSPOT_ACCESS_TOKEN` |
+| Shopify | Sessions, orders, AOV, reorder gaps | Settings, Apps, Develop apps | read_orders, read_reports | Free | `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_STORE` |
+
+MCP servers in `mcp.json`: klaviyo-mcp-server (official Klaviyo; check its licence on PyPI before redistributing, it is installed by the buyer, not bundled), Brevo MCP (official, remote, OAuth), `@hubspot/mcp-server` (MIT, official), `shopify-mcp` (MIT). Delete the ones for ESPs you do not use.
+Unverified: the env variable names for klaviyo-mcp-server (`PRIVATE_API_KEY`, `READ_ONLY`) follow Klaviyo's setup guide at time of writing; confirm on developers.klaviyo.com.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output-revenue-at-stake.txt`
+- `examples/example-output.md`
+- `examples/fixtures/klaviyo_flows.json`
+- `examples/fixtures/store.json`
+- `mcp.json`
+- `references/core-flow-blueprints.md`
+- `references/esp-api-map.md`
+- `references/flow-benchmarks.md`
+- `scripts/audit_flows.py`
+- `scripts/check_setup.py`
+- `scripts/revenue_at_stake.py`
+- `templates/audit-report.md`
+- `templates/flow-spec.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

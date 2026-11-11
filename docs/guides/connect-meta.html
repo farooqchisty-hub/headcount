@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>connect-meta: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Connect Meta (Facebook and Instagram ads)
+
+Used by: roas-autopilot, ad-account-watchdog, winner-remixer, static-ad-factory (upload), video-ad-studio (upload), abm-personalizer, influencer-deal-desk (whitelisting), monday-standup, competitor-watch (Ad Library).
+
+## What you need
+| Item | Env var | Notes |
+|---|---|---|
+| Ad account ID | `META_AD_ACCOUNT_ID` | Ads Manager URL `act=123...`; agents accept with or without `act_` |
+| Long-lived token | `META_ACCESS_TOKEN` | System User token (does not expire) is best |
+| Pixel or dataset ID | `META_PIXEL_ID` | Events Manager |
+| Page ID | `META_PAGE_ID` | for ad creation and comments |
+| App ID and secret | `META_APP_ID`, `META_APP_SECRET` | only if an agent or MCP server asks |
+| API version | `META_API_VERSION` | default `v25.0` in our scripts; change when Meta deprecates |
+
+## Steps (about 15 minutes)
+1. Business settings (business.facebook.com/settings): make sure the ad account, Page and pixel belong to your Business portfolio.
+2. Create an app at developers.facebook.com, type Business, add the Marketing API product. Your own accounts only need Standard access; Advanced access is for apps managing other businesses' accounts.
+3. Business settings, Users, System users: add a system user (Admin for write agents, Employee for read only). Assign assets: the ad account (Manage campaigns for write agents, View performance for read only), the Page, the pixel.
+4. Generate token for the system user with your app. Scopes:
+   - read only (monday-standup, ad-account-watchdog): `ads_read`, `read_insights`
+   - creating and editing ads (roas-autopilot, uploads): add `ads_management`, `business_management`, `pages_read_engagement`, `pages_show_list`
+   - comments and DMs (engagement-agent, dm-closer, reputation-guard): see connect-social.md
+5. Put the values in your shell profile or a `.env` file outside any git repo. Test: `curl -s "https://graph.facebook.com/$META_API_VERSION/act_$META_AD_ACCOUNT_ID?fields=name,currency&access_token=$META_ACCESS_TOKEN"`.
+
+## Ad Library (competitor-watch, winner-remixer)
+The official Ad Library API covers ads about social issues, elections or politics everywhere and all ads delivered in the EU and UK (with EU transparency fields). For other commercial ads outside the EU, agents use the public Ad Library website through a browser tool or a licensed data provider; respect the site's terms and rate limits.
+
+## Rules agents follow
+- New campaigns, ad sets and ads are created PAUSED. You switch them on, or approve the agent doing it.
+- Budget changes beyond `daily_spend_change_limit_pct` in COMPANY.md need a yes.
+- Rate limits: Marketing API uses per-account business use case limits; agents back off on error codes 17, 32, 613 and 80004.
+
+## MCP option
+mikusnuz/meta-ads-mcp (MIT) and brandu-mos/konquest-meta-ads-mcp (MIT) expose the Marketing API as MCP tools. Do not use pipeboard-co/meta-ads-mcp (BSL, no resale).
+
+Sources: developers.facebook.com/docs/marketing-api (authorization, system users, rate limiting); facebook.com/ads/library/api.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

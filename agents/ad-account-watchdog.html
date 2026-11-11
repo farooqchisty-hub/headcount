@@ -1,0 +1,139 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ad Account Watchdog: Headcount agent</title><meta name="description" content="No silent money leaks: catches auto-applied changes, hacks, spend spikes, disapprovals within the hour."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Ad Account Watchdog
+
+## 1. What this agent gets you
+A guard on your Meta and Google Ads accounts that checks every hour. If spend runs away, someone you do not know changes something, Google auto-applies a recommendation, an ad gets disapproved, billing fails or tracking stops, you hear about it within the hour with the fix.
+
+## 2. Who it is for / not for
+**For:** anyone spending on Meta or Google Ads who cannot watch Ads Manager all day: founders, small teams, agencies with many client accounts.
+**Not for:** optimising performance (use roas-autopilot or google-ads-waste-killer), or platforms other than Meta and Google Ads.
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| Meta System User token with `ads_read` | 15 min | free |
+| Google Ads API keys (same as waste killer) | 30 min, plus Basic access approval | free |
+| `known_actors` and `allowed_ad_domains` in config.yaml | 5 min | free |
+| Optional Slack webhook | 5 min | free |
+
+API cost: zero. About 400 free read calls a day.
+
+## 4. First run
+```
+Run ad-account-watchdog on Meta and Google. Our team is Dana Whitlow and dana@ourbrand.com, our agency uses @ouragency.com, ads only go to ourbrand.com. Show me what you see right now.
+```
+
+## 5. Running it on a schedule
+- **Claude Code:** `/schedule` then "every hour at minute 10 run ad-account-watchdog; at 18:00 send the digest".
+- **cron:** `10 * * * * cd /path && python3 agents/ad-account-watchdog/scripts/collect.py collect && python3 agents/ad-account-watchdog/scripts/watchdog.py --config agents/ad-account-watchdog/config.yaml --snapshot runs/ad-account-watchdog/snapshot.json --state runs/ad-account-watchdog/state.json --out runs/ad-account-watchdog/alerts.json --fail-on-p1 && python3 agents/ad-account-watchdog/scripts/notify.py --config agents/ad-account-watchdog/config.yaml --alerts runs/ad-account-watchdog/alerts.json --send`
+  The scripts alone do the hourly job without an AI model; the agent adds diagnosis and the digest.
+- **OpenClaw / Hermes:** hourly job with the prompt "run ad-account-watchdog".
+
+## 6. What good output looks like
+`examples/example-output.md`: a fictional candle brand whose Meta account was hijacked at 03:12. The watchdog raised 4 P1s (spend at 3.2x a normal day, unknown user added, ad to a scam domain, likely compromise), 5 P2s and the exact pause command.
+
+## 7. Tuning: the 3 settings that matter most
+1. `known_actors`: everyone and every app allowed to change the accounts. Missing names cause noise; extra names hide hacks.
+2. `allowed_ad_domains`: your landing page domains. This is the strongest hack detector.
+3. `auto_protect.enabled`: off by default. Turn it on to let the watchdog pause (only pause) campaigns on P1 runaway spend or off-domain ads, up to `max_pauses_per_day`.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| Every change raises C3 | Add the person's name exactly as Meta shows it, or their email or agency domain |
+| No spend alerts on a small account | Lower `spend.min_spend_to_alert` |
+| "watchdog cannot see google" | Refresh token revoked or developer token not at Basic access |
+| Alerts at 3am for normal night spend | The baseline curve needs 7 days of data; it settles after a week |
+| Pause command returns permission error | Token has `ads_read` only; add `ads_management` if you want approved pauses |
+
+## 9. Safety and platform rules
+Official Meta Marketing API and Google Ads API only, with your own keys. Read only by default. The only write it can make is pausing a campaign, and only with your yes or with auto_protect on for a P1. It never deletes, edits budgets, or touches users and payment methods.
+
+
+---
+
+# Connect ad-account-watchdog
+
+Bring your own keys. Read access is enough for alerts; pausing needs write access.
+
+## Meta (if platforms.meta is true)
+| Env var | What | Where |
+|---|---|---|
+| `META_ACCESS_TOKEN` | System User token | Business Settings, System users, generate token for your app. Scopes: `ads_read` (alerts), `ads_management` (only if you want approved pauses). Assign the ad account and pixel to the system user |
+| `META_AD_ACCOUNT_ID` | digits, no `act_` | Ads Manager |
+| `META_PIXEL_ID` | optional, for the pixel silence alert | Events Manager |
+| `META_API_VERSION` | optional, default `v26.0` | |
+
+Tip: a System User token does not expire and is not tied to a person who might leave. Keep the number of human admins low; the watchdog flags more than 3.
+
+## Google Ads (if platforms.google is true)
+Same keys as google-ads-waste-killer: `GOOGLE_ADS_DEVELOPER_TOKEN` (Basic access), `GOOGLE_ADS_CLIENT_ID`, `GOOGLE_ADS_CLIENT_SECRET`, `GOOGLE_ADS_REFRESH_TOKEN` (scope `https://www.googleapis.com/auth/adwords`), `GOOGLE_ADS_CUSTOMER_ID`, optional `GOOGLE_ADS_LOGIN_CUSTOMER_ID`, `GOOGLE_ADS_API_VERSION` (default `v26`). A Read only user is enough for alerts.
+
+## Alerts channel (optional)
+| Env var | What |
+|---|---|
+| `HC_WATCHDOG_SLACK_WEBHOOK` (name set in `alerts.slack_webhook_env`) | a Slack incoming webhook for your own channel. Create it in your Slack workspace: Apps, Incoming Webhooks |
+
+## Cost
+Meta and Google Ads APIs are free. One hourly run is about 10 Meta reads and 7 Google queries, about 400 calls a day, well inside standard rate limits for one account each.
+
+## MCP servers (mcp.json, all optional)
+meta-ads (mikusnuz/meta-ads-mcp, MIT), google-ads (googleads/google-ads-mcp, Apache-2.0) for ad hoc questions; treg only with your own account.
+
+## Check it works
+```
+python3 scripts/check_setup.py
+python3 scripts/collect.py collect --platform both --dry-run     # prints every call, sends nothing
+```
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/alerts-example.json`
+- `examples/alerts-example.md`
+- `examples/config-example.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/snapshot.json`
+- `mcp.json`
+- `references/alert-rules-and-severity.md`
+- `references/change-logs-and-data-sources.md`
+- `references/hack-response-runbook.md`
+- `scripts/check_setup.py`
+- `scripts/collect.py`
+- `scripts/notify.py`
+- `scripts/watchdog.py`
+- `scripts/yaml_lite.py`
+- `templates/daily-digest.md`
+- `templates/incident-report.md`
+- `templates/p1-alert.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

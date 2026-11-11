@@ -1,0 +1,133 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Enrichment Waterfall: Headcount agent</title><meta name="description" content="Verified contacts at provider cost (BYOK Clay alternative)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Enrichment Waterfall
+
+## 1. What this agent gets you
+Give it a list of people and companies. It returns verified work emails, paid at the raw price of the data providers you already use, and tells you exactly what each verified email cost.
+
+## 2. Who it is for / not for
+- **For:** teams doing outbound who pay for Clay credits or juggle three enrichment tools by hand; agencies enriching lists for clients; founders with a list and an Apollo or Hunter account.
+- **Not for:** finding personal or mobile numbers (it only finds work emails), buying lists of people you have no reason to contact, or anyone who wants to email consumers. Cold B2B email rules differ by country: check yours (GDPR legitimate interest in the EU and UK, CAN-SPAM in the US, CASL in Canada is stricter).
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| One finder key (Apollo, Hunter, LeadMagic, Prospeo or Findymail) | yes | 5 min | from about 0.02 to 0.05 USD per found email |
+| One verifier key (MillionVerifier or ZeroBounce) | yes | 5 min | about 0.004 to 0.008 USD per check |
+| More finders | optional, each one adds 10 to 25% more found emails | 5 min each | same range |
+| company-brain run | yes | once | free |
+
+Honest cost per run: on a typical B2B list of 500 people with three finders and one verifier, expect 10 to 25 USD and 55 to 75% verified. Enterprise-heavy lists (many catch-all domains) land lower. See CONNECT.md for where to get each key.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+> Run enrichment-waterfall on ./leads.csv. Dry-run first and show me the cost.
+
+ChatGPT (upload the CSV):
+> Use the enrichment-waterfall skill on this file. Start with a dry run and tell me the expected spend.
+
+No keys yet? Try the demo:
+> Run enrichment-waterfall in fixture mode on examples/example-input.csv.
+
+## 5. Running it on a schedule
+- cron (daily 07:00, enriches whatever signal-prospector dropped):
+  `0 7 * * * cd /path/to/headcount && for f in data/signals/to-enrich/*.csv; do python3 agents/enrichment-waterfall/scripts/waterfall.py "$f" --live --budget 10 && mv "$f" data/signals/done/; done`
+  Note: scheduled runs never pass `--yes`, so a run whose worst case is above `confirm_above_usd` stops and waits for you.
+- Claude Code: `/schedule daily 07:00 run enrichment-waterfall on new files in data/signals/to-enrich`
+- OpenClaw or Hermes: add the same message as a daily job in the scheduler.
+
+## 6. What good output looks like
+See `examples/`: `example-input.csv` (12 rows with messy domains, one duplicate, one free-mail row, one nameless row) and `example-output-report.md`. Example, fictional brands. Good looks like: 60% or more verified, cost per verified under 0.08 USD, under 2% bounce when sent.
+
+## 7. Tuning (the three settings that matter)
+1. `finders` order: put the provider with the best hit rate for YOUR market first. After three runs, use the report's "verified credited to each finder" line to reorder.
+2. `catch_all.high_confidence_score` (default 85): raise it if catch-all sends bounce above 2%; lower it only if you have a separate sending domain for catch-all rows.
+3. `run.max_spend_usd` (default 25): the hard stop per run.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| "no finder available" | No finder key in env. Run `scripts/check_setup.py`. |
+| Very low found rate | Domains are wrong or missing. Check that `website` holds the company site, not a LinkedIn URL. |
+| Provider HTTP 401 or 403 | Key wrong, or the plan has no API access (Apollo and Hunter gate API on some plans). |
+| Provider HTTP 429 | Rate limited. Re-run later; the script does not hammer retries. |
+| A provider's response changed | Vendors change APIs. Each adapter reads the email defensively; if hits drop to zero for one provider, check `references/provider-matrix.md` and the vendor docs, then edit that adapter's `live_find`. |
+
+## 9. Safety and platform rules
+- Uses official vendor APIs only. No LinkedIn scraping.
+- Only work emails. Personal email reveal is off.
+- Keep a record of where each contact came from (the output keeps `found_by`): GDPR and similar laws expect you to tell people the source if they ask.
+- Honour opt-outs: outbound-operator keeps the suppression list; never re-enrich a suppressed person.
+
+
+---
+
+# Connect: enrichment-waterfall
+
+All keys are yours. Put them in your shell environment or a `.env` file that is never committed. Scripts read env vars only and never print them.
+
+| Provider | Role | Env var | Where to get it | Auth used by the script | Billing (check your plan) |
+|---|---|---|---|---|---|
+| Apollo | finder | `APOLLO_API_KEY` | Apollo, Settings, Integrations, API, create key (needs a plan with API access) | header `x-api-key` on `POST https://api.apollo.io/api/v1/people/match` | email credits per match; `reveal_personal_emails` stays false |
+| Hunter | finder | `HUNTER_API_KEY` | hunter.io, API page | header `X-API-KEY` on `GET https://api.hunter.io/v2/email-finder` | search credits; returns a confidence `score` |
+| LeadMagic | finder | `LEADMAGIC_API_KEY` | leadmagic.io dashboard, API | header `X-API-Key` on `POST https://api.leadmagic.io/v1/people/email-finder` | 1 credit per email found; no charge when not found (per vendor docs) |
+| Prospeo | finder | `PROSPEO_API_KEY` | prospeo.io dashboard, API | header `X-KEY` on `POST https://api.prospeo.io/enrich-person` with `only_verified_email: true` | 1 credit per email match; the older `/email-finder` endpoint is marked deprecated by the vendor |
+| Findymail | finder | `FINDYMAIL_API_KEY` | app.findymail.com, API | `Authorization: Bearer` on `POST https://app.findymail.com/api/search/name` | credit only when a verified email is found |
+| MillionVerifier | verifier | `MILLIONVERIFIER_API_KEY` | app.millionverifier.com, API | query `api=` on `GET https://api.millionverifier.com/api/v3/` | per check; vendor says catch-all and unknown are not billed |
+| ZeroBounce | verifier (second opinion) | `ZEROBOUNCE_API_KEY` | zerobounce.net, API | query `api_key=` on `GET https://api.zerobounce.net/v2/validate` | per check |
+
+Optional MCP servers (see `mcp.json`):
+- Apollo official MCP (MIT, first-party): `https://mcp.apollo.io/mcp`, OAuth in your client. Useful for search; the waterfall script still uses the REST key.
+- HubSpot via `@shinzolabs/hubspot-mcp` (MIT): `HUBSPOT_ACCESS_TOKEN` from a HubSpot private app with `crm.objects.contacts.read` and `crm.objects.contacts.write`, to check whether a contact already exists before you pay to find them.
+
+Optional: treg (tool registry) can stand in for any single provider only if you have your own treg account. Direct vendor keys are the default path.
+
+## Verify before your first live run
+API shapes change. These were checked against vendor docs on 11 Nov 2026, but response fields for Prospeo, Findymail and LeadMagic were read from docs, not from live calls. Run one live row first: `python3 scripts/waterfall.py one-row.csv --live --budget 0.5` and confirm each provider shows a hit or a clean miss.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-input.csv`
+- `examples/output/example-output-enriched.csv`
+- `examples/output/example-output-ready.csv`
+- `examples/output/example-output-report.md`
+- `mcp.json`
+- `references/catch-all-playbook.md`
+- `references/list-hygiene.md`
+- `references/provider-matrix.md`
+- `scripts/check_setup.py`
+- `scripts/fixtures/provider_responses.json`
+- `scripts/waterfall.py`
+- `scripts/yaml_lite.py`
+- `templates/handoff-note.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

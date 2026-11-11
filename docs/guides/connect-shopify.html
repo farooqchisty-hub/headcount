@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>connect-shopify: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Connect Shopify (and other stores)
+
+Used by: catalog-optimizer, roas-autopilot (catalog and revenue truth), flow-architect, campaign-builder, winback-analyst, cro-test-runner, static-ad-factory (product photos), product-photoshoot, monday-standup.
+
+## Shopify: custom app token (about 10 minutes)
+1. Shopify admin, Settings, Apps and sales channels, Develop apps. Allow custom app development if asked.
+2. Create an app (e.g. `Headcount`), Configure Admin API scopes. Pick only what your agents need:
+   - read only reporting (monday-standup, winback-analyst): `read_orders`, `read_customers`, `read_products`; add `read_all_orders` if you need orders older than 60 days.
+   - catalog edits (catalog-optimizer): add `write_products` (drafts first; it shows a diff before publishing).
+   - discounts (campaign-builder, winback-analyst): `read_discounts`, `write_discounts`.
+   - analytics (cro-test-runner): `read_analytics` (ShopifyQL where available).
+3. Install the app, reveal the Admin API access token once, copy it.
+4. Env vars: `SHOPIFY_STORE_DOMAIN` (`yourstore.myshopify.com`), `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_API_VERSION` (our scripts default to `2026-10`; Shopify releases a version each quarter and supports each for at least 12 months).
+5. Test: `curl -s -X POST "https://$SHOPIFY_STORE_DOMAIN/admin/api/$SHOPIFY_API_VERSION/graphql.json" -H "X-Shopify-Access-Token: $SHOPIFY_ADMIN_TOKEN" -H "Content-Type: application/json" -d '{"query":"{shop{name currencyCode}}"}'`
+
+Note: Shopify is moving custom app creation into the Dev Dashboard with client credentials for new apps. If your admin no longer offers "Develop apps", create the app in the Dev Dashboard and use the client ID and secret flow (GeLi2001/shopify-mcp supports both).
+
+Rate limits: GraphQL Admin API uses a cost based leaky bucket; scripts read the `throttleStatus` and slow down.
+
+## WooCommerce
+WooCommerce, Settings, Advanced, REST API, Add key (Read for reporting, Read/Write for catalog edits). Env vars: `WOO_URL`, `WOO_CONSUMER_KEY`, `WOO_CONSUMER_SECRET`. Use HTTPS only.
+
+## Stripe (SaaS, services, coaching)
+Dashboard, Developers, API keys, Create restricted key: read on Charges, Customers, Subscriptions, Invoices; write on Payment Links only if ai-sales-closer should create links (it still asks before sending). Env var: `STRIPE_API_KEY` (an `rk_` key). Never use the secret `sk_` key with agents.
+
+## MCP option
+Shopify/Shopify-AI-Toolkit (MIT), GeLi2001/shopify-mcp (MIT). Stripe publishes an official MCP server; check its licence before enabling.
+
+Sources: shopify.dev/docs/api/admin-graphql, shopify.dev/docs/api/usage/versioning, shopify.dev/docs/api/usage/access-scopes; woocommerce.github.io/woocommerce-rest-api-docs; docs.stripe.com/keys (restricted keys).
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

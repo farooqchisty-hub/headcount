@@ -1,0 +1,140 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motion Graphics Studio: Headcount agent</title><meta name="description" content="Branded motion-graphics reels and explainers made in code (HyperFrames/Remotion) from a brief."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Motion Graphics Studio
+
+## 1. What this agent gets you
+Send a one-paragraph brief, get back a branded motion reel in 9:16 and 1:1, rendered and checked frame by frame. Kinetic type, stat count-ups, product walkthroughs, animated reviews and carousels turned into video.
+
+## 2. Who it is for, and not for
+- For: brands that post often and want clean, on-brand motion without an editor or an After Effects subscription.
+- For: product, SaaS and ecommerce teams with numbers, reviews and features to show.
+- Not for: live-action or talking-head edits (use clip-repurposer) or AI-generated footage (use video-ad-studio).
+- Not for: long explainers over 60 s. These templates are built for 5 to 15 s reels.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost per reel |
+|---|---|---|---|
+| COMPANY.md with a brand-tokens block (company-brain) | yes | 15 min once | free |
+| Node.js 22+ and FFmpeg | yes | 10 min | free |
+| HyperFrames CLI (`npx hyperframes`, Apache-2.0) | yes, fetched by npx on first use | 1 min | free, renders locally |
+| HyperFrames agent skills (`npx hyperframes skills update`) | recommended | 1 min | free |
+| Python 3.9+ | yes | | free |
+No API keys. A 6 s reel renders in about 8 s on a recent laptop (draft quality).
+
+## 4. First run
+- **Claude Code:** `motion-graphics-studio: make a stat reel. 42% fewer abandoned carts in 30 days, source: our store data. 9:16 and 1:1.`
+- **ChatGPT:** upload this folder as project files, then `Use motion-graphics-studio. Write the content.json for a kinetic-type reel on: <claim>.` (ChatGPT cannot run the renderer; run the printed commands on your machine.)
+- **Codex:** `Follow agents/motion-graphics-studio/SKILL.md for this brief: <brief>. Render with npx hyperframes.`
+- **OpenClaw / Hermes:** load as a skill, then `motion-graphics-studio: brief: <brief>`.
+Try it with no setup beyond Node: `python3 scripts/apply_brand.py --template stat-countup --tokens examples/fixtures/brand.json --out out/test && cd out/test && npx hyperframes render --quality draft --output test.mp4`.
+
+## 5. Running it on a schedule
+Usually on demand. For a weekly batch from your calendar:
+- cron: `40 9 * * 2 cd /path/to/motion-graphics-studio && claude -p "motion-graphics-studio: make this week's batch from the content calendar"`
+- Claude Code: `/schedule weekly Tuesday 9:40am: motion-graphics-studio weekly batch`
+Batches stop at the preview step for your approval.
+
+## 6. What good output looks like
+See `examples/example-output.md`: format decisions, the exact commands, check and frame-check results for each export, and the post pack.
+
+## 7. Tuning (the 3 settings that matter)
+- `exports`: add `16x9` for YouTube or your site (needs a `#root.wide` CSS rule in the template).
+- `qa.max_freeze_seconds` (1.5): the dead-air limit. Lower it for faster-feeling reels.
+- `copy.max_words_per_line` (3): kinetic type readability. Raise only for LinkedIn audiences who read slower content.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| `check` fails contrast | Your accent is too light for white text. apply_brand.py picks black or white automatically; rerun it, or darken `muted`. |
+| `first_frame_empty` | The hook must be visible at 0 s. Do not fade the first element in from opacity 0. |
+| frame_check "frozen stretch" | A hold is static too long. Add slow drift (scale 1.00 to 1.05) to the hold. |
+| Render uses your system font instead of the brand font | Ship the font file in the project and add an `@font-face` rule. |
+| `npx hyperframes` errors on Node | Install Node 22 or newer. |
+
+## 9. Safety and platform rules
+- Numbers need a source; reviews must be real and verbatim. Never fake a post, a like count or a verified badge.
+- Use the platform's AI or paid partnership label where it applies.
+- Fonts, music and images must be licensed for video. Templates use system fonts and no audio by default.
+
+
+---
+
+# Connections
+
+No API keys and no MCP servers are required. Everything renders on your machine.
+
+## Required tools
+| Tool | Licence | Get it | Check |
+|---|---|---|---|
+| Node.js 22+ | MIT | nodejs.org or your package manager | `node --version` |
+| FFmpeg (ffmpeg, ffprobe) | LGPL/GPL | ffmpeg.org or `brew install ffmpeg` | `ffmpeg -version` |
+| HyperFrames CLI | Apache-2.0 (heygen-com/hyperframes) | runs via `npx hyperframes` (tested 0.9.31) | `npx hyperframes --version` |
+| GSAP | Standard "no charge" GSAP licence, free for commercial use | loaded from jsDelivr, pinned to 3.14.2 in each template | |
+
+## Recommended
+- HyperFrames agent skills: `npx hyperframes skills update` (or `claude plugin marketplace add heygen-com/hyperframes` then `claude plugin install hyperframes@hyperframes`). Gives your agent the full composition contract, 450 registry blocks and media helpers.
+- HyperFrames Studio desktop app (free) to preview and hand-edit timelines.
+
+## Optional
+- Remotion: only if you are eligible for its free licence or hold a Company License (see references/engine-choice.md).
+- HyperFrames cloud render or Pro plan: paid, optional, never called by this agent unless you ask.
+- treg: if you have your own account, its image and voice tools can supply assets. Not required.
+
+## Environment variables
+None. `HYPERFRAMES_RENDER_DETACHED=1` is optional for long renders.
+
+`mcp.json` is intentionally empty: this agent works through the CLI.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/brand.json`
+- `examples/fixtures/carousel-content.json`
+- `examples/fixtures/stat-content.json`
+- `mcp.json`
+- `references/brand-tokens.md`
+- `references/engine-choice.md`
+- `references/formats.md`
+- `references/render-qa.md`
+- `scripts/apply_brand.py`
+- `scripts/check_setup.py`
+- `scripts/frame_check.py`
+- `scripts/make_variant.py`
+- `templates/animated-review/index.html`
+- `templates/brief.md`
+- `templates/carousel-to-video/index.html`
+- `templates/kinetic-type/index.html`
+- `templates/post.md`
+- `templates/stat-countup/index.html`
+- `templates/ui-walkthrough/index.html`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

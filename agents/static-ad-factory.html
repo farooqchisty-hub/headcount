@@ -1,0 +1,136 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Static Ad Factory: Headcount agent</title><meta name="description" content="Website URL in, 20 finished on-brand static ads out, grounded in real product photos."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Static Ad Factory
+
+## 1. What this agent gets you
+Give it your store URL. You get 20 finished static ads in three sizes, built on your real product photos and real customer arguments, checked for wrong prices, bad claims and unreadable text.
+
+## 2. Who it is for / not for
+For: ecommerce brands (Shopify works best), agencies producing statics for several clients, teams testing on Meta, TikTok or Pinterest.
+Not for: brands without decent product photos (run product-photoshoot first), regulated claims you cannot prove (it will refuse them), or anyone wanting the AI to invent a product look.
+
+## 3. Setup checklist
+- [ ] company-brain has run (colours, fonts, logo, voice, banned claims)
+- [ ] angle-miner has run (recommended; ads are built on its arguments)
+- [ ] Google Chrome or Chromium installed (free; sets the type)
+- [ ] One image key if you want AI backgrounds: Gemini, OpenAI, Replicate or fal
+Time to set up: 15 minutes. Cost per run of 20 ads: $0 if you use brand colour backgrounds only; roughly $1 to $6 for 8 to 15 AI background plates, depending on provider and resolution (check your provider's price page). The agent shows the count and estimate and waits for your yes.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+```
+Run static-ad-factory for https://your-store.com. Use the latest angle bank. Make 20 ads.
+```
+ChatGPT (project with this folder, Chrome step done locally or by the code tool):
+```
+Use the static-ad-factory skill for https://your-store.com. Stop for approval before generating any paid images.
+```
+
+## 5. Running it on a schedule
+Weekly on Tuesday 09:20:
+- cron: `20 9 * * 2 cd /path/to/project && claude -p "Run static-ad-factory weekly batch"`
+- Claude Code: `/schedule weekly Tuesday 09:20 Run static-ad-factory weekly batch`
+- OpenClaw or Hermes: scheduled task with the same prompt.
+The paid image approval still applies on scheduled runs unless you set `image.approval_required: false`.
+
+## 6. What good output looks like
+See `examples/output/`: five fixture ads (hero, testimonial, comparison, statement, offer) with `qa_report.json` all passing, rendered from `examples/fixtures/ad_specs.json`. The product there is a drawn stand-in for a real cutout (example, fictional brand).
+
+## 7. Tuning (the 3 settings that matter)
+- `batch.min_distinct_angles`: raise to 8 for big accounts; diversity of argument is what Meta rewards.
+- `image.default_task`: keep `scene` for product truth; `edit` gives more natural lifestyle shots but needs strict QA.
+- `safe_zones.9x16.bottom_pct`: 35 is the strict default; if your Ads Manager overlay shows less, lower it to 25 to gain space.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| "products.json not available" (exit 3) | Store is not Shopify or blocks it. The agent reads product pages instead; or export your catalogue CSV |
+| "text did not fit" (exit 4) | Shorten the headline; 6 to 8 words fits every size |
+| Product looks pasted on | Choose a plate with matching light direction; the cutout needs a soft shadow (built in) |
+| QA fails on price | Your spec price differs from the live store. Use the live price or wait for the sale to go live |
+| Chrome not found | Install Chrome or set `CHROME_PATH` to your Chromium binary |
+
+## 9. Safety and platform rules
+No fake reviews, no invented people, no fake screenshots of other platforms. Testimonials are your own customers' words, verbatim. Competitor names stay out of ads unless legal approves. Before and after only with real photos and never in regulated categories. Uploads are always paused and handled by another agent after your review.
+
+
+---
+
+# Connections
+
+| Connection | Needed for | Where to get it | Scopes / access | Cost | Env var |
+|---|---|---|---|---|---|
+| Shopify public catalogue | Products, prices, images | Nothing: `https://<store>/products.json` is public on most stores | Public read | Free | none |
+| Chrome or Chromium | Setting real type and exporting PNGs | google.com/chrome or your package manager | Local | Free | `CHROME_PATH` (optional) |
+| Google Gemini API | Background plates, lifestyle edits (Nano Banana Pro) | aistudio.google.com, Get API key | Generative Language API | Pay per image (see ai.google.dev pricing) | `GEMINI_API_KEY` |
+| OpenAI API | GPT Image 1.5 generations and edits | platform.openai.com, API keys | Images | Pay per image, more with `input_fidelity: high` | `OPENAI_API_KEY` |
+| Replicate | Nano Banana Pro, Seedream 4, Flux Kontext Pro | replicate.com, Account, API tokens | Predictions | Pay per run (shown on each model page) | `REPLICATE_API_TOKEN` |
+| fal | Nano Banana Pro edit, Seedream 4 edit | fal.ai, Dashboard, Keys | Model calls | Pay per image | `FAL_KEY` |
+| Shopify Admin API (optional) | Own store: full-size images, inventory, live discounts | Shopify admin, Settings, Apps, Develop apps | `read_products`, `read_inventory`, `read_price_rules` | Free | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_STORE_DOMAIN` |
+| treg (optional) | Only if you already have your own treg account with image models | your account | per tool | per call | `TREG_TOKEN` |
+
+You need one image provider at most. Brand colour backgrounds need none.
+Keys live in your environment or a git ignored `.env`. Scripts never print them; `--dry-run` shows requests with keys redacted.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/ad_specs.json`
+- `examples/fixtures/angles.json`
+- `examples/fixtures/product-cutout.svg`
+- `examples/fixtures/products.json`
+- `examples/fixtures/products.normalised.json`
+- `examples/fixtures/scene_prompt.json`
+- `examples/output/ad01-heat-hero_1x1.png`
+- `examples/output/ad01-heat-hero_4x5.png`
+- `examples/output/ad01-heat-hero_9x16.png`
+- `examples/output/ad02-hotel-testimonial_4x5.png`
+- `examples/output/ad03-flat-compare_1x1.png`
+- `examples/output/ad04-partner-statement_9x16.png`
+- `examples/output/ad05-price-offer_1x1.png`
+- `examples/output/qa_report.json`
+- `examples/output/render_report.json`
+- `examples/output/vision_review.md`
+- `mcp.json`
+- `references/format-catalogue.md`
+- `references/image-prompting.md`
+- `references/qa-rubric.md`
+- `scripts/_common.py`
+- `scripts/check_setup.py`
+- `scripts/fetch_products.py`
+- `scripts/gen_image.py`
+- `scripts/qa_check.py`
+- `scripts/render_ad.py`
+- `templates/ad-spec.example.json`
+- `templates/batch-summary.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

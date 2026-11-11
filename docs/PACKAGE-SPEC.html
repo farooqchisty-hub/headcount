@@ -1,0 +1,103 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PACKAGE-SPEC: Headcount</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Package spec (every agent follows this exactly)
+
+Root: `/Users/azirahat/claude fc/gtm-agents/headcount/agents/<folder>/`
+
+## Files
+
+```
+<folder>/
+  SKILL.md          # REQUIRED. Agent Skills standard. Frontmatter + the full operating procedure.
+  README.md         # REQUIRED. Human guide (see below).
+  CONNECT.md        # REQUIRED. Every API/key/MCP it needs: where to get it, scopes, cost, env var name.
+  config.yaml       # REQUIRED. Every threshold/rule the buyer can edit, with comments and safe defaults.
+  mcp.json          # REQUIRED. MCP servers it uses (mcpServers format). Only MIT/Apache/BSD servers, or official vendor servers.
+  references/       # REQUIRED. 2 to 5 playbook files: the methods, frameworks, benchmarks, templates the agent uses. Original writing, synthesised from research. Cite sources at the bottom of each file.
+  scripts/          # Deterministic helpers. Python 3 STANDARD LIBRARY ONLY (urllib, json, csv, argparse). Every script: --help, --dry-run, reads keys from env, never hardcodes secrets, exits non-zero on error.
+  examples/         # REQUIRED. One worked example run: example-input + example-output, realistic, clearly labelled "example, fictional brand".
+  templates/        # Output templates (reports, briefs, emails) where the agent produces documents.
+```
+
+## SKILL.md structure
+
+```markdown
+---
+name: <folder>
+description: <one sentence: the outcome + when to use it. Under 300 chars. This is what triggers it.>
+---
+
+# <Agent name>
+**Outcome:** <the result it owns>
+**Shift:** <trigger and cadence>
+**Reads:** ../../brain/COMPANY.md (always first)
+
+## Before you start
+- checks: keys present (run scripts/check_setup.py if present), COMPANY.md exists (if not, tell user to run company-brain first)
+
+## Workflow
+### Step 1: <name>
+<exact instructions, tools to call, decision rules, what to save where>
+... (6 to 10 steps, each with decisions, not vague)
+
+## Quality gates
+- <hard checks before any output is shown/used>
+
+## Human checkpoints
+- <exactly where it stops for approval; nothing public, paid or sent without a yes unless config.yaml explicitly allows a class of action>
+
+## Outputs
+- <files written, where, naming>
+
+## Log
+Append a dated entry to ./logs/<folder>.md: what ran, what changed, numbers, next actions. monday-standup reads this.
+
+## Hand-offs
+- <which agents it feeds and how>
+```
+
+## README.md structure (the handoff guide for the buyer)
+1. What this agent gets you (outcome, 2 lines)
+2. Who it is for / not for
+3. Setup checklist (keys, time to set up, cost of APIs per run, honest)
+4. First run: exact message to type in Claude Code / ChatGPT / Codex / OpenClaw / Hermes
+5. Running it on a schedule (cron line, Claude Code /schedule, or OpenClaw/Hermes scheduler)
+6. What good output looks like (point to examples/)
+7. Tuning (the 3 config.yaml settings that matter most)
+8. Troubleshooting (5 common failures and fixes)
+9. Safety and platform rules (ToS, disclosure, rate limits) where relevant
+
+## Hard rules
+- Brand-agnostic. No real brand names as defaults. Examples use fictional brands.
+- No em dashes or en dashes anywhere. Use commas, colons, full stops.
+- Bring your own keys. Never ship any token. Never call a paid API during build/testing; use --dry-run and fixture data.
+- Never bundle code from repos without MIT/Apache/BSD licence. You may point to other repos as optional installs with their licence named.
+- Anything that posts, sends, spends or publishes is behind a human approval checkpoint by default. Config can relax it per action class, never globally.
+- Platform-safety: official APIs first. Disclose affiliation in community replies. AI personas carry AI disclosure labels. No fake reviews, no vote manipulation, no impersonating real people, no buying engagement.
+- Outcome language for humans: plain, short sentences, no jargon the buyer must learn.
+- Depth beats breadth: an agent must contain real decision rules, thresholds and benchmarks, not "analyse the data".
+- treg (treg.dev style tool registry) may be listed as an OPTIONAL connector only if the buyer has their own account. Direct vendor APIs (Meta Marketing API, Google Ads API, etc.) are the primary path.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

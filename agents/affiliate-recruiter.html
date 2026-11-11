@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Affiliate Recruiter: Headcount agent</title><meta name="description" content="A growing affiliate roster recruited from people already ranking for your category."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Affiliate Recruiter
+
+## 1. What this agent gets you
+A steady flow of affiliates who already rank for your category: listicles, comparison sites, YouTube reviewers and newsletters. It pitches them, onboards them and gets them to a first sale.
+
+## 2. Who it is for / not for
+For: ecommerce brands with an affiliate program (or ready to start one) and gross margin over 40%.
+Not for: brands that only want coupon-site volume, or products under $20 AOV where commissions do not pay a publisher.
+
+## 3. Setup checklist
+- [ ] company-brain has run
+- [ ] An affiliate platform with a signup link (Shopify Collabs is free on Shopify)
+- [ ] A SERP API key (DataForSEO or Serper) and a free YouTube API key
+- [ ] Edit config.yaml: category, competitors, max_commission_pct, signup_url
+- [ ] `python3 scripts/check_setup.py`
+Time: 20 minutes. API cost per weekly run: under $1 on pay-per-query SERP APIs.
+
+## 4. First run
+Claude Code: `Use affiliate-recruiter: find and score 25 affiliate prospects for <category> and draft pitches.`
+ChatGPT / Codex: load SKILL.md, same message.
+OpenClaw / Hermes: `run affiliate-recruiter "weekly recruiting batch"`
+
+## 5. Schedule
+- Claude Code: `/schedule every Wednesday 10am: run affiliate-recruiter weekly batch`, plus `/schedule daily 9am: affiliate-recruiter activation follow-ups`
+- cron: `0 10 * * 3 cd /path/to/headcount && claude -p "run affiliate-recruiter weekly"`
+
+## 6. What good output looks like
+`examples/example-output.md`: commission set with a margin check, a scored prospect table with reasons, and a tier review.
+
+## 7. Tuning
+- `base_commission_pct`: leave null to use the category median; raise only to win A-tier listicles.
+- `min_score_to_pitch`: 50 default; raise to 70 if reply rates fall.
+- `first_sale_bonus_usd`: the biggest lever on activation.
+
+## 8. Troubleshooting
+1. **SERP shows only big retailers:** add long-tail queries ("best <category> for <use case>").
+2. **No contacts found:** check About, Contact, "Work with us", newsletter reply-to, YouTube About tab. Do not guess emails.
+3. **Joins but no sales:** run Step 7 activation; check their link is live.
+4. **Coupon sites applying:** keep `allow_coupon_sites: false`, decline in the platform.
+5. **YouTube quota errors:** search.list costs 100 units; cut queries to 50 a day.
+
+## 9. Safety and platform rules
+- Affiliates must disclose commissions clearly (FTC). It is in the onboarding kit.
+- No asking for rankings or positive reviews. No paying for reviews.
+- Pitches go out only after your yes; one follow-up; respect opt-outs forever.
+
+
+---
+
+# Connections: affiliate-recruiter
+
+| What | Why | Where | Scopes | Cost | Env var |
+|---|---|---|---|---|---|
+| SERP API (pick one) | Who ranks for "best <category>" and competitor queries | DataForSEO (dataforseo.com), Serper (serper.dev), SerpApi (serpapi.com) | Search only | DataForSEO SERP is pay per request (fractions of a cent per query on standard queue; check current price). A weekly run of 40 queries costs well under $1 | `SERP_API_KEY` or `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` |
+| YouTube Data API v3 | Review videos and view counts | console.cloud.google.com | API key, public data. search.list 100 units, 10,000 units per day free | Free | `YOUTUBE_API_KEY` |
+| Affiliate platform API | Roster, clicks, sales for tiers | Shopify Collabs (export CSV), Impact, Refersion, UpPromote, GoAffPro, Awin, PartnerStack: each in its settings | Read reports | Platform plan | `AFFILIATE_PLATFORM_TOKEN` (optional, CSV export works) |
+| Email sending | Pitches and activation | Your own mailbox or ESP; the agent drafts only | n/a | n/a | none |
+
+MCP servers in `mcp.json`: `dataforseo-mcp-server` (Apache-2.0, official DataForSEO) and `@playwright/mcp` (Apache-2.0) to read ranking pages and find contact pages. Remove DataForSEO if you use another SERP API.
+Optional: your own treg account can supply SERP data. Direct APIs come first.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output-prospects.csv`
+- `examples/example-output-tiers.csv`
+- `examples/example-output.md`
+- `examples/fixtures/affiliates.csv`
+- `examples/fixtures/prospects.csv`
+- `mcp.json`
+- `references/commission-benchmarks.md`
+- `references/recruiting-playbook.md`
+- `scripts/check_setup.py`
+- `scripts/score_prospects.py`
+- `templates/onboarding-kit.md`
+- `templates/pitch.md`
+- `templates/program-terms.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>costs: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># What a run costs
+
+Honest ranges, in USD, checked 11 Nov 2026. Two kinds of cost:
+1. AI runtime: your Claude Code, Codex, ChatGPT, OpenClaw or Hermes model usage. On a subscription this is included up to its limits; on pay-as-you-go APIs a typical agent run is 20k to 150k tokens, roughly 0.05 to 1.50 USD depending on model.
+2. Third-party API fees: listed below. Reading your own ad, analytics, store and ESP data is free on every platform we use.
+
+Prices change. Each agent shows an estimate before any paid batch and waits for a yes. Set provider budget caps (guides/connect-ai-models.md).
+
+## Assumptions behind the ranges
+- Image generation 0.02 to 0.20 per image depending on model and size.
+- AI video 0.05 to 0.50 per second of output depending on model and resolution; most 15 to 30 s ads need 2 to 4 generations per usable clip.
+- Voiceover about 0.10 to 0.30 per minute of audio on mid tier voice plans.
+- LLM answer checks (AI visibility) about 0.002 to 0.02 per prompt per engine.
+- Contact enrichment 0.01 to 0.10 per lookup, 0.003 to 0.01 per email verification.
+- Web data (SERP, backlinks, scraping) 0.001 to 0.05 per request depending on provider.
+
+## Per agent (API fees per run, excluding your AI runtime)
+| Agent | Typical run | API fees per run |
+|---|---|---|
+| company-brain | interview | 0 |
+| roas-autopilot | daily optimisation | 0 (reads and writes Meta for free); ad spend is yours |
+| google-ads-waste-killer | weekly sweep | 0 |
+| ad-account-watchdog | hourly check | 0 |
+| angle-miner | 300 to 1,000 reviews and comments | 0 to 3 (scraping provider if used) |
+| static-ad-factory | 20 ads | 1 to 6 (images plus retries) |
+| winner-remixer | 10 to 20 variants | 1 to 5 |
+| video-ad-studio | one 15 to 30 s ad | 3 to 25 (video generations, voice) |
+| product-photoshoot | 10 to 20 images | 0.50 to 5 |
+| viral-reel-cloner | find and remake 3 reels | 2 to 20 (data plus video) |
+| motion-graphics-studio | one 15 to 45 s reel | 0 to 1 (rendered locally in code) |
+| clip-repurposer | one long video to 10 clips | 0 to 3 (transcription; local cutting is free) |
+| trend-jacker | daily scan plus 1 to 3 drafts | 0.20 to 3 |
+| founder-brand-engine | week of posts | 0 to 1 (X API paid tier for reading stats is extra) |
+| engagement-agent | daily queue | 0 (X paid tier may apply) |
+| dm-closer | daily inbox | 0 |
+| ai-influencer-farm | one persona week of content | 5 to 40 |
+| social-autopilot | week plan and scheduling | 0 to 1 |
+| reputation-guard | daily replies | 0 to 1 (review platform APIs vary; some are paid plans) |
+| seo-content-pipeline | 1 article | 0.20 to 2 (SERP and keyword data) |
+| programmatic-seo | 100 pages | 2 to 20 (data plus writing tokens at API rates) |
+| technical-seo-fixer | site audit | 0 to 5 (crawler data if used; GSC free) |
+| ai-visibility-tracker | 100 prompts x 4 engines | 1 to 8 |
+| geo-citation-closer | weekly work list | 0.50 to 5 |
+| backlink-builder | daily journalist requests plus weekly prospects | 0.50 to 10 (backlink data provider) |
+| catalog-optimizer | 100 products | 0 to 2 |
+| reddit-buying-signals | daily scan | 0 (Reddit free tier) |
+| signal-prospector | 50 to 200 accounts | 1 to 15 |
+| enrichment-waterfall | 100 contacts | 2 to 12 |
+| outbound-operator | 100 emails plus replies | 0 to 3 (plus your inbox and sending tool subscription) |
+| ai-sales-closer | daily follow-ups | 0 |
+| abm-personalizer | 10 accounts | 1 to 10 (pages, images) |
+| ugc-creator-finder | shortlist of 20 | 0.50 to 10 |
+| influencer-deal-desk | 20 vetted creators | 1 to 15 |
+| affiliate-recruiter | 50 prospects | 0.50 to 8 |
+| flow-architect | audit and 1 flow | 0 |
+| campaign-builder | month plan, 4 to 8 campaigns | 0 to 2 (images if generated) |
+| winback-analyst | monthly read | 0 |
+| competitor-watch | daily changes, weekly brief | 0 to 3 |
+| monday-standup | weekly page | 0 |
+| cro-test-runner | test read | 0 (testing tool subscription is yours) |
+
+Not included: ad spend, creator fees, testing or scheduling tool subscriptions, paid API tiers you choose (X, review platforms, SEO data suites). These are the buyer's own accounts.
+
+Ranges for agents still being finalised are estimates from their planned workflows; each agent's README carries its own figure, which wins if it differs.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

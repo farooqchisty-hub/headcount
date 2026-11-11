@@ -1,0 +1,141 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Founder Brand Engine: Headcount agent</title><meta name="description" content="Grows the founder&#x27;s audience on X and LinkedIn from their real stories, in their voice."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Founder Brand Engine
+
+## 1. What this agent gets you
+A founder who posts on X and LinkedIn every week without writing from scratch. Every post comes from a real story they told in a 15-minute Monday interview, written in their measured voice, with the formats that grow their audience getting more of the calendar.
+
+## 2. Who it is for, and not for
+- For: founders and CEOs whose personal audience sells the company, who have stories but no time.
+- For: teams replacing a $40 to $50 per post ghostwriter with something the founder actually trusts.
+- Not for: anyone who wants invented stories, fake vulnerability or engagement pods. The engine refuses.
+- Not for: founders who will not spend 15 minutes a week. No interview, no posts.
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| COMPANY.md (company-brain) | yes | 15 min once | free |
+| 1,500+ words of the founder's writing or transcripts | yes | 20 min once | free |
+| Past post metrics (CSV export) | recommended | 10 min monthly | free |
+| X API keys (founder's own) | optional, for scheduled posting | 20 min | pay-per-use, about $0.01 per post (reported 2026) |
+| LinkedIn app with Share on LinkedIn (w_member_social) | optional, for scheduled posting | 30 min | free |
+| Python 3.9+ | yes | | free |
+Posting by hand costs nothing and is the default.
+
+## 4. First run
+- **Claude Code:** `founder-brand-engine: first run. Voice samples are in data/voice/. Then interview me.`
+- **ChatGPT:** upload this folder and the samples: `Use founder-brand-engine. Build my voice file, then ask me this week's 5 questions.`
+- **Codex:** `Follow agents/founder-brand-engine/SKILL.md, first-run steps.`
+- **OpenClaw / Hermes:** load the skill; schedule the Monday interview and the Friday analytics read.
+Try it without setup: `python3 scripts/voice_profile.py --dry-run`, `python3 scripts/rank_hooks.py --dry-run`, `python3 scripts/analyze_posts.py --dry-run`.
+
+## 5. Running it on a schedule
+- Monday interview prompt (09:10): `10 9 * * 1 cd /path/to/founder-brand-engine && claude -p "founder-brand-engine: Monday interview"`
+- Friday learning (15:20): `20 15 * * 5 ... claude -p "founder-brand-engine: Friday analytics"`
+- Optional posting worker (only if allow_scheduled_posting is true): `*/15 * * * * cd /path && python3 scripts/post_scheduler.py --live`
+- Claude Code: `/schedule weekly Monday 9:10am: founder-brand-engine interview`.
+
+## 6. What good output looks like
+See `examples/example-output.md`: measured voice, learning table with verdicts, ranked hooks with discarded ones, drafts that sound like the samples, and the posting queue.
+
+## 7. Tuning (the 3 settings that matter)
+- `cadence`: start lower than you think (LinkedIn 2 to 3, X 3 to 5). Consistency wins.
+- `mix`: the 60/30/10 split between proven, steady and new formats.
+- `approvals.allow_scheduled_posting`: false means the founder posts by hand; true lets approved posts go out at their slot through official APIs.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| Drafts do not sound like the founder | Add more raw samples (transcripts beat polished posts); refresh the voice file; log the founder's edits. |
+| Interview answers are vague | Use the follow-ups: moment, detail, change. Do not draft from a summary. |
+| LinkedIn 401 or 403 on posting | Token expired (60 days) or the app lacks w_member_social; regenerate. Check LINKEDIN_VERSION is a supported month. |
+| X 403 on posting | The token needs user context with tweet.write, and the project needs credit. |
+| Every format says "test" | Fewer than 3 posts per format. Keep posting; verdicts appear after 2 to 3 weeks. |
+
+## 9. Safety and platform rules
+- Every post is approved by the founder. Every story is real and theirs.
+- Official APIs only for posting (X API v2, LinkedIn Posts API). No browser automation of the founder's account.
+- No engagement pods, bought followers, auto-DMs or automated comments. Replies are drafted; the founder sends them.
+- Customers stay anonymous unless they agreed to be named.
+
+
+---
+
+# Connections
+
+Default mode needs no keys: the founder posts by hand from the approved drafts.
+
+## Optional: scheduled posting through official APIs
+### X API v2
+- Get it: developer.x.com, create a project and app, enable OAuth 2.0 with user authentication, scopes `tweet.read tweet.write users.read offline.access`. Authorise as the founder.
+- Env var for `post_scheduler.py`: `X_USER_ACCESS_TOKEN` (OAuth 2.0 user-context token; refresh it with the refresh token, they expire after about 2 hours).
+- Env vars for the optional MCP server (EnesCinr/twitter-mcp, MIT, OAuth 1.0a user keys): `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`.
+- Cost: pay-per-use is the default for new developers since early 2026; reports cite about $0.01 per post created and $0.005 per post read. Verify in the Developer Console.
+
+### LinkedIn Posts API
+- Get it: linkedin.com/developers, create an app, add the "Share on LinkedIn" product (self-serve) for `w_member_social`; add "Sign In with LinkedIn using OpenID Connect" to read the member id.
+- Env vars: `LINKEDIN_ACCESS_TOKEN` (member token, about 60 days), `LINKEDIN_PERSON_URN` (`urn:li:person:<id>` from the userinfo endpoint), `LINKEDIN_VERSION` (YYYYMM, a version LinkedIn still supports; default 202510).
+- Analytics: `r_member_postAnalytics` (Community Management API, version 202506+) may require applying for the product; otherwise use the founder's analytics export.
+- Cost: free.
+
+## Optional: transcription of voice notes
+Local Whisper (MIT), see clip-repurposer CONNECT.md. Free.
+
+## MCP
+`mcp.json` lists the optional X MCP server (MIT, official API). There is deliberately no LinkedIn MCP: the available ones automate a logged-in browser session, which conflicts with LinkedIn's terms. Posting to LinkedIn goes through the official Posts API in `post_scheduler.py`.
+
+## treg (optional)
+If you have your own treg account, its social data tools can read public post metrics. Not required.
+
+Keys live in your shell or a git-ignored `.env`, never in shared files.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/hooks.txt`
+- `examples/fixtures/posts.csv`
+- `examples/fixtures/queue.csv`
+- `examples/fixtures/voice_samples.txt`
+- `mcp.json`
+- `references/learning-loop.md`
+- `references/post-playbook.md`
+- `references/story-interview.md`
+- `scripts/analyze_posts.py`
+- `scripts/check_setup.py`
+- `scripts/post_scheduler.py`
+- `scripts/rank_hooks.py`
+- `scripts/voice_profile.py`
+- `templates/interview.md`
+- `templates/voice-file.md`
+- `templates/weekly-drafts.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

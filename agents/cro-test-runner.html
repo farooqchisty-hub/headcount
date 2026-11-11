@@ -1,0 +1,126 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRO Test Runner: Headcount agent</title><meta name="description" content="Conversion lifts shipped through real, statistically valid A/B tests."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># CRO Test Runner
+
+## 1. What this agent gets you
+More of your visitors buy. It finds where people drop off, tests fixes properly, and only ships changes that win a real A/B test.
+
+## 2. Who it is for / not for
+- For: stores and SaaS sites with at least about 30,000 visitors a month to the pages you want to improve, and PostHog or GA4 already installed.
+- Not for: sites under about 10,000 visitors a month. Tests would take months. The agent will tell you this and switch to "fix obvious problems" mode.
+
+## 3. Setup checklist
+- [ ] PostHog personal API key and project id, or GA4 property plus a Google service account (CONNECT.md).
+- [ ] A flag tool: PostHog (same key) or GrowthBook.
+- [ ] Someone who can change the site theme or code, or give the agent a branch to work in.
+- [ ] company-brain has been run.
+- Time to set up: about 20 minutes.
+- Cost per run: free within PostHog and GA4 free tiers. No paid APIs.
+
+## 4. First run
+Type this in Claude Code, ChatGPT, Codex, OpenClaw or Hermes, with this folder installed as a skill:
+
+> Run cro-test-runner. Find my three biggest funnel leaks from the last 28 days, audit those pages, and give me a sized test backlog. Do not launch anything yet.
+
+## 5. Running it on a schedule
+- Claude Code: `/schedule` "every Monday 10:00, run cro-test-runner weekly cycle" and "every day 09:00, run cro-test-runner health check".
+- cron: `0 10 * * 1 cd ~/headcount && claude -p "run cro-test-runner weekly cycle"`
+- OpenClaw / Hermes: add the same two jobs in the scheduler with the prompts above.
+
+## 6. What good output looks like
+See `examples/example-input.md` and `examples/example-output.md`: a ranked leak list, a sized backlog where slow ideas are marked "not testable", and four test calls including one refused for peeking and one thrown out for a split problem.
+
+## 7. Tuning (the 3 settings that matter)
+- `default_mde_relative`: the smallest lift worth finding. Lower = longer tests. 0.10 is sane for most stores.
+- `max_test_days`: tests that would run longer are not run. Raise to 56 only if your traffic is steady.
+- `design`: `fixed` (simplest, no early calls) or `sequential` (allows planned early stops with stricter thresholds).
+
+## 8. Troubleshooting
+1. "Sample ratio mismatch": the split is uneven. Usually bots, a redirect in one arm, or the flag loading after the page. Fix and restart.
+2. "Not testable" on everything: traffic is too low. Test bolder changes, or test on the highest-traffic page only.
+3. No events in the variant arm: the variant code removed or renamed a tracked button. Restore the tracking attribute.
+4. PostHog MCP auth errors: the key needs experiment and feature_flag write scope.
+5. Result says "keep running" but you want an answer: that is the no-peeking rule doing its job. Wait for the planned date.
+
+## 9. Safety and platform rules
+- Nothing goes live without your yes: launch, rolling to 100% and code merges each need approval.
+- No dark patterns: urgency and scarcity only when true; no fake reviews or invented social proof.
+- Respect consent: experiments use the same consent rules as your analytics (no tracking before cookie consent where the law requires it).
+
+
+---
+
+# Connect cro-test-runner
+
+You need one analytics source and one feature-flag tool. PostHog covers both.
+
+| What | Env var | Where to get it | Scopes | Cost |
+|---|---|---|---|---|
+| PostHog personal API key | `POSTHOG_API_KEY` | PostHog > Settings > User > Personal API keys | Read: insight, query, session_recording, experiment. Write: experiment, feature_flag | Free tier includes 1M events and 1M flag requests a month (check posthog.com/pricing) |
+| PostHog project id | `POSTHOG_PROJECT_ID` | PostHog > Settings > Project, the number in the URL | none | free |
+| PostHog host | `POSTHOG_HOST` | `https://us.posthog.com` or `https://eu.posthog.com` | none | free |
+| GA4 property id (alternative to PostHog for analytics) | `GA4_PROPERTY_ID` | GA4 Admin > Property settings | analytics.readonly | free (Data API quotas apply) |
+| Google service account (for the GA4 MCP) | `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_PROJECT_ID` | Google Cloud console > IAM > Service accounts > create key (JSON). Add the service account email as a Viewer on the GA4 property. Enable "Google Analytics Data API" and "Admin API" | analytics.readonly | free |
+| GrowthBook API key (alternative flag tool) | `GROWTHBOOK_API_KEY`, `GROWTHBOOK_API_HOST` | GrowthBook > Settings > API keys (secret key) | read and write features and experiments | open-source self-host free; cloud free tier for small teams; sequential testing is a paid feature |
+
+## MCP servers (mcp.json)
+- `posthog`: official PostHog MCP (MIT, PostHog/mcp), remote at mcp.posthog.com.
+- `google-analytics`: official Google Analytics MCP (Apache-2.0, googleanalytics/google-analytics-mcp), read only.
+GrowthBook is called over its REST API (`/api/v1/features`, `/api/v1/experiments`) from the agent; no MCP needed.
+
+## Browser
+The heuristic audit uses any browser tool your runtime has (Claude in Chrome, Playwright MCP, agent-browser). Read only.
+
+## Cost per run
+Analytics reads and flag changes are free within vendor free tiers. No paid model APIs are required beyond the runtime you already use.
+
+## Never
+Never paste keys into chat or commit them. Put them in your shell profile or the runtime's secret store.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/backlog.csv`
+- `examples/fixtures/test_results.json`
+- `mcp.json`
+- `references/funnel-benchmarks.md`
+- `references/heuristic-audit.md`
+- `references/ice-and-stats.md`
+- `scripts/check_setup.py`
+- `scripts/evaluate_test.py`
+- `scripts/ice_backlog.py`
+- `scripts/sample_size.py`
+- `templates/learnings-log.md`
+- `templates/test-brief.md`
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

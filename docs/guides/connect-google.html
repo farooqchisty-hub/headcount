@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>connect-google: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Connect Google (Ads, GA4, Search Console)
+
+One Google Cloud project and one OAuth client cover all three. About 25 minutes the first time.
+
+Used by: google-ads-waste-killer, ad-account-watchdog, roas-autopilot (if running Google), catalog-optimizer (Merchant Center), seo-content-pipeline, technical-seo-fixer, programmatic-seo, ai-visibility-tracker, cro-test-runner, monday-standup.
+
+## 1. Cloud project and APIs
+1. console.cloud.google.com, create a project (e.g. `headcount`).
+2. APIs and Services, Library, enable: Google Ads API, Google Analytics Data API, Google Analytics Admin API (optional), Google Search Console API, Content API for Shopping or Merchant API (catalog-optimizer only).
+3. OAuth consent screen: User type External (or Internal on Workspace), add yourself as a test user. Scopes:
+   - `https://www.googleapis.com/auth/adwords`
+   - `https://www.googleapis.com/auth/analytics.readonly`
+   - `https://www.googleapis.com/auth/webmasters.readonly` (use `webmasters` only if an agent submits sitemaps)
+4. Credentials, Create credentials, OAuth client ID, type Desktop app. Note client ID and secret.
+
+## 2. Get a refresh token
+Any OAuth helper works. One stdlib way: open this URL (replace CLIENT_ID), approve, copy the `code` from the redirect:
+```
+https://accounts.google.com/o/oauth2/v2/auth?client_id=CLIENT_ID&redirect_uri=http://localhost&response_type=code&access_type=offline&prompt=consent&scope=https://www.googleapis.com/auth/adwords%20https://www.googleapis.com/auth/analytics.readonly%20https://www.googleapis.com/auth/webmasters.readonly
+```
+Then exchange it:
+```
+curl -s https://oauth2.googleapis.com/token -d client_id=$GOOGLE_CLIENT_ID -d client_secret=$GOOGLE_CLIENT_SECRET \
+  -d code=PASTE_CODE -d grant_type=authorization_code -d redirect_uri=http://localhost
+```
+Save `refresh_token`. Apps left in "Testing" publishing status issue refresh tokens that expire after 7 days; publish the consent screen (no verification needed for your own use with under 100 users, you will see an "unverified app" warning) to keep tokens alive.
+
+Env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN`.
+
+## 3. Google Ads
+- Developer token: Google Ads manager account (create one free if you have none), Tools, API Center. Test access works only on test accounts; apply for Basic access (usually approved in a few days) to use real accounts.
+- `GOOGLE_ADS_DEVELOPER_TOKEN`, `GOOGLE_ADS_CUSTOMER_ID` (10 digits, no dashes), `GOOGLE_ADS_LOGIN_CUSTOMER_ID` (the manager account ID, if access is through a manager), `GOOGLE_ADS_API_VERSION` (our scripts default to `v22`; Google retires versions roughly yearly, update when it warns).
+- Turn off auto-apply recommendations (Recommendations, Auto-apply) unless you want them; ad-account-watchdog flags them.
+
+## 4. GA4
+- `GA4_PROPERTY_ID`: Admin, Property settings (a number, not the G- measurement ID).
+- The Google account you authorised needs Viewer on the property.
+
+## 5. Search Console
+- `GSC_SITE_URL`: `sc-domain:example.com` for a domain property, or the exact URL prefix `https://www.example.com/`.
+- The account needs at least Restricted user access. Data lags 2 to 3 days.
+
+## MCP option
+Official: googleanalytics/google-analytics-mcp (Apache-2.0), googleads/google-ads-mcp (Apache-2.0). Community: saurabhsharma2u/search-console-mcp (MIT), kLOsk/adloop (MIT, Google Ads plus GA4 with guarded writes).
+
+Sources: developers.google.com/google-ads/api/docs (OAuth, developer token access levels, versioning); developers.google.com/analytics/devguides/reporting/data/v1; developers.google.com/webmaster-tools/v1; developers.google.com/identity/protocols/oauth2 (refresh token expiry for apps in testing).
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

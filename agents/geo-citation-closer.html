@@ -1,0 +1,145 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GEO Citation Closer: Headcount agent</title><meta name="description" content="Gets you cited by AI engines: listicles, forums, comparison pages, crawler fixes."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># GEO Citation Closer
+
+## 1. What this agent gets you
+AI assistants cite a small set of pages for each question. This agent finds the pages they cite instead of you and works each one: a pitch to the list editor, an honest forum answer, a missing comparison page, or a crawler fix. Then it checks three weeks later whether you got in.
+
+## 2. Who it is for, and not for
+- For: brands already tracking AI visibility (ai-visibility-tracker) who want the number to move.
+- For: teams willing to have a real person post disclosed forum answers and send pitches.
+- Not for: anyone wanting fake reviews, sock-puppet accounts or vote buying. It will refuse.
+- Not for: brands with no product pages worth citing yet. Fix the site first.
+
+## 3. Setup checklist
+| Item | Time | Cost |
+|---|---|---|
+| ai-visibility-tracker has run at least once | see that agent | its API cost |
+| config.yaml brand and competitors (same as the tracker) | 5 min | free |
+| 30 days of access logs in combined format | 10 min to export | free |
+| robots.txt copy | 1 min | free |
+| Optional: Search Console token, Ahrefs or DataForSEO keys (CONNECT.md) | 10 min | pay as you go |
+Honest cost per run: no API calls needed for the core loop. Your time: 30 to 60 minutes a week to approve and send.
+
+## 4. First run
+> Run geo-citation-closer on the latest ai-visibility-tracker gaps. Audit my AI crawler access from logs/access.log and robots.txt, then draft the top actions for my approval.
+
+## 5. Running it on a schedule
+- Cron, Tuesday 07:00 (after the tracker's Monday run): `0 7 * * 2 cd /path/to/geo-citation-closer && python3 scripts/citation_gaps.py --gaps ../ai-visibility-tracker/data/gaps/$(date +\%G-W\%V).json --out data/worklist-$(date +\%G-W\%V).csv`
+- Monthly crawler audit: `0 7 1 * * cd /path/to/geo-citation-closer && python3 scripts/crawler_log_audit.py --logs 'logs/access.log*' --robots robots.txt --out reports/crawler-audit-$(date +\%F).md`
+- Claude Code: `/schedule every Tuesday 7am: run geo-citation-closer weekly shift`
+- OpenClaw or Hermes: weekly job with the First run message.
+
+## 6. What good output looks like
+`examples/example-output/` (fictional brand "Trailhen"): a ranked worklist, a crawler audit that caught a blocked Claude-SearchBot and a CDN blocking PerplexityBot, an llms.txt, and a drafted comparison page, pitch and forum answer.
+
+## 7. Tuning
+1. `gaps.min_citations`: raise to 3 if the list is long and noisy.
+2. `outreach.max_new_pitches_per_week`: 10 keeps quality high. Do not raise above 20.
+3. `remeasure.wait_days`: 21 by default. Engines re-crawl at different speeds; under 14 days you will mark wins as losses.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| "gaps file not found" | Run ai-visibility-tracker `score.py --gaps-out` first. |
+| Audit says under half the lines parsed | Logs are not combined format. Export again or change your server log_format. |
+| Search bot shows zero visits | Check CDN or WAF bot settings; many have one-click AI bot blocking that catches search bots too. |
+| Lots of "spoofed" hits | Normal. Bots are impersonated often. Count only verified IPs. |
+| Wins not showing after 3 weeks | Check the page is indexed (technical-seo-fixer), cited pages were updated, and the prompt set did not change. |
+
+## 9. Safety and platform rules
+- Forum answers always disclose affiliation and are posted by a real employee from their own account. Follow each community's self-promotion rules; Reddit's rules and each subreddit's rules apply.
+- No fake reviews, no review gating where a platform forbids it, no incentives tied to rating (FTC rule on fake reviews and testimonials, 2024).
+- Paid placements must be labelled by the publisher as sponsored.
+- Never edit Wikipedia about your own company.
+- No sends or posts by the agent. Everything is a draft until you approve and send it yourself.
+
+
+---
+
+# Connect: keys and services
+
+The core loop needs no keys. It runs on: the gaps JSON from ai-visibility-tracker, your access logs, robots.txt and sitemap.
+
+| Env var | Service | Where to get it | Scope | Cost | Used for |
+|---|---|---|---|---|---|
+| `GSC_ACCESS_TOKEN` (optional) | Google Search Console API | Google Cloud console, OAuth client, scope `https://www.googleapis.com/auth/webmasters.readonly` | read only | free | Impressions for new comparison and tool pages |
+| `AHREFS_API_KEY` (optional) | Ahrefs API v3 | ahrefs.com account, API keys | Enterprise or API plan | per row | Referring pages and authors of listicles |
+| `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` (optional) | DataForSEO SERP API | app.dataforseo.com/api-access | pay as you go | about $0.002 per SERP (check pricing) | Finding more "best X" lists for a prompt |
+
+## Free files you supply
+- Access logs: nginx or apache combined format, 30 days. Cloudflare users: export via Logpush or use the dashboard's AI crawl report; convert to combined format.
+- Vendor IP range files (free, optional) for spoof detection:
+  - https://openai.com/searchbot.json, https://openai.com/gptbot.json, https://openai.com/chatgpt-user.json
+  - https://www.perplexity.ai/perplexitybot.json, https://www.perplexity.ai/perplexity-user.json
+  - https://claude.com/crawling/bots.json
+  - https://developers.google.com/static/search/apis/ipranges/googlebot.json
+  Save each as `ranges/<BotToken>.json`.
+
+## MCP (optional)
+mcp.json lists the Search Console MCP (MIT) and DataForSEO MCP (Apache-2.0, official). Neither is required.
+
+## Optional
+- treg, only with your own account, can stand in for SERP lookups. Direct vendor APIs are the primary path.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-config.yaml`
+- `examples/example-output/crawler-audit.json`
+- `examples/example-output/crawler-audit.md`
+- `examples/example-output/drafts/compare-trailhen-vs-pinecart.md`
+- `examples/example-output/drafts/forum-runnersden.md`
+- `examples/example-output/drafts/pitch-gearjournal.md`
+- `examples/example-output/llms.txt`
+- `examples/example-output/worklist-2026-W46.csv`
+- `examples/fixtures/access.log`
+- `examples/fixtures/gaps-2026-W46.json`
+- `examples/fixtures/ip-ranges/OAI-SearchBot.json`
+- `examples/fixtures/robots.txt`
+- `examples/fixtures/sitemap.xml`
+- `mcp.json`
+- `references/ai-crawlers.md`
+- `references/lanes-playbook.md`
+- `references/what-gets-cited.md`
+- `scripts/_common.py`
+- `scripts/check_setup.py`
+- `scripts/citation_gaps.py`
+- `scripts/crawler_log_audit.py`
+- `scripts/llms_txt.py`
+- `templates/alternatives-page.md`
+- `templates/comparison-page.md`
+- `templates/forum-answer.md`
+- `templates/listicle-pitch.md`
+- `templates/robots-snippet.txt`
+- `templates/tool-page-brief.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

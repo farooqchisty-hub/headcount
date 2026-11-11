@@ -1,0 +1,130 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Engagement Agent: Headcount agent</title><meta name="description" content="Engages on your behalf: strategic comments and replies that grow reach, under rate limits and approval rules."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Engagement Agent
+
+## 1. What this agent gets you
+More people visiting your profile and following you, from comments that actually say something. Every comment on your own posts gets an answer within hours.
+
+## 2. Who it is for / not for
+For: founders and brands with an active account on X, Instagram, LinkedIn, Facebook or YouTube who want reach without buying ads, and who can spend 20 to 40 minutes a day approving.
+Not for: anyone wanting thousands of automated comments a day, follower buying, or engagement pods. The agent refuses all of that.
+
+## 3. Setup checklist
+- [ ] Run company-brain first (voice rules, product names, buyer pains).
+- [ ] Connect at least one platform (CONNECT.md). Instagram or Facebook: 20 minutes. X: 15 minutes. LinkedIn org API: needs approval, days.
+- [ ] Give the agent 3 comments you wrote yourself so it can match your voice.
+- [ ] Optional: list 20 accounts in your niche you already respect. The agent builds the rest of the watchlist.
+Cost per run: Meta, LinkedIn and YouTube APIs are free at this volume. X reads are paid per your X plan; a daily run reads roughly 300 to 600 posts. LLM cost is a few cents a day.
+
+## 4. First run
+Claude Code / Codex / OpenClaw / Hermes:
+> Run engagement-agent. Do the inbound sweep on my Instagram and X, build today's outbound list from my watchlist, and show me the approval queue.
+
+ChatGPT (with the files uploaded as a project):
+> Use the engagement-agent skill. Here are my last 20 comments and 10 niche posts. Draft replies and the approval queue.
+
+## 5. Running it on a schedule
+- Claude Code: `/schedule` "Run engagement-agent inbound sweep" every 3 hours 9:00 to 21:00, and "outbound list" daily at 08:10.
+- cron: `10 8 * * * cd ~/headcount/agents/engagement-agent && claude -p "Run engagement-agent outbound list and queue"`
+- OpenClaw/Hermes: add two scheduled jobs with the same messages.
+The agent still waits for your approval; scheduling only prepares the queue.
+
+## 6. What good output looks like
+See `examples/example-output.md`: a queue of specific comments, each with the reason it was picked, plus rows the gate sent back for rewriting.
+
+## 7. Tuning (the 3 settings that matter)
+- `lanes.outbound.big_account_reply_window_minutes` (30): lower to 15 if you are online often; raise only if follows per comment stay high late.
+- `rate_limits` per platform: start low. Raise by 20% a week only if no warnings.
+- `comment_rules.max_similarity_to_recent` (0.55): lower to 0.45 if comments start to sound samey.
+
+## 8. Troubleshooting
+| Problem | Fix |
+|---|---|
+| "REWRITE: does not reference anything specific" on most drafts | The agent is not reading posts closely; ask it to quote the phrase it is responding to before drafting |
+| X reply returns 403 | X only allows API replies when the author mentioned or quoted you. Use the web-intent link in the queue |
+| Instagram error code 4 or 613 | Rate limited. The agent pauses 24 h. Lower `rate_limits.instagram` |
+| Follows flat after 3 weeks | Check the profile checklist in references/reply-strategy.md; shift the watchlist to the 5k to 50k band |
+| LinkedIn comments missing | Community Management API not approved yet; LinkedIn stays manual until then |
+
+## 9. Safety and platform rules
+- Official APIs only. Outbound comments on others' posts are posted by you, by clicking. No bots logging in as you.
+- Hard caps per hour and day, far below platform ceilings, with random spacing.
+- No generic praise, no links, no hashtags, no copy-paste comments. Product mentions always carry "I work at ...".
+- Kill switch: `kill_switch: true` in config.yaml or a file named STOP stops everything.
+- Read references/platform-rules.md for per-platform terms.
+
+
+---
+
+# Connect: engagement-agent
+
+All keys are yours. Put them in your shell environment or a `.env` your runtime loads. The agent reads env vars only and never prints values. Connect only the platforms you use; one is enough to start.
+
+| Env var | What it is | Where to get it | Scopes / permissions | Cost |
+|---|---|---|---|---|
+| `IG_ACCESS_TOKEN`, `IG_USER_ID` | Instagram professional account token (Instagram login) or Page token with IG linked (Facebook login) | developers.facebook.com: create a Business app, add Instagram product, generate a long-lived token | `instagram_business_basic`, `instagram_business_manage_comments` (IG login) or `instagram_basic`, `instagram_manage_comments`, `pages_show_list` (FB login). Insights: `instagram_manage_insights` | Free |
+| `FB_PAGE_ACCESS_TOKEN`, `FB_PAGE_ID` | Long-lived Page token | Meta app, Graph API Explorer, then exchange for long-lived | `pages_manage_engagement`, `pages_read_engagement`, `pages_read_user_content` | Free |
+| `X_USER_ACCESS_TOKEN`, `X_USER_ACCESS_SECRET`, `X_API_KEY`, `X_API_SECRET` | OAuth 1.0a user context for your account | developer.x.com, project and app, "Keys and tokens" | Read and write. Needed for non_public_metrics on your replies | Pay-per-use or tier plan. Reads of your own tweets and mentions are low volume; check your plan's pricing page |
+| `X_BEARER_TOKEN` | App-only token for recent search of watchlist posts | same | Read | Counts toward read usage |
+| `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_ORG_URN` | Organization admin token | linkedin.com/developers, Community Management API product (requires approval) | `r_organization_social`, `w_organization_social` | Free, approval takes days to weeks |
+| `YOUTUBE_OAUTH_TOKEN`, `YOUTUBE_API_KEY` | OAuth for comments, API key for public search | console.cloud.google.com, enable YouTube Data API v3 | `https://www.googleapis.com/auth/youtube.force-ssl` | Free within 10,000 units per day. Comment insert is 50 units, search is 100 |
+
+## Meta app review
+For your own accounts in Development mode, no review is needed: you are an admin of the app. To run it for clients, Meta requires App Review for each permission plus Business Verification.
+
+## MCP servers (mcp.json)
+- `twitter`: EnesCinr/twitter-mcp, MIT licence. Optional: the agent can call X endpoints directly instead. Package name to verify on npm before install: `@enescinar/twitter-mcp`.
+- No MCP is used for Instagram, Facebook, LinkedIn or YouTube: the agent calls the official REST endpoints listed in SKILL.md.
+- Optional: treg, only if you have your own treg account, for read-only discovery of niche posts. Not required.
+
+## Never
+- Never paste tokens in chat or in config.yaml.
+- Never use unofficial "private API" libraries or browser bots that log in as you. They break platform terms and get accounts restricted.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input.md`
+- `examples/example-output.md`
+- `examples/fixtures/action_log.csv`
+- `examples/fixtures/comment_results.csv`
+- `examples/fixtures/drafts.json`
+- `examples/fixtures/targets.json`
+- `mcp.json`
+- `references/comment-craft.md`
+- `references/platform-rules.md`
+- `references/reply-strategy.md`
+- `scripts/check_setup.py`
+- `scripts/learn.py`
+- `scripts/plan_queue.py`
+- `scripts/yaml_lite.py`
+- `templates/approval-queue.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

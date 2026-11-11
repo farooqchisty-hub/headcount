@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LICENSES: Headcount</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Third-party licences
+
+Headcount's own files (agents, scripts, guides, installer) are original work under the Headcount commercial licence. As of 11 Nov 2026 Headcount bundles no third-party source code. Everything below is referenced: agents point to it as an optional install or call it as a service, and the buyer installs it under its own licence.
+
+Licences were read from the GitHub API (`gh api repos/<owner>/<repo>`) on 11 Nov 2026. Re-check before you redistribute anything; licences change.
+
+## Rules
+- Bundle (copy into this package) only MIT, Apache-2.0 or BSD code, with its licence file and notices kept.
+- AGPL-3.0: run as a separate service the buyer hosts; never copy its code into Headcount.
+- BSL, "NOASSERTION" or no licence: reference only, or do not use.
+- Official vendor MCP servers and APIs: used under the vendor's terms.
+
+## Referenced repositories
+| Repository | Licence | How Headcount uses it |
+|---|---|---|
+| agentskills/agentskills | Apache-2.0 | format standard for SKILL.md (no code bundled) |
+| googleanalytics/google-analytics-mcp | Apache-2.0 | optional MCP (official Google) |
+| googleads/google-ads-mcp | Apache-2.0 | optional MCP (official Google) |
+| kLOsk/adloop | MIT | optional MCP (Google Ads, GA4) |
+| gomarble-ai/google-ads-mcp-server | MIT | optional MCP |
+| irinabuht12-oss/google-ads-meta-ads-mcp | MIT | optional MCP |
+| mikusnuz/meta-ads-mcp | MIT | optional MCP (Meta Marketing API) |
+| brandu-mos/konquest-meta-ads-mcp | MIT | optional MCP |
+| pipeboard-co/meta-ads-mcp | NOASSERTION (BSL per its terms) | NOT used: no resale allowed |
+| saurabhsharma2u/search-console-mcp | MIT | optional MCP |
+| FlorianBruniaux/google-search-console-mcp | MIT | optional MCP |
+| dataforseo/mcp-server-typescript | Apache-2.0 | optional MCP (paid DataForSEO account) |
+| AgriciDaniel/claude-seo | MIT | pointed to as optional companion |
+| addyosmani/agentic-seo | MIT | method reference |
+| elmohq/elmo | MIT | optional AI visibility tool |
+| yaojingang/GEORank | Apache-2.0 | method reference |
+| onvoyage-ai/gtm-engineer-skills | MIT | method reference |
+| Shopify/Shopify-AI-Toolkit | MIT | optional install |
+| GeLi2001/shopify-mcp | MIT | optional MCP |
+| doinglean/klaviyo-mcp | MIT | optional MCP (small project; review before use) |
+| shinzo-labs/hubspot-mcp | MIT | optional MCP |
+| PostHog/mcp | MIT | optional MCP |
+| apolloio/apollo-mcp-plugin | MIT | optional MCP (paid Apollo account) |
+| LeadMagic/gtm-skills | MIT | method reference |
+| gtmagents/gtm-agents | Apache-2.0 | method reference |
+| stickerdaniel/linkedin-mcp-server | Apache-2.0 | referenced; LinkedIn ToS limits automation (see safety guide) |
+| Linked-API/linkedin-skills | MIT | referenced; paid Linked API service |
+| karanb192/reddit-mcp-buddy | MIT | optional MCP (read only) |
+| jordanburke/reddit-mcp-server | MIT | optional MCP |
+| EnesCinr/twitter-mcp | MIT | optional MCP |
+| Seym0n/tiktok-mcp | MIT | optional MCP |
+| exa-labs/exa-mcp-server | MIT | optional MCP (paid Exa account) |
+| apify/apify-mcp-server | MIT | optional MCP (paid Apify actors) |
+| ComposioHQ/composio | MIT | optional connector layer |
+| browser-use/browser-use | MIT | optional browser automation for read tasks |
+| vercel-labs/agent-browser | Apache-2.0 | optional browser automation for read tasks |
+| microsoft/playwright-mcp | Apache-2.0 | optional MCP |
+| unclecode/crawl4ai | Apache-2.0 | optional crawler |
+| dgtlmoon/changedetection.io | Apache-2.0 | optional self-hosted page change monitor (competitor-watch) |
+| heygen-com/hyperframes | Apache-2.0 | optional install for HTML to video (motion-graphics-studio) |
+| harry0703/MoneyPrinterTurbo | MIT | referenced as optional video pipeline |
+| Anil-matcha/AI-Youtube-Shorts-Generator | MIT | referenced as optional clipping pipeline |
+| coreyhaines31/marketingskills | MIT | method reference |
+| wshobson/agents | MIT | packaging pattern reference |
+| unifapi-agent/agents | MIT | competitor, packaging pattern reference |
+| remotion-dev/remotion | NOASSERTION (Remotion licence: free for individuals and small companies, company licence above its size threshold) | optional install; buyer checks whether they need a company licence |
+| firecrawl/firecrawl | AGPL-3.0 | service only (hosted API or the buyer's own instance) |
+| gitroomhq/postiz-app | AGPL-3.0 | service only: social-autopilot calls the buyer's own Postiz instance over its API/MCP endpoint |
+| anthropics/skills | no licence file | reference only, nothing copied |
+| calcom/cal-mcp | no licence file | not used; outbound-operator uses the Cal.com REST API |
+| Othmane-Khadri/YALC | repository not found on 11 Nov 2026 | not referenced by any agent |
+
+## Official vendor APIs and servers
+Meta Marketing and Graph APIs, Google Ads API, GA4 Data API, Search Console API, YouTube Data API, Shopify Admin API, Stripe API, Klaviyo, Mailchimp, Brevo, HubSpot, Omnisend, X API, LinkedIn APIs, TikTok APIs, Reddit Data API, OpenAI, Anthropic, Google Gemini, Perplexity, Replicate, fal, ElevenLabs. Each is used under the vendor's developer terms with the buyer's own account and keys.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

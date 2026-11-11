@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monday Standup: Headcount agent</title><meta name="description" content="One page every Monday: what moved, why, what each agent does next."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Monday Standup
+
+## 1. What this agent gets you
+One page every Monday: the up to 4 numbers that moved beyond normal, why each moved, and what each of your agents does next. Replaces the weekly "what changed and why" report that takes most operators hours.
+
+## 2. Who it is for / not for
+- For: anyone running two or more Headcount agents, or with at least ads plus a store or ESP.
+- For agencies: one page per client plus an index (agency mode).
+- Not for: live dashboards or daily alerts. ad-account-watchdog covers hourly problems.
+
+## 3. Setup checklist
+- Required: brain/COMPANY.md (run company-brain first) and at least one revenue source (Shopify, Stripe or GA4).
+- Recommended: Meta, Google Ads, ESP export, Search Console. See CONNECT.md.
+- Time: 20 to 40 minutes for keys the first time, mostly Google OAuth.
+- Cost per run: no API fees (all read APIs used are free). AI tokens roughly 20k to 50k per run.
+- Check: `python3 agents/monday-standup/scripts/check_setup.py`
+
+## 4. First run
+Start from your Headcount home (`cd ~/headcount`):
+- Claude Code: `Run monday-standup for last week`
+- ChatGPT (Custom GPT "Monday Standup"): upload `data/weekly.csv` and your `logs/*.md`, then `Run the standup on these files`
+- Codex: `Use the monday-standup skill for last week`
+- OpenClaw: `/monday-standup` or "run the standup"
+- Hermes: `hermes chat -s monday-standup` then `Run the standup for last week`
+Try it with no keys: `python3 agents/monday-standup/scripts/build_standup.py --dry-run`
+
+## 5. Running it on a schedule
+- cron (Mondays 07:00): `0 7 * * 1 cd ~/headcount && claude -p "Run monday-standup for last week" >> logs/cron.log 2>&1`
+- Claude Code: `/schedule every Monday at 7am: run monday-standup for last week`
+- OpenClaw: `openclaw cron add --cron "0 7 * * 1" --tz "America/New_York" --session isolated --message "Run monday-standup for last week"`
+- Hermes: `hermes cron create "every monday 7am" "Run the standup for last week" --skill monday-standup --workdir ~/headcount`
+
+## 6. What good output looks like
+`examples/example-output/standup.md` (fictional tea brand). The script draft it came from: `examples/example-output/standup-draft.md`.
+
+## 7. Tuning (config.yaml)
+- `sigma_threshold` and `pct_threshold`: how unusual a move must be to make the page (2.0 and 25 percent). Raise them if the page feels noisy.
+- `min_material_pct`: stops tiny but statistically unusual wobbles (5 percent).
+- `metrics` weights and `north_star`: what matters most for your business. SaaS: raise `stripe.*`, drop `shopify.*`.
+
+## 8. Troubleshooting
+1. "No source returned data": keys missing. Run check_setup.py; it lists the env var names it needs.
+2. Google 403: the OAuth account is not a user on the GA4 property or GSC site, or the API is not enabled in your Cloud project.
+3. Everything flagged in week 1: you have fewer than 4 weeks of history. Metrics show "new" until 3 baseline weeks exist.
+4. Numbers differ from Ads Manager: attribution windows differ. Meta reports its own attributed purchases; Shopify is ground truth for revenue. The page uses each source as is and says which.
+5. "Not explained yet" on a big move: no agent logged a change. Answer the one question it asks (promo, stock, site change) and it adds it to the page.
+
+## 9. Safety
+Read only. It never changes budgets, campaigns or flows. Approvals it lists go back to the owning agent, which waits for your yes.
+
+
+---
+
+# Connections for monday-standup
+
+All read only. Connect what you use; the page works with any subset. Full walkthroughs in `guides/`.
+
+| Source | What it gives | Where to get it | Scopes / permissions | Cost | Env vars |
+|---|---|---|---|---|---|
+| GA4 | sessions | Google Cloud project, enable "Google Analytics Data API"; OAuth client; add the account as Viewer on the GA4 property | `analytics.readonly` | free | `GA4_PROPERTY_ID` + Google OAuth |
+| Google Search Console | clicks, impressions, position | enable "Search Console API"; the account must be a user on the property | `webmasters.readonly` | free | `GSC_SITE_URL` (e.g. `sc-domain:example.com`) + Google OAuth |
+| Google Ads | spend, conversions, value | Google Ads API Center: developer token (Basic access is enough to read your own accounts); OAuth | `adwords` | free | `GOOGLE_ADS_CUSTOMER_ID`, `GOOGLE_ADS_DEVELOPER_TOKEN`, optional `GOOGLE_ADS_LOGIN_CUSTOMER_ID` (manager), `GOOGLE_ADS_API_VERSION` |
+| Meta ads | spend, impressions, clicks, purchases, value | Meta Business Suite: System User with access to the ad account, generate token | `ads_read` | free | `META_AD_ACCOUNT_ID`, `META_ACCESS_TOKEN`, `META_API_VERSION` |
+| Shopify | revenue, orders, new customers | Shopify admin: Settings, Apps, Develop apps, create app, Admin API access token | `read_orders`, `read_customers` (orders older than 60 days also need `read_all_orders`) | free | `SHOPIFY_STORE_DOMAIN` (`store.myshopify.com`), `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_API_VERSION` |
+| Stripe | revenue, new customers | Stripe dashboard: Developers, API keys, create restricted key | read on Charges and Customers | free | `STRIPE_API_KEY` (restricted `rk_` key) |
+| ESP (Klaviyo, Mailchimp, Brevo, Omnisend, etc.) | attributed revenue, delivered, clicks, unsubscribes | weekly CSV export from your ESP, or an ESP MCP server | read only key if using MCP | free | `--esp-csv path`; Klaviyo MCP: `KLAVIYO_API_KEY` |
+
+Google OAuth for GA4, GSC and Google Ads (pick one):
+- `GOOGLE_ACCESS_TOKEN` (short lived, for testing), or
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN` (one Desktop OAuth client with all three scopes; see guides/connect-google.md).
+
+MCP route (optional): `mcp.json` lists the official Google Analytics and Google Ads MCP servers (Apache-2.0) plus MIT community servers for Search Console, Shopify, Meta and Klaviyo. The agent uses them when a script source is skipped.
+
+Cost per run: zero API fees (all these APIs are free to read). AI tokens: roughly 20k to 50k per run, more in agency mode (per client).
+
+Never paste keys into chat or COMPANY.md. Put them in your shell profile or a `.env` file that is not committed.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/example-input/README.md`
+- `examples/example-output/standup-draft.md`
+- `examples/example-output/standup.md`
+- `mcp.json`
+- `references/variance-method.md`
+- `references/why-it-moved.md`
+- `references/writing-the-page.md`
+- `scripts/build_standup.py`
+- `scripts/check_setup.py`
+- `scripts/collect_logs.py`
+- `scripts/fixtures/logs/ad-account-watchdog.md`
+- `scripts/fixtures/logs/flow-architect.md`
+- `scripts/fixtures/logs/google-ads-waste-killer.md`
+- `scripts/fixtures/logs/roas-autopilot.md`
+- `scripts/fixtures/logs/seo-content-pipeline.md`
+- `scripts/fixtures/logs/winback-analyst.md`
+- `scripts/fixtures/weekly.csv`
+- `scripts/miniyaml.py`
+- `scripts/pull_metrics.py`
+- `scripts/variance.py`
+- `templates/standup.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
