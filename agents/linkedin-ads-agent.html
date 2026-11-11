@@ -1,0 +1,183 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinkedIn Ads Agent: Headcount agent</title><meta name="description" content="LinkedIn Ads at your CAC goal: fatigued ads paused when cost jumps, budget moved to what converts, and target accounts see ads and pages made for them (ABM lane)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># LinkedIn Ads Agent
+
+## 1. What this agent gets you
+LinkedIn Ads run to the customer cost you can afford. Every morning it checks spend, cost per conversion and creative fatigue, asks you to pause the ads that went stale when cost jumps, and moves budget from the campaigns that lose money to the ones that win. Named target accounts get their own ads and landing pages, and the ones that engage reach your outbound queue that week.
+
+## 2. Who it is for / not for
+- **For:** B2B sellers spending roughly 3,000 USD a month or more on LinkedIn, with a customer value that justifies LinkedIn prices, and anyone with a named-account list of 20 to 500 companies.
+- **Not for:** budgets under about 1,000 USD a month (too few conversions to judge; the plan step says so), consumer products, or lists of thousands with no signal (start with cold email).
+
+## 3. Setup checklist
+| Item | Needed? | Time | Cost |
+|---|---|---|---|
+| company-brain run (CAC target, approver, offer, proof, brand colours) | yes | once | free |
+| Lead to customer rate from your CRM (LinkedIn leads that became customers) | yes | 15 min | free |
+| LinkedIn Insight Tag and one conversion rule, or Lead Gen Forms | yes | 30 min | free |
+| LinkedIn developer app with Advertising API access, token with `r_ads_reporting`, `rw_ads` | to read numbers and make approved changes | days (LinkedIn approves by hand) | free |
+| A static host for ABM pages | ABM lane only | 15 min | often free |
+| Growth ledger (installed with Headcount) | recommended | none | free |
+API calls are free; your ad spend is separate. AI tokens: about 15k to 40k per daily run. Without API access the agent still plans, writes ABM pages and ads, and judges an export you upload.
+
+## 4. First run
+Claude Code, Codex, OpenClaw, Hermes:
+> Run linkedin-ads-agent. Plan first with my CAC target, then pull the last 28 days and show me today's decisions. Change nothing until I say yes.
+
+ChatGPT (Custom GPT "LinkedIn Ads Agent"): upload a Campaign Manager export (creative performance by day, last 28 days) and your COMPANY.md, then:
+> Judge these LinkedIn ads against a CAC of 900 with 15 percent of leads becoming customers.
+
+Try it with no keys (example, fictional brand):
+```
+python3 scripts/rules_engine.py plan --format md
+python3 scripts/linkedin_insights.py pull --fixture --no-ledger --out /tmp/snap.json
+python3 scripts/rules_engine.py daily --snapshot /tmp/snap.json --format md
+python3 scripts/linkedin_ads.py pause-creative --creative-urn urn:li:sponsoredCreative:9002
+```
+
+## 5. Running it on a schedule
+- cron (daily 09:00): `0 9 * * * cd ~/headcount && claude -p "Run linkedin-ads-agent daily loop. Ask before any change." >> logs/cron.log 2>&1`
+- Claude Code: `/schedule every day at 9am: run linkedin-ads-agent daily loop` and `/schedule mondays 9:30am: linkedin-ads-agent weekly verdict and ABM refresh`
+- OpenClaw: `openclaw cron add --cron "0 9 * * *" --session isolated --message "Run linkedin-ads-agent daily loop"`
+- Hermes: `hermes cron create "every day 9am" "Run the LinkedIn Ads daily loop" --skill linkedin-ads-agent --workdir ~/headcount`
+Scheduled runs still stop at approvals: they draft the decisions, log "waiting for approval" and wait for you.
+
+## 6. What good output looks like
+`examples/` (example, fictional brands):
+- `performance/`: a 28 day snapshot, today's decisions (one fatigued ad paused after cost jumped 64 percent, one ad with no conversions paused, 12 a day shifted from retargeting to the best prospecting campaign, an audience hold flagged), the weekly verdict and the plan.
+- `abm/`: target accounts, two tier 1 pages written for one company each, ads, and an engaged account handed to outbound.
+Good means: CAC within 15 percent of target by week 4, at least 3 live ads per campaign, and 10 to 20 percent of tier 1 and 2 ABM accounts engaging within 30 days.
+
+## 7. Tuning (config.yaml)
+1. `goal.lead_to_customer_rate`: the most important number. Too high and the agent scales campaigns that bring leads who never buy. Recheck it quarterly, or export closed customers by campaign so the agent uses true CAC.
+2. `rules.cac_jump_share` (1.25) and `fatigue.frequency_7d_max` (4): how fast fatigued ads get paused. Small audiences: raise frequency to 6.
+3. `approvals.autopilot_band`: turn on `allow_pause_creative` once you trust the pauses; keep `allow_pause_campaign` off.
+
+## 8. Troubleshooting
+| Symptom | Fix |
+|---|---|
+| 401 or 403 | Token expired (LinkedIn tokens last 60 days) or lacks `r_ads_reporting` / `rw_ads`, or your ad account role is VIEWER. |
+| 400 about the version header | `api.version` is sunset. Set the current YYYYMM (references/linkedin-ads-api.md). |
+| Everything says WAIT | Campaigns under 7 days or under one target cost per conversion of spend. Normal in week 1. |
+| Zero conversions everywhere | The Insight Tag or conversion rule broke. The agent stops judging until you fix it. |
+| A1 audience hold | Audience under 300 matched members. Widen or merge campaigns. |
+| Pause fails with 400 | The ad is still in LinkedIn review; it cannot be paused until review ends. |
+
+## 9. Safety and platform rules
+- Nothing is ever activated by the agent. New campaigns and ads are created as DRAFT; you switch them on in Campaign Manager.
+- Every pause and budget change waits for your yes unless you enable that class in the autopilot band, and budget steps are capped at 20 percent.
+- Official LinkedIn Marketing API only. No browser automation of LinkedIn (it breaks the User Agreement).
+- ABM: no other company's logo in paid ads, personalised pages are `noindex`, and follow-ups never mention that someone saw an ad or visited a page.
+- LinkedIn advertising policies apply to all copy and images.
+
+
+---
+
+# Connect: linkedin-ads-agent
+
+| Service | Env var | Where to get it | Scopes or settings | Cost | Used for |
+|---|---|---|---|---|---|
+| LinkedIn Marketing API | `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_AD_ACCOUNT_ID` | developer.linkedin.com: create an app, verify it with your company page, request the Advertising API product; OAuth 2.0 member token from a member with CAMPAIGN_MANAGER (or higher) on the ad account | `r_ads_reporting` (numbers), `rw_ads` (pause, budgets, drafts), `w_organization_social` (ABM sponsored-only posts) | free API; ad spend separate | daily pull, approved changes, ABM drafts |
+| Your company page | `LINKEDIN_ORG_URN` | the number in your page admin URL: `urn:li:organization:<number>` | page role ADMINISTRATOR or DIRECT_SPONSORED_CONTENT_POSTER | free | author of ABM sponsored posts |
+| API version | `LINKEDIN_API_VERSION` (optional) | learn.microsoft.com/linkedin/marketing/versioning | YYYYMM, default `202610` from config | free | Linkedin-Version header |
+| LinkedIn Insight Tag | none | Campaign Manager, Analyze, Insight Tag; then a conversion rule | 30 day click, 7 day view windows by default | free | the conversions the agent judges |
+| CRM export (optional) | none | your CRM: closed-won deals with the LinkedIn campaign id (UTM or LinkedIn's CRM sync) | CSV `date,campaign_id,customers` | free | true CAC instead of implied |
+| Growth ledger | none | installed with Headcount (`../growth-ledger`) | none | free | budget change history, every live change recorded |
+| HubSpot (optional) | `HUBSPOT_ACCESS_TOKEN` | private app | `crm.objects.companies.read`, `crm.objects.contacts.read`, `crm.objects.deals.read` | free tier | contacts at target accounts, closed customers |
+| Exa (optional) | `EXA_API_KEY` or Exa MCP | dashboard.exa.ai | none | per search | extra tier 1 account research |
+| Image generation | your provider's key | via static-ad-factory | per provider | per image | ABM and refresh creatives |
+| Web analytics | export only | GA4, PostHog or similar | filter on the `a` URL parameter | your tool | ABM page engagement |
+
+Tokens: LinkedIn member access tokens last 60 days; refresh tokens are issued only to approved partner apps. Put a reminder in your calendar, or re-run the OAuth flow when check_setup reports 401.
+
+MCP servers in `mcp.json`: HubSpot (`@shinzolabs/hubspot-mcp`, MIT) and Exa (official, MIT), both optional. No LinkedIn MCP is bundled: community LinkedIn servers mostly drive a logged-in browser session, which LinkedIn's terms prohibit. The official REST API is used through the scripts. The growth ledger's own read only MCP server (`../growth-ledger/scripts/ledger_mcp.py`) lets your AI tool ask what this agent changed.
+
+Optional: treg (tool registry) only if you already have your own account.
+
+Verify before first live use:
+- `api.version` is a supported YYYYMM (202610 was the latest on 11 Nov 2026; 202511 sunsets 16 Nov 2026).
+- Run `python3 scripts/linkedin_insights.py pull --dry-run`, then one live pull, and compare yesterday's spend with Campaign Manager.
+- Make one approved change by hand-picked decision and check it in Campaign Manager's change history before trusting the loop.
+- ABM: the company list CSV headers match the current Matched Audiences company template (download it in Campaign Manager and compare).
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/abm/README.md`
+- `examples/abm/example-accounts.json`
+- `examples/abm/example-events.csv`
+- `examples/abm/example-targets.csv`
+- `examples/abm/output/ads.csv`
+- `examples/abm/output/brightkeel/index.html`
+- `examples/abm/output/data/abm/engagement-2026-11-11.csv`
+- `examples/abm/output/data/outbound/ready/abm-warm-2026-11-11.csv`
+- `examples/abm/output/data/signals/raw/abm-2026-11-11.jsonl`
+- `examples/abm/output/data/signals/to-enrich/abm-2026-11-11.csv`
+- `examples/abm/output/image-briefs.json`
+- `examples/abm/output/linkedin-company-list.csv`
+- `examples/abm/output/lumenfield/index.html`
+- `examples/abm/output/pebblequay/index.html`
+- `examples/abm/output/saltmarsh-goods/index.html`
+- `examples/performance/decisions.json`
+- `examples/performance/decisions.md`
+- `examples/performance/plan.md`
+- `examples/performance/snapshot.json`
+- `examples/performance/weekly.md`
+- `mcp.json`
+- `references/abm-playbook.md`
+- `references/cac-rules.md`
+- `references/copy-and-page-rules.md`
+- `references/linkedin-ads-api.md`
+- `scripts/account_research.py`
+- `scripts/check_setup.py`
+- `scripts/engagement_sync.py`
+- `scripts/fixtures/html/brightkeel.example.html`
+- `scripts/fixtures/html/lumenfield.example.html`
+- `scripts/fixtures/html/pebblequay.example.html`
+- `scripts/fixtures/html/saltmarshgoods.example.html`
+- `scripts/fixtures/linkedin/analytics_creative_7d.json`
+- `scripts/fixtures/linkedin/analytics_creative_daily.json`
+- `scripts/fixtures/linkedin/analytics_member_company.json`
+- `scripts/fixtures/linkedin/campaigns.json`
+- `scripts/fixtures/linkedin/creatives.json`
+- `scripts/linkedin_ads.py`
+- `scripts/linkedin_insights.py`
+- `scripts/render_pages.py`
+- `scripts/rules_engine.py`
+- `scripts/test_rules.py`
+- `scripts/yaml_lite.py`
+- `templates/account-brief.md`
+- `templates/creative-refresh-request.md`
+- `templates/daily-decisions.md`
+- `templates/landing-page.html`
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

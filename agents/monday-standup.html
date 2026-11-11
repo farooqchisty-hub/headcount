@@ -39,6 +39,7 @@ One page every Monday: the up to 4 numbers that moved beyond normal, why each mo
 - Time: 20 to 40 minutes for keys the first time, mostly Google OAuth.
 - Cost per run: no API fees (all read APIs used are free). AI tokens roughly 20k to 50k per run.
 - Check: `python3 agents/monday-standup/scripts/check_setup.py`
+- Growth ledger (installed with Headcount): when `~/headcount/ledger/headcount.db` exists the page also uses it: structured changes with before, after and approver, approvals by number, and weekly numbers your CSV lacks (LinkedIn included). `--no-ledger` turns it off.
 
 ## 4. First run
 Start from your Headcount home (`cd ~/headcount`):
@@ -126,6 +127,7 @@ Never paste keys into chat or COMPANY.md. Put them in your shell profile or a `.
 - `scripts/fixtures/logs/seo-content-pipeline.md`
 - `scripts/fixtures/logs/winback-analyst.md`
 - `scripts/fixtures/weekly.csv`
+- `scripts/ledger_feed.py`
 - `scripts/miniyaml.py`
 - `scripts/pull_metrics.py`
 - `scripts/variance.py`

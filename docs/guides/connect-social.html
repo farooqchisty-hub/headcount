@@ -45,6 +45,7 @@ Official APIs first. Agents never log in with your password, never use browser a
 - Personal posting: a LinkedIn app with "Share on LinkedIn" and "Sign In with LinkedIn using OpenID Connect" products. Scope `w_member_social` (post), `openid profile email`.
 - Company page posting and stats: "Community Management API" product (needs approval), scopes `w_organization_social`, `r_organization_social`.
 - Env vars: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN` (60 day token; refresh tokens only for approved partners).
+- LinkedIn Ads (linkedin-ads-agent): the "Advertising API" product (manual approval), scopes `r_ads_reporting`, `rw_ads`, plus `LINKEDIN_AD_ACCOUNT_ID`. Every call sends `Linkedin-Version: YYYYMM` (202610 on 11 Nov 2026). Full setup in agents/linkedin-ads-agent/CONNECT.md.
 - LinkedIn does not offer an API for comments on other people's posts or DMs for normal apps. engagement-agent drafts those for you to post by hand. Do not automate LinkedIn with browser bots: it breaks the User Agreement and gets accounts restricted.
 
 ## YouTube

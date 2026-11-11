@@ -25,7 +25,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
 </style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: your first 15 minutes
 
-Headcount is 40 marketing agents, each owning one outcome, plus company-brain, which every agent reads. You run them inside the AI tool you already use. You bring your own API keys; nothing is sent, posted or spent without your yes.
+Headcount is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. You run them inside the AI tool you already use. You bring your own API keys; nothing is sent, posted or spent without your yes.
 
 ## Minute 0 to 3: install
 You need Python 3.8 or newer (`python3 --version`) and one of: Claude Code, OpenAI Codex, OpenClaw, Hermes Agent, or a ChatGPT plan that can create GPTs.
@@ -37,7 +37,7 @@ python3 install.py --runtime claude --agents all
 ```
 Swap `claude` for `codex`, `openclaw`, `hermes` or `chatgpt`. For ChatGPT the installer writes one folder per agent in `dist/chatgpt/`; follow `runtimes/chatgpt/README.md` to create the GPTs.
 
-The installer also creates your Headcount home at `~/headcount` (brain, logs, outputs). Add this line to your shell profile so every agent finds it:
+The installer also creates your Headcount home at `~/headcount` (brain, logs, outputs) and your growth ledger, `~/headcount/ledger/headcount.db`, the one file where every agent records what it changed. Add this line to your shell profile so every agent finds it:
 ```
 export HEADCOUNT_HOME=~/headcount
 ```
@@ -59,7 +59,7 @@ Start with three. Add more once these run cleanly for a week.
 | Business | First 3 | Why these first |
 |---|---|---|
 | Ecommerce | flow-architect, angle-miner, static-ad-factory | Missing email flows are the fastest money with no ad spend. Then real selling angles and ads built on them. Spending 3k+ a month on Meta? Add roas-autopilot and ad-account-watchdog next. |
-| SaaS | ai-visibility-tracker, signal-prospector, outbound-operator | See how AI answers describe you, then reach accounts showing buying signals today with a reason to talk now. |
+| SaaS | ai-visibility-tracker, signal-prospector, outbound-operator | See how AI answers describe you, then reach accounts showing buying signals today with a reason to talk now. Running LinkedIn Ads or a named-account list? Add linkedin-ads-agent next. |
 | Agency | monday-standup (agency mode), ad-account-watchdog, google-ads-waste-killer | Client reporting is the biggest weekly time sink; the watchdog and waste killer catch the money leaks clients notice. Run company-brain once per client. |
 | Creator or coach | clip-repurposer, founder-brand-engine, dm-closer | Turn one long video into a week of posts, grow on X and LinkedIn in your voice, and turn comments into booked calls or sales. |
 | Local business | reputation-guard, social-autopilot, google-ads-waste-killer | Reviews decide local choices; steady posting keeps you visible; local search ads leak money fast. No ads? Swap in seo-content-pipeline. |
@@ -73,9 +73,13 @@ For each one:
 ## Then: Monday
 Add monday-standup. Every Monday it reads every agent's log and your data and gives you one page: up to 4 numbers that moved, why, and what each agent does next.
 
+## Any day: ask the ledger
+Every agent writes each change (before, after, why, who approved, what it cost) and its key numbers to your growth ledger. Ask in plain English: `Use growth-ledger: what did my agents change this week and what did it cost?` Every answer comes with the SQL behind it. Monday morning, `growth-ledger` also builds one HTML page with spend, revenue, ROAS and a timeline of every change. Want your AI tool to query it directly? `agents/growth-ledger/CONNECT.md` has the one-line MCP setup for Claude Code, Codex, Cursor, OpenClaw and Hermes.
+
 ## Good to know
 - Approvals: agents draft; you say yes. Each agent's `config.yaml` lists what it may do alone (default: nothing public, paid or sent).
 - Costs per run: `guides/costs.md`. Most agents cost cents to a few dollars per run in API fees.
 - Platform rules: `guides/safety-and-platform-rules.md`. Read it before turning on social or outreach agents.
+- Your data stays yours: the ledger is a local file. Back it up like any finance export.
 - How it all fits together: `HANDOFF.md`.
 </script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

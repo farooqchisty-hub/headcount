@@ -74,6 +74,7 @@ description: <one sentence: the outcome + when to use it. Under 300 chars. This 
 
 ## Log
 Append a dated entry to ./logs/<folder>.md: what ran, what changed, numbers, next actions. monday-standup reads this.
+- Ledger: also record this run in the growth ledger (paths relative to this skill folder; skip if `../growth-ledger` is not installed): `python3 ../growth-ledger/scripts/ledger.py log-action ...` for each change, `log-metric ...` for each number, `log-run ...` once at the end.
 
 ## Hand-offs
 - <which agents it feeds and how>

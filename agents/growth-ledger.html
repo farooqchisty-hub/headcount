@@ -1,0 +1,169 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Growth Ledger: Headcount agent</title><meta name="description" content="Every agent action and key number in one database you own, answered in plain English and provable in SQL. Included in every plan."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Growth Ledger
+
+## 1. What this agent gets you
+Every change your agents make (budget up, ad paused, flow launched, article published) and every number they watch, in one database file you own. Ask "what did my agents change last week and what did it cost?" in plain English and get the answer plus the SQL that proves it.
+
+## 2. Who it is for / not for
+- For: anyone running Headcount agents who wants one place to check what happened, who approved it, and whether it worked. Agencies: one ledger, one `client` per brand.
+- For: owners who want their marketing record on their own disk, not inside a vendor's dashboard.
+- Not for: replacing your analytics tool or ad platform reporting. The ledger holds what agents logged; platforms stay the source of truth for attribution.
+
+## 3. Setup checklist
+- Nothing to buy, no keys. Python 3.8 or newer with SQLite 3.25 or newer (built into current Python on macOS, Windows and recent Linux; `ledger.py doctor` checks).
+- `python3 install.py` creates the ledger at `~/headcount/ledger/headcount.db`. By hand: `python3 agents/growth-ledger/scripts/ledger.py init`.
+- Backfill from what you already have: `python3 agents/growth-ledger/scripts/ledger.py import-standup`.
+- Optional, 2 minutes: connect the read only MCP server to your AI tool (CONNECT.md).
+- Time: 5 minutes. Cost per run: zero (local file). AI tokens: about 3k to 10k per question.
+
+## 4. First run
+Start from your Headcount home (`cd ~/headcount`):
+- Claude Code: `Use growth-ledger: what did my agents change in the last 7 days, and what is waiting for my yes?`
+- Codex: `Use the growth-ledger skill. Show me every budget change this month with before and after.`
+- OpenClaw: `ask the growth ledger which agent spent the most on API fees this month`
+- Hermes: `hermes chat -s growth-ledger`, then `What did roas-autopilot pause last week and why?`
+- ChatGPT: run `python3 agents/growth-ledger/scripts/ledger.py export --csv` and `ledger.py ask-context > context.md` on your computer, upload both to the Growth Ledger GPT, then ask.
+Try it with no data of your own: `python3 agents/growth-ledger/scripts/ledger.py --dry-run query "SELECT * FROM v_budget_changes"` (example, fictional brand).
+
+## 5. Running it on a schedule
+The ledger fills itself: every agent writes to it at the end of its run. Schedule only the weekly page:
+- cron (Mondays 07:30, after the standup): `30 7 * * 1 cd ~/headcount && python3 ~/.claude/skills/growth-ledger/scripts/ledger.py dashboard && python3 ~/.claude/skills/growth-ledger/scripts/ledger.py verify >> logs/cron.log 2>&1`
+- Claude Code: `/schedule every Monday at 7:30am: run growth-ledger weekly dashboard and verify`
+- OpenClaw: `openclaw cron add --cron "30 7 * * 1" --session isolated --message "Run growth-ledger weekly dashboard and verify"`
+- Hermes: `hermes cron create "every monday 7:30am" "Build the ledger dashboard and verify it" --skill growth-ledger --workdir ~/headcount`
+
+## 6. What good output looks like
+- `examples/example-qa.md`: six real questions, the SQL, the rows and the plain answer (example, fictional brand).
+- `examples/example-output/ledger.html`: the weekly dashboard built from `examples/fixture/headcount.db`. Open it in a browser.
+
+## 7. Tuning (config.yaml)
+- `dashboard.days` (30): the period on the page, compared with the period before it.
+- `dashboard.spend_sources` and `revenue_sources`: which `source` values count as ad spend and as store revenue. Add `tiktok`, `woocommerce` and so on as you connect them.
+- `mcp.default_limit` (200): rows an AI tool gets per query; raise it for exports, lower it to save tokens.
+
+## 8. Troubleshooting
+1. "no ledger at ...": run `ledger.py init`, or set `HEADCOUNT_HOME` so every agent finds the same file.
+2. "refused: read only": `query` only runs SELECT or WITH. The ledger is written only by agents through the `log-*` commands.
+3. An agent's actions are missing: check its Log section has the ledger line and that `../growth-ledger` exists next to it in the skills folder (`ls ~/.claude/skills`). Then run it once and check with `query "SELECT * FROM agent_actions WHERE agent = '<agent>' ORDER BY ts DESC LIMIT 5"`.
+4. Numbers look doubled: something logged both a weekly and a daily row, or a total and its breakdown under different dims. Daily questions should use `v_metric_daily`, which picks the total over the breakdown.
+5. "database is locked": two agents wrote at the same second; the script waits 15 seconds. If it persists, a crashed process holds the file: close it and rerun.
+
+## 9. Safety and platform rules
+- Local only. The ledger never sends data anywhere. The MCP server speaks over stdin and stdout of a process your AI tool starts; it opens no network port.
+- Read only for AI tools. Only the `log-*`, `init` and `import-standup` commands write.
+- Tamper evident, not tamper proof: `verify` shows if a row was edited or deleted, but anyone with the file can delete it. Back it up.
+- It holds business numbers, ad account ids and approver names. Treat the file like your finance exports.
+
+
+---
+
+# Connect: growth-ledger
+
+No API keys. No accounts. The ledger is one SQLite file on your computer.
+
+| Piece | Env var | Where it comes from | Cost | Used for |
+|---|---|---|---|---|
+| Python 3.8+ with sqlite3 | none | built into Python | free | every command |
+| Headcount home | `HEADCOUNT_HOME` (optional) | install.py creates `~/headcount` | free | finds `<home>/ledger/headcount.db` |
+| Ledger file override | `HEADCOUNT_LEDGER_DB` (optional) | any path you choose | free | a shared drive or a per-client file |
+| MCP server (optional) | none | `scripts/ledger_mcp.py`, stdlib only | free | lets your AI tool query the ledger |
+
+## Connect the read only MCP server
+The server is a Python script your AI tool starts as a subprocess. It speaks MCP over stdin and stdout (newline-delimited JSON-RPC), opens no network port, and can only read. It supports the `initialize` handshake (MCP revisions 2024-11-05 to 2025-11-25) and per-request metadata with `server/discover` (revision 2026-07-28). Tools: `query`, `schema`, `recent_actions`.
+
+Replace `SKILLS` with where install.py put the agents (`~/.claude/skills`, `~/.agents/skills`, `~/.openclaw/skills`, `~/.hermes/skills/headcount`) and `HOME_DIR` with your Headcount home. Check first: `python3 SKILLS/growth-ledger/scripts/ledger_mcp.py --self-test`.
+
+**Claude Code**
+```
+claude mcp add --scope user headcount-ledger -- python3 SKILLS/growth-ledger/scripts/ledger_mcp.py --home HOME_DIR
+claude mcp get headcount-ledger
+```
+Then ask: "use headcount-ledger: what changed this week?". Project-only instead: `--scope project` writes `.mcp.json` in the current folder.
+
+**OpenAI Codex** (`~/.codex/config.toml`, or `codex mcp add headcount-ledger -- python3 ...`)
+```toml
+[mcp_servers.headcount-ledger]
+command = "python3"
+args = ["SKILLS/growth-ledger/scripts/ledger_mcp.py", "--home", "HOME_DIR"]
+```
+
+**Cursor** (`~/.cursor/mcp.json` for all projects, or `.cursor/mcp.json` in one project)
+```json
+{ "mcpServers": { "headcount-ledger": { "command": "python3", "args": ["SKILLS/growth-ledger/scripts/ledger_mcp.py", "--home", "HOME_DIR"] } } }
+```
+
+**OpenClaw** (saved under `mcp.servers` in OpenClaw config)
+```
+openclaw mcp set headcount-ledger '{"command":"python3","args":["SKILLS/growth-ledger/scripts/ledger_mcp.py","--home","HOME_DIR"]}'
+openclaw mcp status --verbose
+```
+OpenClaw refuses some interpreter environment variables for stdio servers; pass the home with `--home` as shown, not through env.
+
+**Hermes Agent** (`~/.hermes/config.yaml`, then `/reload-mcp` in a chat)
+```yaml
+mcp_servers:
+  headcount-ledger:
+    command: "python3"
+    args: ["SKILLS/growth-ledger/scripts/ledger_mcp.py", "--home", "HOME_DIR"]
+```
+Hermes passes only a filtered environment to stdio servers, so `--home` in args is the reliable way.
+
+**ChatGPT**: Custom GPTs cannot start a local process. Export instead: `ledger.py export --csv` plus `ledger.py ask-context > context.md`, upload both (or the `headcount.db` file itself; Code Interpreter opens it with Python's sqlite3). For live access, host an MCP server over HTTPS through the Apps SDK (not bundled; see `runtimes/chatgpt/README.md`).
+
+## Agency mode
+One ledger for all clients: every command takes `--client <slug>` and every row has a `client` column. Or one file per client: `HEADCOUNT_LEDGER_DB=~/headcount/ledger/<slug>.db`, and one MCP entry per client with `--db`.
+
+## Optional
+treg (tool registry) is not needed here. Nothing in this agent calls a paid API.
+
+Verified 11 Nov 2026: MCP stdio transport, lifecycle, tools and versioning pages at modelcontextprotocol.io (revisions 2025-06-18 and 2026-07-28); `claude mcp add` from the installed Claude Code CLI help; Hermes `mcp_servers` from hermes-agent.nousresearch.com docs; OpenClaw `mcp set` and `mcp.servers` from docs.openclaw.ai (cli/mcp, transports). Codex `mcp_servers` TOML and Cursor `mcp.json` follow their published config formats; check your version's docs if a key is rejected.
+
+
+---
+
+## What ships in this agent's folder
+
+- `CONNECT.md`
+- `README.md`
+- `SKILL.md`
+- `config.yaml`
+- `examples/README.md`
+- `examples/example-output/ledger.html`
+- `examples/example-qa.md`
+- `examples/fixture/headcount.db`
+- `mcp.json`
+- `references/conventions-and-verification.md`
+- `references/example-questions.md`
+- `references/schema.md`
+- `scripts/build_fixture.py`
+- `scripts/ledger.py`
+- `scripts/ledger_mcp.py`
+- `scripts/test_ledger.py`
+- `scripts/yaml_lite.py`
+- `templates/answer.md`
+- `templates/dashboard.html`
+- `templates/weekly-note.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

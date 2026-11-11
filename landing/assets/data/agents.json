@@ -1,0 +1,298 @@
+{
+ "departments": [
+  [
+   "paid",
+   "Paid Ads"
+  ],
+  [
+   "creative",
+   "Creative Studio"
+  ],
+  [
+   "viral",
+   "Viral Content"
+  ],
+  [
+   "social",
+   "Social Presence"
+  ],
+  [
+   "search",
+   "SEO + AI Search"
+  ],
+  [
+   "pipeline",
+   "Pipeline + Sales"
+  ],
+  [
+   "creators",
+   "Creators"
+  ],
+  [
+   "lifecycle",
+   "Lifecycle"
+  ],
+  [
+   "intel",
+   "Intel + Ops"
+  ],
+  [
+   "core",
+   "Core (included)"
+  ]
+ ],
+ "agents": [
+  {
+   "id": "roas-autopilot",
+   "dept": "paid",
+   "name": "ROAS Autopilot",
+   "outcome": "Give it a ROAS target and a budget. It builds, launches and optimises Meta campaigns to hit it."
+  },
+  {
+   "id": "google-ads-waste-killer",
+   "dept": "paid",
+   "name": "Google Ads Waste Killer",
+   "outcome": "Cuts wasted Google Ads spend every week (negatives, RSA losers, feed, settings drift)."
+  },
+  {
+   "id": "ad-account-watchdog",
+   "dept": "paid",
+   "name": "Ad Account Watchdog",
+   "outcome": "No silent money leaks: catches auto-applied changes, hacks, spend spikes, disapprovals within the hour."
+  },
+  {
+   "id": "angle-miner",
+   "dept": "creative",
+   "name": "Angle Miner",
+   "outcome": "A ranked bank of genuinely different selling arguments, mined from real customer language."
+  },
+  {
+   "id": "static-ad-factory",
+   "dept": "creative",
+   "name": "Static Ad Factory",
+   "outcome": "Website URL in, 20 finished on-brand static ads out, grounded in real product photos."
+  },
+  {
+   "id": "winner-remixer",
+   "dept": "creative",
+   "name": "Winner Remixer",
+   "outcome": "Endless fresh creative from proven winners (yours and competitors' long-running ads)."
+  },
+  {
+   "id": "video-ad-studio",
+   "dept": "creative",
+   "name": "Video Ad Studio",
+   "outcome": "Finished 15 to 30 s AI video and UGC-style ads from an angle."
+  },
+  {
+   "id": "product-photoshoot",
+   "dept": "creative",
+   "name": "Product Photoshoot",
+   "outcome": "Studio and lifestyle product imagery from phone photos. No shoot."
+  },
+  {
+   "id": "viral-reel-cloner",
+   "dept": "viral",
+   "name": "Viral Reel Cloner",
+   "outcome": "Finds outlier reels in your niche, deconstructs why they won, remakes them for your brand."
+  },
+  {
+   "id": "motion-graphics-studio",
+   "dept": "viral",
+   "name": "Motion Graphics Studio",
+   "outcome": "Branded motion-graphics reels and explainers made in code (HyperFrames/Remotion) from a brief."
+  },
+  {
+   "id": "clip-repurposer",
+   "dept": "viral",
+   "name": "Clip Repurposer",
+   "outcome": "One long video in, 10 captioned clips + newsletter + posts out."
+  },
+  {
+   "id": "trend-jacker",
+   "dept": "viral",
+   "name": "Trend Jacker",
+   "outcome": "Same-day content on trending formats, audio and news in your niche."
+  },
+  {
+   "id": "founder-brand-engine",
+   "dept": "viral",
+   "name": "Founder Brand Engine",
+   "outcome": "Grows the founder's audience on X and LinkedIn from their real stories, in their voice."
+  },
+  {
+   "id": "engagement-agent",
+   "dept": "social",
+   "name": "Engagement Agent",
+   "outcome": "Engages on your behalf: strategic comments and replies that grow reach, under rate limits and approval rules."
+  },
+  {
+   "id": "dm-closer",
+   "dept": "social",
+   "name": "DM Closer",
+   "outcome": "Turns comments and DMs into sales (comment-to-DM keyword funnels, qualification, offer, checkout link)."
+  },
+  {
+   "id": "ai-influencer-farm",
+   "dept": "social",
+   "name": "AI Influencer Farm",
+   "outcome": "Creates, launches and grows a roster of disclosed AI influencer personas that promote your products."
+  },
+  {
+   "id": "social-autopilot",
+   "dept": "social",
+   "name": "Social Autopilot",
+   "outcome": "Plans, schedules, posts and learns: doubles down on what performs across platforms."
+  },
+  {
+   "id": "reputation-guard",
+   "dept": "social",
+   "name": "Reputation Guard",
+   "outcome": "Every review and brand mention answered; complaints escalated; themes fed back."
+  },
+  {
+   "id": "seo-content-pipeline",
+   "dept": "search",
+   "name": "SEO Content Pipeline",
+   "outcome": "Ranking articles with no cleanup, plus refresh of decaying pages."
+  },
+  {
+   "id": "programmatic-seo",
+   "dept": "search",
+   "name": "Programmatic SEO",
+   "outcome": "Hundreds of data-unique pages on a proven keyword pattern."
+  },
+  {
+   "id": "technical-seo-fixer",
+   "dept": "search",
+   "name": "Technical SEO Fixer",
+   "outcome": "Ranking blockers found and fixed (PRs or dev tickets)."
+  },
+  {
+   "id": "ai-visibility-tracker",
+   "dept": "search",
+   "name": "AI Visibility Tracker",
+   "outcome": "Your share of voice in ChatGPT, Claude, Perplexity, Gemini, tracked weekly."
+  },
+  {
+   "id": "geo-citation-closer",
+   "dept": "search",
+   "name": "GEO Citation Closer",
+   "outcome": "Gets you cited by AI engines: listicles, forums, comparison pages, crawler fixes."
+  },
+  {
+   "id": "backlink-builder",
+   "dept": "search",
+   "name": "Backlink Builder",
+   "outcome": "Earns real links: journalist requests, unlinked mentions, broken links, link-bait assets, guest posts."
+  },
+  {
+   "id": "catalog-optimizer",
+   "dept": "search",
+   "name": "Catalog Optimizer",
+   "outcome": "Every product page and feed title rewritten for search and conversion."
+  },
+  {
+   "id": "reddit-buying-signals",
+   "dept": "pipeline",
+   "name": "Reddit Buying Signals",
+   "outcome": "Finds Reddit threads with buying intent and drafts ready-to-post, disclosed replies."
+  },
+  {
+   "id": "signal-prospector",
+   "dept": "pipeline",
+   "name": "Signal Prospector",
+   "outcome": "Accounts showing buying signals today, scored and with a \"why now\"."
+  },
+  {
+   "id": "enrichment-waterfall",
+   "dept": "pipeline",
+   "name": "Enrichment Waterfall",
+   "outcome": "Verified contacts at provider cost (BYOK Clay alternative)."
+  },
+  {
+   "id": "outbound-operator",
+   "dept": "pipeline",
+   "name": "Outbound Operator",
+   "outcome": "Booked meetings from signal-led cold email, replies handled, angles learned."
+  },
+  {
+   "id": "ai-sales-closer",
+   "dept": "pipeline",
+   "name": "AI Sales Closer",
+   "outcome": "Closes deals: qualifies inbound, follows up, handles objections, sends proposal and payment link."
+  },
+  {
+   "id": "linkedin-ads-agent",
+   "dept": "pipeline",
+   "name": "LinkedIn Ads Agent",
+   "outcome": "Runs LinkedIn Ads to a CAC goal: watches spend, audiences and creative fatigue, and gives every target account its own ads and page."
+  },
+  {
+   "id": "ugc-creator-finder",
+   "dept": "creators",
+   "name": "UGC Creator Finder",
+   "outcome": "A vetted shortlist of UGC creators for your brand, briefed, priced and contracted."
+  },
+  {
+   "id": "influencer-deal-desk",
+   "dept": "creators",
+   "name": "Influencer Deal Desk",
+   "outcome": "Influencer posts bought at a fair CPM, tracked to sales."
+  },
+  {
+   "id": "affiliate-recruiter",
+   "dept": "creators",
+   "name": "Affiliate Recruiter",
+   "outcome": "A growing affiliate roster recruited from people already ranking for your category."
+  },
+  {
+   "id": "flow-architect",
+   "dept": "lifecycle",
+   "name": "Flow Architect",
+   "outcome": "Missing email/SMS flows found and built; flow revenue up."
+  },
+  {
+   "id": "campaign-builder",
+   "dept": "lifecycle",
+   "name": "Campaign Builder",
+   "outcome": "The month's campaigns planned and built in your ESP, ready to schedule."
+  },
+  {
+   "id": "winback-analyst",
+   "dept": "lifecycle",
+   "name": "Winback Analyst",
+   "outcome": "Lapsing customers won back, proven with a holdout."
+  },
+  {
+   "id": "competitor-watch",
+   "dept": "intel",
+   "name": "Competitor Watch",
+   "outcome": "Every competitor move caught the same day; weekly brief."
+  },
+  {
+   "id": "monday-standup",
+   "dept": "intel",
+   "name": "Monday Standup",
+   "outcome": "One page every Monday: what moved, why, what each agent does next."
+  },
+  {
+   "id": "cro-test-runner",
+   "dept": "intel",
+   "name": "CRO Test Runner",
+   "outcome": "Conversion lifts shipped through real, statistically valid A/B tests."
+  },
+  {
+   "id": "company-brain",
+   "dept": "core",
+   "name": "Company Brain",
+   "outcome": "Interviews you once; writes the memory every agent reads. Included in every plan."
+  },
+  {
+   "id": "growth-ledger",
+   "dept": "core",
+   "name": "Growth Ledger",
+   "outcome": "Every agent action and metric in one local database. Ask Claude \"what did my agents change this week and what happened to ROAS?\""
+  }
+ ]
+}

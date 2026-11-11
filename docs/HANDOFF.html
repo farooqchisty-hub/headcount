@@ -25,14 +25,14 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
 </style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Headcount operator handoff
 
-For whoever runs Headcount day to day: an owner, a marketer or an agency account lead. Read this once; it explains how the system is organised, where everything is written, how agents run on schedules and hand work to each other, and how to add a new agent.
+For whoever runs Headcount day to day: an owner, a marketer or an agency account lead. Read this once; it explains how the system is organised, where everything is written (including the growth ledger, the one database of every agent action), how agents run on schedules and hand work to each other, and how to add a new agent.
 
 ## 1. How the system is organised
 
 ```
 headcount/                      the package (this repo)
   install.py                    puts agents into Claude Code, Codex, OpenClaw, Hermes or ChatGPT
-  agents/<agent>/               41 agents (40 plus company-brain), each a self-contained skill
+  agents/<agent>/               42 agents (40 plus the core company-brain and growth-ledger), each a self-contained skill
     SKILL.md                    the operating procedure the AI follows
     README.md  CONNECT.md       human guide, keys needed
     config.yaml                 every threshold you may change
@@ -50,6 +50,7 @@ headcount/                      the package (this repo)
   outputs/<agent>/              finished deliverables other agents read (e.g. outputs/angle-miner/latest.json)
   work/<agent>/                 scratch and intermediate files
   reports/<agent>/              human reports (reports/standup/2026-11-09.md)
+  ledger/headcount.db           the growth ledger: every agent action, run, approval and key metric (SQLite, created by install.py)
   AGENTS.md                     Codex only: house rules for this folder
 ```
 
@@ -58,7 +59,7 @@ Always start your AI tool from the Headcount home (`cd ~/headcount`). Agents res
 ## 2. The three rules every agent follows
 1. Read `brain/COMPANY.md` first. No brain, no run: the agent sends you to company-brain.
 2. Nothing public, paid or sent without your yes. An agent's `config.yaml` may allow a named action class (for example "pause ad sets with CPA over 2x target"), never everything.
-3. Log every run to `logs/<agent>.md` in the standard format (below). monday-standup reads these.
+3. Log every run to `logs/<agent>.md` in the standard format (below), and record each change, number and run in the growth ledger (section 3). monday-standup reads both.
 
 ## 3. Logs
 Format (field names matter; the standup parser reads them):
@@ -73,17 +74,25 @@ Format (field names matter; the standup parser reads them):
 - Logs are append only. Archive yearly (`logs/archive/2026/`) if they get long.
 - Check what an agent did: open its log. Check what everything did: read Monday's standup.
 
+### The growth ledger
+Every agent's Log section also tells it to call `../growth-ledger/scripts/ledger.py` from its own skill folder (install.py keeps all agents side by side, so that path always resolves):
+- `log-action` for each change: agent, action, object (`platform:type:id`), before, after, reason, approved by (a name, `band:<rule>`, or `none`), cost of the action in USD.
+- `log-metric` for each number (base amounts only: spend, conversions, revenue; ratios are computed).
+- `log-run` once per run; `log-approval` for each ask and each yes or no.
+The file is `<home>/ledger/headcount.db`. Ask it anything: `python3 ~/.claude/skills/growth-ledger/scripts/ledger.py query "SELECT ts, agent, action, object, before, after, approved_by FROM agent_actions ORDER BY ts DESC LIMIT 20"`, or connect its read only MCP server to Claude Code, Codex, Cursor, OpenClaw or Hermes (agents/growth-ledger/CONNECT.md). `ledger.py verify` proves no action row was edited or deleted (hash chain). `ledger.py dashboard` writes one HTML page: spend, revenue, ROAS, actions per agent, before and after of every budget change, a timeline. Backfill older markdown logs once with `ledger.py import-standup`.
+If an agent runs where the ledger is not installed it skips those calls; the markdown log stays complete either way.
+
 ## 4. Schedules
 Recommended cadence (times in your brain timezone). Full setup per runtime in guides/scheduling.md.
 
 | Cadence | Agents |
 |---|---|
 | Hourly | ad-account-watchdog |
-| Daily | roas-autopilot, reputation-guard, engagement-agent (queue build), dm-closer, reddit-buying-signals, signal-prospector, trend-jacker, competitor-watch (changes), backlink-builder (journalist requests), ai-sales-closer (follow-ups), outbound-operator (reply handling) |
-| Weekly (Monday) | monday-standup 07:00 (runs after the others' Sunday night jobs), google-ads-waste-killer, ai-visibility-tracker, winner-remixer, social-autopilot (plan), founder-brand-engine (plan), competitor-watch (brief), cro-test-runner (read tests) |
+| Daily | roas-autopilot, linkedin-ads-agent (09:00 loop), reputation-guard, engagement-agent (queue build), dm-closer, reddit-buying-signals, signal-prospector, trend-jacker, competitor-watch (changes), backlink-builder (journalist requests), ai-sales-closer (follow-ups), outbound-operator (reply handling) |
+| Weekly (Monday) | monday-standup 07:00 (runs after the others' Sunday night jobs), growth-ledger 07:30 (dashboard and verify), linkedin-ads-agent (weekly verdict, ABM refresh), google-ads-waste-killer, ai-visibility-tracker, winner-remixer, social-autopilot (plan), founder-brand-engine (plan), competitor-watch (brief), cro-test-runner (read tests) |
 | Weekly (other day) | angle-miner (Tuesday), static-ad-factory (Tuesday after angle-miner), seo-content-pipeline, geo-citation-closer, viral-reel-cloner, influencer-deal-desk, ugc-creator-finder, affiliate-recruiter |
-| Monthly | campaign-builder (plan next month by the 20th), flow-architect (audit), technical-seo-fixer, catalog-optimizer, programmatic-seo (batch), winback-analyst (holdout read), enrichment-waterfall (list refresh), abm-personalizer |
-| On demand | company-brain, video-ad-studio, product-photoshoot, motion-graphics-studio, clip-repurposer, ai-influencer-farm |
+| Monthly | campaign-builder (plan next month by the 20th), flow-architect (audit), technical-seo-fixer, catalog-optimizer, programmatic-seo (batch), winback-analyst (holdout read), enrichment-waterfall (list refresh) |
+| On demand | company-brain, growth-ledger (questions), video-ad-studio, product-photoshoot, motion-graphics-studio, clip-repurposer, ai-influencer-farm |
 
 Scheduled runs still stop at approvals. A scheduled agent drafts, logs "waiting for approval" and moves on.
 
@@ -95,6 +104,7 @@ Dependency map (from each agent's Hand-offs section; check the agent's SKILL.md 
 | Agent | Needs from | Feeds |
 |---|---|---|
 | company-brain | you | every agent (brain/COMPANY.md) |
+| growth-ledger | every agent (actions, runs, approvals, metrics) | monday-standup (changes, approvals, weekly numbers), you (questions, dashboard), linkedin-ads-agent (budget change history) |
 | roas-autopilot | static-ad-factory, winner-remixer, angle-miner, competitor-watch, influencer-deal-desk, ugc-creator-finder, winback-analyst (audiences) | ad-account-watchdog (same account), winner-remixer (fatigue), angle-miner (new angle requests), monday-standup |
 | google-ads-waste-killer | catalog-optimizer (feed titles), ad-account-watchdog | monday-standup, catalog-optimizer (feed issues) |
 | ad-account-watchdog | roas-autopilot, google-ads-waste-killer | roas-autopilot, google-ads-waste-killer, monday-standup |
@@ -121,11 +131,11 @@ Dependency map (from each agent's Hand-offs section; check the agent's SKILL.md 
 | backlink-builder | seo-content-pipeline, geo-citation-closer, affiliate-recruiter | seo-content-pipeline, programmatic-seo, founder-brand-engine, geo-citation-closer, technical-seo-fixer |
 | catalog-optimizer | angle-miner, cro-test-runner, reputation-guard, product-photoshoot | google-ads-waste-killer, programmatic-seo, seo-content-pipeline, roas-autopilot |
 | reddit-buying-signals | brain ICP | angle-miner, competitor-watch, seo-content-pipeline, geo-citation-closer, signal-prospector (invited contact only) |
-| signal-prospector | reddit-buying-signals, founder-brand-engine, enrichment-waterfall | enrichment-waterfall, outbound-operator, abm-personalizer |
-| enrichment-waterfall | signal-prospector, your lists | outbound-operator, abm-personalizer, signal-prospector |
+| signal-prospector | reddit-buying-signals, founder-brand-engine, enrichment-waterfall | enrichment-waterfall, outbound-operator, linkedin-ads-agent (ABM targets) |
+| enrichment-waterfall | signal-prospector, your lists | outbound-operator, linkedin-ads-agent (ABM contacts), signal-prospector |
 | outbound-operator | enrichment-waterfall, signal-prospector, angle-miner | ai-sales-closer, monday-standup |
 | ai-sales-closer | dm-closer, outbound-operator, inbound forms | flow-architect, monday-standup |
-| abm-personalizer | signal-prospector, enrichment-waterfall | roas-autopilot (account audiences), outbound-operator |
+| linkedin-ads-agent | signal-prospector, enrichment-waterfall, angle-miner, static-ad-factory, winner-remixer, outbound-operator (replies), growth-ledger | winner-remixer and static-ad-factory (refresh requests, ABM image briefs), outbound-operator (engaged accounts), enrichment-waterfall, signal-prospector, growth-ledger, monday-standup |
 | ugc-creator-finder | angle-miner, influencer-deal-desk | roas-autopilot, video-ad-studio, angle-miner, influencer-deal-desk |
 | influencer-deal-desk | ugc-creator-finder, affiliate-recruiter | roas-autopilot (whitelisting), ugc-creator-finder, affiliate-recruiter, flow-architect, winback-analyst |
 | affiliate-recruiter | influencer-deal-desk | backlink-builder, geo-citation-closer, influencer-deal-desk, flow-architect |
@@ -133,7 +143,7 @@ Dependency map (from each agent's Hand-offs section; check the agent's SKILL.md 
 | campaign-builder | flow-architect, winback-analyst, clip-repurposer | angle-miner, static-ad-factory |
 | winback-analyst | flow-architect, campaign-builder | flow-architect, campaign-builder, roas-autopilot |
 | competitor-watch | ai-visibility-tracker, reddit-buying-signals | angle-miner, winner-remixer, roas-autopilot, viral-reel-cloner, monday-standup |
-| monday-standup | every agent's log, your data sources | you (one page), company-brain (quarterly numbers) |
+| monday-standup | every agent's log, growth-ledger, your data sources | you (one page), company-brain (quarterly numbers) |
 | cro-test-runner | angle-miner, flow-architect, technical-seo-fixer, reputation-guard | angle-miner, static-ad-factory, catalog-optimizer, technical-seo-fixer |
 
 Rows for agents still being finalised reflect the roster design; confirm against their SKILL.md Hand-offs section.
@@ -143,6 +153,8 @@ Typical chains:
 - Outbound loop: signal-prospector, enrichment-waterfall, outbound-operator, ai-sales-closer.
 - Search loop: ai-visibility-tracker, geo-citation-closer and seo-content-pipeline, backlink-builder, technical-seo-fixer.
 - Retention loop: winback-analyst, flow-architect, campaign-builder.
+- B2B paid loop: signal-prospector, linkedin-ads-agent (performance and ABM lanes), enrichment-waterfall, outbound-operator.
+- Record loop: every agent writes the growth ledger, monday-standup and growth-ledger's dashboard read it, you ask it anything.
 
 ## 6. Agency mode
 - One brain per client: `brain/clients/<slug>/COMPANY.md` (company-brain agency mode).
@@ -154,18 +166,18 @@ Typical chains:
 1. Copy an existing agent folder as a start: `cp -r agents/monday-standup agents/<new-name>` and clear it.
 2. Follow PACKAGE-SPEC.md exactly: SKILL.md (frontmatter `name` equals folder name, `description` under 300 characters naming the outcome and when to use it), README.md, CONNECT.md, config.yaml, mcp.json, references/ (2 to 5), scripts/ (stdlib, `--help`, `--dry-run`, keys from env), examples/, templates/.
 3. Name it by the outcome it owns, not the task.
-4. Add its log format (section 3) and its Hand-offs: which files it writes to `outputs/` and who reads them. Add a row to the map above and to the owners map in `agents/monday-standup/config.yaml` if it moves a tracked metric.
+4. Add its log format (section 3), the one-line growth ledger call at the end of its Log section (copy it from any agent; change the agent name), and its Hand-offs: which files it writes to `outputs/` and who reads them. Add a row to the map above and to the owners map in `agents/monday-standup/config.yaml` if it moves a tracked metric.
 5. Test: `python3 install.py --list` (it must appear as installable), every script with `--dry-run`, then `python3 install.py --runtime claude --agents <new-name> --dry-run`, and `python3 runtimes/chatgpt/build_gpts.py --agents <new-name> --dry-run` (instructions under 8000 characters).
 6. Check: `grep -rn $'\u2014\|\u2013' agents/<new-name>` (em and en dashes, U+2014 and U+2013) returns nothing; no keys in any file.
 7. Add it to LICENSES.md if it points to or bundles any third-party repo.
 
 ## 8. Updating
 - `git pull` in the package, then rerun the same install command (it replaces folders it installed, never yours). With `--mode link` there is nothing to rerun.
-- Your brain, logs and outputs live in the Headcount home and are never touched by install or uninstall.
+- Your brain, logs, outputs and ledger live in the Headcount home and are never touched by install or uninstall. A newer ledger schema is applied by install.py (or `ledger.py init`); rows are never removed.
 
 ## 9. When something goes wrong
 - Agent says the brain is missing: run from the Headcount home or set HEADCOUNT_HOME.
 - Agent cannot reach an API: run its `scripts/check_setup.py` (where present) and see its CONNECT.md.
-- An agent did something you did not expect: read its log, then its config.yaml approval settings. Set the action class back to "ask".
+- An agent did something you did not expect: read its log or ask the ledger (`ledger.py query "SELECT * FROM agent_actions WHERE agent = '<agent>' ORDER BY ts DESC LIMIT 10"`), then its config.yaml approval settings. Set the action class back to "ask".
 - Something posted or spent without approval: stop the schedule (guides/scheduling.md), revoke the key at the platform, then review the agent's config.yaml.
 </script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
