@@ -33,7 +33,7 @@ Every product page and Google Shopping title rewritten so more people find your 
 - Not for: stores on other platforms (the scripts are Shopify specific; the method and feed builder work anywhere), or catalogs where legal must review every word (it still drafts, but plan the review time).
 
 ## 3. Setup checklist
-- [ ] Shopify custom app with `read_products`, `write_products`, `write_files`, and its Admin token.
+- [ ] Shopify custom app with `read_products`, `write_products`, `write_files`, and its Admin token. No token yet? Start from your product export (Shopify admin: Products, Export, CSV); the agent drafts and checks everything from it, and you paste the approved copy in, or add the token later to push.
 - [ ] A vision model key (Anthropic, OpenAI or OpenRouter). Optional but it is what makes alt text and attributes accurate.
 - [ ] Search Console access for real search queries (free). DataForSEO optional.
 - [ ] company-brain run, including which claims you can prove.
@@ -62,6 +62,8 @@ Every product page and Google Shopping title rewritten so more people find your 
 3. Throttled errors: the client waits and retries; large catalogs should use smaller batches or bulk operations.
 4. Vision says a different color than the variant: wrong image assigned to the variant. Fix in Shopify; the agent will not guess.
 5. Clicks dropped after a change: run `restore_catalog.py <backup> --ids <id>` and the product is back as it was.
+6. "product came from a CSV export" when pushing: that catalogue was read from your export, which has no API ids. Paste the approved copy in Shopify admin, or connect the Admin token, take a fresh API backup and push.
+7. WooCommerce store: export Products from WooCommerce and use the same `--csv` path for drafts and feed titles; pushing is Shopify only.
 
 ## 9. Safety and platform rules
 - Backup before every push, enforced by the script. Restore by product or by push log.
@@ -83,6 +85,9 @@ Every product page and Google Shopping title rewritten so more people find your 
 | Search Console (free demand) | `GSC_SITE_URL` + Google service account (`GOOGLE_APPLICATION_CREDENTIALS`) | Search Console > Settings > Users > add the service account email | webmasters.readonly | free |
 | DataForSEO (optional demand) | `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` | app.dataforseo.com > API access | | pay as you go, Keywords Data search volume is cents per request; capped by `dataforseo_max_spend_usd` |
 | Merchant Center (feed upload, optional) | manual upload, or Merchant API with `GOOGLE_APPLICATION_CREDENTIALS` | merchants.google.com | content | free |
+
+## No token: your product export
+Shopify admin, Products, Export, "All products", CSV (either CSV option works). WooCommerce: Products, Export. Then `python3 scripts/backup_catalog.py --csv <file> --currency INR`. Drafting, feed titles and the spot check work from it; pushing needs the token above.
 
 ## MCP servers
 - `shopify-dev` (official Shopify dev MCP): schema and docs lookups, no store data.
@@ -114,8 +119,15 @@ Never paste the Admin token in chat. Revoke it in the app settings if it leaks.
 - `references/shopify-api-notes.md`
 - `references/shopping-title-formulas.md`
 - `scripts/backup_catalog.py`
+- `scripts/catalog_import.py`
 - `scripts/check_setup.py`
 - `scripts/feed_title_builder.py`
+- `scripts/fixtures/catalog/pasted-product-list.txt`
+- `scripts/fixtures/catalog/shopify-admin-api-response.json`
+- `scripts/fixtures/catalog/shopify-products-export.csv`
+- `scripts/fixtures/catalog/simple-product-sheet.csv`
+- `scripts/fixtures/catalog/woocommerce-products-export.csv`
+- `scripts/hc_home.py`
 - `scripts/push_changes.py`
 - `scripts/restore_catalog.py`
 - `scripts/shopify_client.py`

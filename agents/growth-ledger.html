@@ -66,7 +66,7 @@ The ledger fills itself: every agent writes to it at the end of its run. Schedul
 - `mcp.default_limit` (200): rows an AI tool gets per query; raise it for exports, lower it to save tokens.
 
 ## 8. Troubleshooting
-1. "no ledger at ...": run `ledger.py init`, or set `HEADCOUNT_HOME` so every agent finds the same file.
+1. "no ledger at ...": run `ledger.py init`, or rerun install.py: it saves your home in `~/.headcount/config.json`, so every agent finds the same file from any folder. `ledger.py doctor` shows which file is used.
 2. "refused: read only": `query` only runs SELECT or WITH. The ledger is written only by agents through the `log-*` commands.
 3. An agent's actions are missing: check its Log section has the ledger line and that `../growth-ledger` exists next to it in the skills folder (`ls ~/.claude/skills`). Then run it once and check with `query "SELECT * FROM agent_actions WHERE agent = '<agent>' ORDER BY ts DESC LIMIT 5"`.
 4. Numbers look doubled: something logged both a weekly and a daily row, or a total and its breakdown under different dims. Daily questions should use `v_metric_daily`, which picks the total over the breakdown.
@@ -88,14 +88,14 @@ No API keys. No accounts. The ledger is one SQLite file on your computer.
 | Piece | Env var | Where it comes from | Cost | Used for |
 |---|---|---|---|---|
 | Python 3.8+ with sqlite3 | none | built into Python | free | every command |
-| Headcount home | `HEADCOUNT_HOME` (optional) | install.py creates `~/headcount` | free | finds `<home>/ledger/headcount.db` |
+| Headcount home | none needed (`HEADCOUNT_HOME` optional, it wins when set) | install.py creates `~/headcount` and saves it in `~/.headcount/config.json` | free | finds `<home>/ledger/headcount.db` from any folder |
 | Ledger file override | `HEADCOUNT_LEDGER_DB` (optional) | any path you choose | free | a shared drive or a per-client file |
 | MCP server (optional) | none | `scripts/ledger_mcp.py`, stdlib only | free | lets your AI tool query the ledger |
 
 ## Connect the read only MCP server
 The server is a Python script your AI tool starts as a subprocess. It speaks MCP over stdin and stdout (newline-delimited JSON-RPC), opens no network port, and can only read. It supports the `initialize` handshake (MCP revisions 2024-11-05 to 2025-11-25) and per-request metadata with `server/discover` (revision 2026-07-28). Tools: `query`, `schema`, `recent_actions`.
 
-Replace `SKILLS` with where install.py put the agents (`~/.claude/skills`, `~/.agents/skills`, `~/.openclaw/skills`, `~/.hermes/skills/headcount`) and `HOME_DIR` with your Headcount home. Check first: `python3 SKILLS/growth-ledger/scripts/ledger_mcp.py --self-test`.
+Replace `SKILLS` with where install.py put the agents (`~/.claude/skills`, `~/.agents/skills`, `~/.openclaw/skills`, `~/.hermes/skills/headcount`) and `HOME_DIR` with your Headcount home. `--home HOME_DIR` is optional: without it the server uses the home saved in `~/.headcount/config.json`. Check first: `python3 SKILLS/growth-ledger/scripts/ledger_mcp.py --self-test`.
 
 **Claude Code**
 ```
@@ -160,6 +160,7 @@ Verified 11 Nov 2026: MCP stdio transport, lifecycle, tools and versioning pages
 - `references/example-questions.md`
 - `references/schema.md`
 - `scripts/build_fixture.py`
+- `scripts/hc_home.py`
 - `scripts/ledger.py`
 - `scripts/ledger_mcp.py`
 - `scripts/test_ledger.py`

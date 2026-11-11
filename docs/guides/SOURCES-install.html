@@ -1,0 +1,131 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SOURCES-install: Headcount guide</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../../index.html">Overview</a><a href="../../index.html#agents">40 agents</a><a href="../../index.html#pricing">Pricing</a><a href="../../landing/index.html">Sales page</a><a href="../../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Sources: installing Headcount without a terminal
+
+Every install path in START-HERE.md, INSTALL-WITH-AI.md, runtimes/claude-app/README.md and runtimes/chatgpt/README.md rests on these pages. All fetched 11 Nov 2026 unless noted. "Not verified" means we could not confirm it from an official page; the guides say so where it matters.
+
+## Claude app (claude.ai web, desktop and mobile chat)
+
+| Claim | Source |
+|---|---|
+| Upload a skill: Customize > Skills, "+", "+ Create skill", "Upload a skill", then a ZIP of the skill folder | support.claude.com/en/articles/12512180-using-skills-in-claude |
+| Skills need code execution: Settings > Capabilities, "Code execution and file creation" (called "Create and edit files" in the updated layout). Team and Enterprise admins manage it under Organization settings | support.claude.com/en/articles/12512180-using-skills-in-claude; support.claude.com/en/articles/12512198-how-to-create-custom-skills |
+| Plans, Help Center: "Skills are available for users on Free, Pro, Max, Ultra, Team, and Enterprise plans" | support.claude.com/en/articles/12512180-using-skills-in-claude |
+| Plans, developer docs: custom skills on claude.ai are "Available on Pro, Max, Ultra, Team, and Enterprise plans with code execution enabled". **Conflict** with the Help Center; our guides recommend Pro or higher | platform.claude.com/docs/en/agents-and-tools/agent-skills/overview |
+| ZIP layout: the skill folder is the archive's top level; "a SKILL.md sitting at the root of the ZIP isn't recognized as a skill"; folder name must match `name` | claude.com/docs/skills/how-to.md; support.claude.com/en/articles/12512198 ("The ZIP should contain the skill folder as its root") |
+| `name`: max 64 characters, lowercase letters, numbers and hyphens, no XML tags, cannot contain "anthropic" or "claude" | platform.claude.com/docs/en/agents-and-tools/agent-skills/overview; claude.com/docs/skills/how-to.md |
+| `description`: max 1,024 characters (spec and developer docs) vs **200 characters** (Help Center upload article). **Conflict**; the upload zips use 200 to be safe | platform.claude.com/docs/en/agents-and-tools/agent-skills/overview; support.claude.com/en/articles/12512198 |
+| Skill zip size limit: upload "fails if the ZIP exceeds size limits", limit not stated. **Not verified**; ours are 19 KB to 650 KB | support.claude.com/en/articles/12512180 |
+| One skill per zip: implied by the examples (one folder at the root), not stated. Our skill zips hold one skill each | support.claude.com/en/articles/12512198 |
+| Scripts in chat: "the skill's whole folder, scripts included, is copied into the code execution sandbox" | claude.com/docs/skills/how-to.md |
+| Network in chat: "Depending on user/admin settings, Skills might have full, partial, or no network access" | platform.claude.com/docs/en/agents-and-tools/agent-skills/overview |
+| Skills enabled on the account load in Claude Code at session start (one way, Claude Code v2.1.273+, not with an API key) | support.claude.com/en/articles/12512180 |
+
+## Claude app plugins (one upload for all agents)
+
+| Claim | Source |
+|---|---|
+| Customize > Plugins in claude.ai or the desktop app; "Add > Upload plugin: upload a plugin you have as a folder on your computer, as a .zip or .plugin file. Zip either the plugin folder itself or its contents" | claude.com/docs/plugins/overview.md |
+| A plugin installed on the account works in chat (web, desktop, mobile), in Cowork, and reaches Claude Code as a synced plugin | claude.com/docs/plugins/overview.md; claude.com/docs/plugins/platform-support.md |
+| Limits: "Each plugin can contain up to 5,000 files and 200 MB, and 200 MB is also the largest file that Upload plugin accepts" | claude.com/docs/plugins/platform-support.md |
+| Layout: manifest at `.claude-plugin/plugin.json`, skills at `skills/<name>/SKILL.md`; upload error text names "plugin.json must be at .claude-plugin/plugin.json at the zip root (or inside a single top-level directory)" | claude.com/docs/plugins/build.md |
+| A top-level `bin/` folder makes claude.ai and Cowork refuse the whole plugin; skills load in chat, Cowork and Claude Code; agents and hooks are ignored in chat | claude.com/docs/plugins/platform-support.md |
+| Remove or disable: plugin menu "Remove", "Disable plugin" toggle | claude.com/docs/plugins/overview.md |
+| Plan for Upload plugin: **not stated**. The directory (Discover) is Pro, Max, Ultra, Team and Enterprise | claude.com/docs/plugins/overview.md |
+| Local check: `claude plugin validate` on our unzipped plugin printed "Validation passed" (Claude Code on the build machine, 11 Nov 2026) | our test |
+
+## Cowork
+
+| Claim | Source |
+|---|---|
+| Cowork is in Claude Desktop, "without opening the terminal", and "reads and writes local files" | claude.com/docs/cowork/overview |
+| Cowork loads the skills and plugins enabled on the claude.ai account and "doesn't read the Claude Code CLI's ~/.claude directory" | claude.com/docs/cowork/overview |
+| Scheduling in Cowork: **not verified** by us | |
+
+## Claude Code and the desktop Code tab (paste a message, Claude installs)
+
+| Claim | Source |
+|---|---|
+| "In the Claude Desktop app, Claude Code is the Code tab"; you choose the project folder with the folder control | code.claude.com/docs/en/desktop.md |
+| Local sessions load personal skills from `~/.claude/skills/` (and skills enabled on the claude.ai account) | code.claude.com/docs/en/desktop.md |
+| Permission modes: Manual "asks before editing files or running commands"; Accept edits "still asks before running other terminal commands" | code.claude.com/docs/en/desktop.md |
+| Plans: "Claude Code requires a Pro, Max, Ultra, Team, Enterprise, or Console account. The free claude.ai plan does not include Claude Code access" | code.claude.com/docs/en/setup.md |
+| The Desktop app "lets you use Claude Code without the terminal" | code.claude.com/docs/en/setup.md |
+| Running a script is a Bash tool call, "so it needs your permission" | claude.com/docs/skills/how-to.md |
+| Plugins in a session: `/plugin marketplace add ./path` accepts a local path; desktop: "+" next to the prompt box, "Add plugins"; skills run as `/<plugin>:<skill>` | code.claude.com/docs/en/plugins/install.md; code.claude.com/docs/en/desktop.md |
+| That Claude follows a pasted message to run `install.py`: **no doc covers this specific case**. It is ordinary Claude Code behaviour (reads files, runs commands after permission). Our INSTALL-WITH-AI.md only asks for those ordinary steps | inference from the pages above |
+
+## OpenAI Codex (app, CLI, and Codex in the ChatGPT desktop app)
+
+| Claim | Source |
+|---|---|
+| Codex reads skills from repo `.agents/skills`, user `$HOME/.agents/skills`, admin `/etc/codex/skills`, and bundled system skills (including `skill-installer`) | learn.chatgpt.com/docs/build-skills.md (redirected from developers.openai.com/codex/skills) |
+| "Standalone skills are available in the ChatGPT desktop app, Codex CLI, and IDE extension"; "Codex detects skill changes automatically. If an update doesn't appear, restart Codex" | learn.chatgpt.com/docs/build-skills.md |
+| `$skill-installer` adds curated skills or skills from other repos | learn.chatgpt.com/docs/build-skills.md |
+| Codex plans: included with Plus, Pro, Business, Enterprise and Edu; Free and Go get the desktop app "subject to rollout" | learn.chatgpt.com/docs/pricing.md |
+| Plugins: Codex CLI `/plugins`, desktop app **Plugins** tab; local plugins via a marketplace file (`~/.agents/plugins/marketplace.json`) | learn.chatgpt.com/docs/plugins.md; developers.openai.com/plugins/build/plugins |
+| Earlier CLI source check (`codex-rs/ext/skills/src/host_roots.rs`, `codex-rs/core/src/agents_md.rs`) | runtimes/codex/README.md |
+| Community report: symlinked skills in `~/.agents/skills` not discovered after an app restart (Apr 2026). Headcount copies folders by default, which avoids this | community.openai.com/t/local-skills-in-agents-skills-are-no-longer-discovered-in-new-codex-sessions/1379522 (search result, not opened) |
+
+## ChatGPT
+
+| Claim | Source |
+|---|---|
+| Skills plans: "Skills are available on ChatGPT Business, Enterprise, Healthcare, and Edu plans"; Free, Plus and Pro not in that rollout (article dated 20 Jul 2026, citing help.openai.com/en/articles/20001066-skills-in-chatgpt) | theaicareerlab.com/blog/chatgpt-skills-what-they-are-how-to-enable-2026. The Help Center article itself returned HTTP 403 to automated reading: **not read directly** |
+| Plus and Pro users asking for native Skills (28 Sep 2026); a Plus user reports skills stopped appearing in Chat around 18 Sep | community.openai.com/t/bring-native-chatgpt-skills-to-plus-and-pro/1401449 |
+| Upload path "Skills, Create, Upload from your computer", then ChatGPT scans the skill | search summaries of the Help Center article; theaicareerlab.com places Skills under Plugins, Skills tab. **Exact labels not verified** |
+| During the beta "skills are off by default; workspace owners can enable them in workspace settings" | academy.openai.com/public/resources/skills |
+| Skills bundled in plugins work in Chat and Work on web, desktop and mobile; select with `@` | learn.chatgpt.com/docs/build-skills.md; learn.chatgpt.com/docs/plugins.md |
+| "We're transitioning custom GPTs to plugins"; Enterprise "Migrate to plugin"; no retirement date; other plans may differ | learn.chatgpt.com/docs/migrate-custom-gpts.md |
+| API skill uploads: zip with a single top-level folder, 50 MB max, 500 files per version (API, not the ChatGPT app) | developers.openai.com/api/docs/guides/tools-skills.md (search result) |
+| Business workspace skills shown as installed but unavailable at runtime (May 2026) | community.openai.com/t/chatgpt-business-skills-appear-installed-enabled-in-ui-but-are-not-available-at-runtime-x2/1388191 |
+| Custom GPT limits (8,000 character instructions, 10 to 20 knowledge files) | runtimes/chatgpt/README.md (earlier research) |
+
+## Where files live when a skill runs without install.py (checked 11 Nov 2026)
+Used by `scripts/hc_home.py`, the home rule copied into every agent.
+
+| Claim | Source |
+|---|---|
+| Claude app chat runs code in "an isolated, sandboxed container"; created files are downloaded "directly from the conversation"; "Files remain available for download throughout your conversation" (nothing said about later chats); 30 MB per file; "Files in your projects are now accessible through Claude's computing environment while remaining in context" | support.claude.com/en/articles/12111783-create-and-edit-files-with-claude (fetched) |
+| Paths in the chat sandbox: working files in `/home/claude`, files the user can download in `/mnt/user-data/outputs`, attached files in `/mnt/user-data/uploads`; outputs survive a container restart within the chat, `/home/claude` does not. **Not official**: third-party write-ups | dev.to/h1gbosn/inside-claudes-sandbox-what-happens-when-claudeai-creates-a-file-4gna; datastudios.org post on missing downloads and `/mnt/user-data/outputs` (search results, not opened) |
+| Project files at `/mnt/project` are not reliable (reported missing or partial since early October 2026); attaching the file to the chat puts it in `/mnt/user-data/uploads` | claudeissues.com/issue/101501 and /issue/94659 (search results, not opened) |
+| Cowork mounts the folder the user picks at `/sessions/<id>/mnt/<folder>` inside its VM; writes there land on the user's computer; nothing else on the computer is visible. **Not official** | deadneurons.substack.com "How Anthropic's Cowork actually works"; claudeissues.com/issue/37617, /issue/32538 (search results, not opened) |
+| Cowork reads and writes local files in the folder you give it | claude.com/docs/cowork/overview (round 1) |
+
+What we decided from this:
+- Claude app chat: the home is `/mnt/user-data/outputs/headcount`, so COMPANY.md and reports can be downloaded. Nothing lasts to the next chat, so company-brain hands COMPANY.md back as a download for the Project, and agents read it from an attached file or the Project. The working folder (`/home/claude`) is not used: it cannot be downloaded and is not kept.
+- Cowork: the picked folder is the home (detected from `/sessions/<id>/mnt/<folder>`, or `hc_home.py --init --here`).
+- Claude Code and other local runtimes with no install.py (plugin installs): `~/headcount`, created and saved to `~/.headcount/config.json` by company-brain's first run.
+- The sandbox paths come from third-party reports, so the rule falls back safely: if `/mnt/user-data/outputs` is missing it uses `~/headcount`, or the working folder when the home folder cannot be written.
+
+## What we built on these facts
+- `app-uploads/headcount-plugin.zip`: one plugin, all 42 skills, about 1,100 files and 3 MB, no `bin/`, passes `claude plugin validate`.
+- `app-uploads/skills/<agent>.zip`: one skill per zip, folder at the top level, description at most 200 characters.
+- `INSTALL-WITH-AI.md`: the paste-one-message path for Claude's Code tab, Claude Code and Codex. It runs `install.py --friendly`, which prints one plain line per step.
+- Builder: `runtimes/claude-app/build_skill_zips.py` (`--check` re-verifies).
+- `~/.headcount/config.json`: written by `install.py` (or by company-brain's first run, `hc_home.py --init`) with the Headcount home and each runtime's skills folder. Agents and their scripts read it, so the buyer never sets an environment variable or edits a shell profile (`HEADCOUNT_HOME` still overrides it). Our design, tested by installing into a throwaway home folder.
+- ChatGPT exports: every agent's text files bundled into 8 knowledge files (under the 10 and 20 file caps reported above), with a per-GPT `KNOWLEDGE.md` and nothing dropped.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

@@ -235,37 +235,67 @@
     }, { threshold: 0.25 });
   })();
 
-  /* ---------- 5 how it works: terminal ---------- */
+  /* ---------- 5 how it works: add Headcount to your AI app ----------
+     Download lands, the buyer asks in plain words, the app asks permission, a checklist ticks.
+     The static final state lives in the HTML (no-JS and reduced motion keep it). */
   (function () {
-    var box = D.getElementById('mini-term'); if (!box) return;
-    var out = box.querySelector('.term'), chips = box.querySelectorAll('.rts span');
+    var box = D.getElementById('mini-add'); if (!box) return;
+    var out = box.querySelector('.setup'), chips = box.querySelectorAll('.rts span'), appName = box.querySelector('.app-name');
     var s = scope(box);
-    var RTS = [['claude', 'Claude Code'], ['chatgpt', 'ChatGPT'], ['codex', 'Codex'], ['openclaw', 'OpenClaw'], ['hermes', 'Hermes']];
-    function line(cls, txt) { var d = D.createElement('div'); if (cls) d.className = cls; d.textContent = txt; out.appendChild(d); return d; }
-    function trim() { while (out.children.length > 11) out.removeChild(out.firstChild); }
-    function show(i, instant) {
-      var rt = RTS[i];
-      chips.forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-rt') === rt[0]); });
-      if (out.children.length) line('o', ' ');
-      var cmd = D.createElement('div');
-      cmd.innerHTML = '<span class="p">$ </span><span class="c"></span>';
-      out.appendChild(cmd); trim();
-      var text = 'python3 install.py --runtime ' + rt[0] + ' --agents all';
-      var outs = rt[0] === 'chatgpt'
-        ? [['o', 'Found 40 agents + Company Brain'], ['k', '✓ GPT packs written to dist/chatgpt/'], ['o', 'Next: runtimes/chatgpt/README.md']]
-        : [['o', 'Found 40 agents + Company Brain'], ['k', '✓ Installed into ' + rt[1]], ['o', 'Next: "Run company-brain. My site is ..."']];
-      if (instant) { cmd.querySelector('.c').textContent = text; outs.forEach(function (o) { line(o[0], o[1]); }); trim(); return Promise.resolve(); }
-      return type(cmd.querySelector('.c'), text, s, 30).then(function () {
-        var p = Promise.resolve();
-        outs.forEach(function (o, k) { p = p.then(function () { return wait(s, k ? 380 : 550); }).then(function () { line(o[0], o[1]); trim(); }); });
-        return p;
-      });
+    var APPS = [['claude', 'Claude', 'Claude'], ['codex', 'Codex', 'Codex'], ['chatgpt', 'ChatGPT', 'the ChatGPT app']];
+    var ASK = 'Set up Headcount from my Downloads folder';
+    var CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>';
+    function el(cls, html) { var d = D.createElement('div'); d.className = cls; if (html) d.innerHTML = html; return d; }
+    function put(node) { out.appendChild(node); return node; }
+    function setApp(a) {
+      chips.forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-rt') === a[0]); });
+      appName.textContent = a[1];
     }
-    line('o', '$ cd headcount');
-    show(0, true);
     if (RM) return;
-    var i = 1;
-    (function loop() { wait(s, 1800).then(function () { return show(i); }).then(function () { i = (i + 1) % RTS.length; loop(); }); })();
+    out.innerHTML = '';
+
+    function play(a) {
+      var dl, perm, ticks, rows;
+      setApp(a);
+      out.innerHTML = ''; out.classList.remove('fade');
+      dl = put(el('su-dl', '<span class="su-dl-ic">' + icon('file') + '</span><span class="su-dl-t"><b>headcount.zip</b><span class="su-dl-bar"><i></i></span></span><span class="su-dl-s">Downloading</span>'));
+      return wait(s, 250)
+        .then(function () { dl.classList.add('show'); return wait(s, 350); })
+        .then(function () { dl.classList.add('go'); return wait(s, 1200); })
+        .then(function () { dl.classList.add('done'); dl.querySelector('.su-dl-s').textContent = '✓ Downloaded'; return wait(s, 900); })
+        .then(function () {
+          dl.classList.add('out');
+          var u = put(el('bm u'));
+          return type(u, ASK, s, 24);
+        })
+        .then(function () { dl.remove(); return wait(s, 450); })
+        .then(function () {
+          var t = put(el('typing', '<i></i><i></i><i></i>'));
+          return wait(s, 850).then(function () { t.remove(); });
+        })
+        .then(function () {
+          perm = put(el('su-perm', '<span>Run the Headcount installer?</span><span class="su-perm-b"><span class="su-btn">Deny</span><span class="su-btn allow">Allow</span></span>'));
+          return wait(s, 1300);
+        })
+        .then(function () { perm.classList.add('press'); return wait(s, 420); })
+        .then(function () {
+          perm.className = 'su-perm ok';
+          perm.innerHTML = CHECK + '<span>You allowed the installer</span>';
+          ticks = put(el('su-list', '<div class="su-row"><span class="su-dot"></span>Found 40 agents + Company Brain</div><div class="su-row"><span class="su-dot"></span>Added them to ' + a[2] + '</div><div class="su-row"><span class="su-dot"></span>Growth ledger ready</div>'));
+          rows = ticks.querySelectorAll('.su-row');
+          var p = wait(s, 250);
+          rows.forEach(function (r) {
+            p = p.then(function () { r.classList.add('show', 'run'); return wait(s, 750); })
+                 .then(function () { r.classList.remove('run'); r.classList.add('ck'); return wait(s, 180); });
+          });
+          return p;
+        })
+        .then(function () { return wait(s, 500); })
+        .then(function () { put(el('bm a', 'Ready. Want to start with <span class="nowrap"><b>Company Brain</b>?</span>')); return wait(s, 3800); })
+        .then(function () { out.classList.add('fade'); return wait(s, 500); });
+    }
+    var i = 0;
+    (function loop() { play(APPS[i]).then(function () { i = (i + 1) % APPS.length; loop(); }); })();
   })();
 
   /* ---------- 5 how it works: Company Brain interview ---------- */

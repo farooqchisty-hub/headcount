@@ -46,7 +46,7 @@
       <span class="hcf-fast-tag"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="8" width="14" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 5.5h15v3h-15zM10 5.5V17M10 5.5C8.5 2.5 5.5 3 6 5c.3 1 4 .5 4 .5zm0 0c1.5-3 4.5-2.5 4-.5-.3 1-4 .5-4 .5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Fast-action bonus unlocked</span>
       <h3>We write your Company Brain for you.</h3>
       <p>You paid during the launch, so this one is on us. Fill the 15 minute intake form and your <code>brain/COMPANY.md</code> comes back written, ready to drop in. Want to start today? Run step 3 yourself now and swap in our version when it arrives.</p>
-      <a class="btn-primary hcf-fast-btn" data-hc-fast-link href="#" target="_blank" rel="noopener">Fill the intake form<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn-primary hcf-fast-btn" data-hc-intake-link href="intake.html">Fill the intake form<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
     <p class="hcf-section-t">// Start here</p>
@@ -56,21 +56,16 @@
         <p>Check your email and WhatsApp. Download <code>headcount.zip</code> and unzip it. Not there in 10 minutes? Look in Promotions or Spam, or message us on WhatsApp.</p>
       </li>
       <li class="hcf-step">
-        <h3>Install it in your AI app</h3>
-        <p>Pick the app you use. Needs Python 3.8 or newer.</p>
-        <div class="hcf-rts" role="group" aria-label="Your AI app">
-          <button type="button" class="hcf-rt" data-rt="claude">Claude</button>
-          <button type="button" class="hcf-rt" data-rt="codex">Codex</button>
-          <button type="button" class="hcf-rt" data-rt="openclaw">OpenClaw</button>
-          <button type="button" class="hcf-rt" data-rt="hermes">Hermes</button>
-          <button type="button" class="hcf-rt" data-rt="chatgpt">ChatGPT</button>
-        </div>
-        <div class="hcf-code"><code id="hc-cmd" data-hc-cmd>python3 install.py --runtime claude --agents all</code><button type="button" class="hcf-copy" data-copy="#hc-cmd"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 6.5V5a1.5 1.5 0 00-1.5-1.5H5A1.5 1.5 0 003.5 5v7A1.5 1.5 0 005 13.5h1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
-        <p>Run it from inside the unzipped <code>headcount</code> folder. For ChatGPT, follow <code>runtimes/chatgpt/README.md</code> after it runs.</p>
+        <h3>Add it to your AI app</h3>
+        <p>No terminal needed. Pick the way that fits the app you use.</p>
+        <p><b>Claude app</b> (browser or desktop): open Customize, then Plugins, then Add, then Upload plugin. Pick <code>headcount-plugin.zip</code> from the <code>app-uploads</code> folder. That is all.</p>
+        <p><b>Claude's Code tab, Codex or the ChatGPT desktop app:</b> open the <code>headcount</code> folder there and send this message. It sets everything up and asks before it changes anything.</p>
+        <div class="hcf-code is-chat is-msg"><code id="hc-ask">Please set up Headcount for me. It's the "headcount" folder I just unzipped (it has install.py and INSTALL-WITH-AI.md in it, usually in my Downloads). Read INSTALL-WITH-AI.md and follow "Steps for the AI". I don't write code, so explain each step in one plain sentence and ask me before you change anything.</code><button type="button" class="hcf-copy" data-copy="#hc-ask"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 6.5V5a1.5 1.5 0 00-1.5-1.5H5A1.5 1.5 0 003.5 5v7A1.5 1.5 0 005 13.5h1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
+        <p>ChatGPT in the browser, or something else? <code>START-HERE.md</code> in the folder has a click-by-click guide for every app.</p>
       </li>
       <li class="hcf-step">
         <h3>Type your first command</h3>
-        <p>Open your AI app in <code>~/headcount</code> and send this. It reads your site, then interviews you for 10 to 20 minutes. Every agent reads what it writes.</p>
+        <p>In the same chat, or a new one, send this. It reads your site, then interviews you for 10 to 20 minutes. Every agent reads what it writes. In the Claude app, do this inside a Project named Headcount and add the file it gives you to that Project.</p>
         <div class="hcf-code is-chat"><code id="hc-first" data-hc-first>Run company-brain. My website is https://yourbrand.com</code><button type="button" class="hcf-copy" data-copy="#hc-first"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 6.5V5a1.5 1.5 0 00-1.5-1.5H5A1.5 1.5 0 003.5 5v7A1.5 1.5 0 005 13.5h1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
       </li>
       <li class="hcf-step">
@@ -111,5 +106,31 @@
 
   <footer class="hcf-foot">Headcount · <a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="privacy.html">Privacy</a></footer>
   <script src="assets/js/cart.js" defer></script>
+  <script>
+  /* Company Brain intake link (bonus 7, the brain downsell and Done With You).
+     Uses CONFIG.fastAction.intakeUrl when it is a real URL, else intake.html.
+     Carries only the order ref, never personal data. */
+  (function () {
+    var fa = (window.CONFIG || {}).fastAction || {};
+    function order() { try { return JSON.parse(sessionStorage.getItem("hc_order") || localStorage.getItem("hc_order") || "{}") || {}; } catch (e) { return {}; } }
+    var ref = new URLSearchParams(location.search).get("ref") || order().ref;
+    var base = /^https?:\/\//.test(fa.intakeUrl || "") && !/REPLACE/.test(fa.intakeUrl) ? fa.intakeUrl : "intake.html";
+    var href = base === "intake.html" && ref ? base + "?ref=" + encodeURIComponent(ref) : base;
+    function wire() {
+      document.querySelectorAll("[data-hc-intake-link]").forEach(function (a) { a.href = href; });
+      /* Paid for the brain (downsell) or Done With You: add the intake link to the order note. */
+      var note = document.querySelector("[data-hc-call]"), o = order();
+      var wantsBrain = (o.offers || []).indexOf("brain") > -1 || (o.basePlan || o.plan) === "dwy";
+      if (note && !note.hidden && wantsBrain && !note.querySelector("[data-hc-intake-link]")) {
+        var a = document.createElement("a");
+        a.setAttribute("data-hc-intake-link", ""); a.href = href; a.textContent = "Fill the Company Brain form now";
+        a.style.cssText = "display:inline-block;margin-top:6px;color:var(--acc);font-weight:600;text-underline-offset:3px";
+        var msg = note.querySelector("[data-hc-callmsg]");
+        (msg || note).appendChild(document.createElement("br")); (msg || note).appendChild(a);
+      }
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else wire();
+  })();
+  </script>
 </body>
 </html>

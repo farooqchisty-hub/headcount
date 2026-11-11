@@ -56,8 +56,14 @@ It does not need a schedule. Set a quarterly reminder to refresh:
 - Hermes: `hermes cron create "0 9 1 */3 *" "Refresh the company brain" --skill company-brain --workdir ~/headcount`
 
 ## 6. What good output looks like
-See `examples/example-output/COMPANY.md` (fictional tea brand) and the interview that produced it in `examples/example-input/interview.md`. Check yours with:
-`python3 agents/company-brain/scripts/validate_brain.py brain/COMPANY.md`
+See `examples/example-output/COMPANY.md` (fictional tea brand) and the interview that produced it in `examples/example-input/interview.md`. Check yours by asking your AI tool "Validate my company brain", or run it yourself from your Headcount home (`cd ~/headcount`):
+- Claude Code: `python3 ~/.claude/skills/company-brain/scripts/validate_brain.py brain/COMPANY.md`
+- Codex: `python3 ~/.agents/skills/company-brain/scripts/validate_brain.py brain/COMPANY.md`
+- OpenClaw: `python3 ~/.openclaw/skills/company-brain/scripts/validate_brain.py brain/COMPANY.md`
+- Hermes: `python3 ~/.hermes/skills/headcount/company-brain/scripts/validate_brain.py brain/COMPANY.md`
+- From the downloaded package folder: `python3 agents/company-brain/scripts/validate_brain.py ~/headcount/brain/COMPANY.md`
+
+Numbers must be plain numbers: `aov: 1400`, not `Rs 1,400` or `14 hundred`; `monthly_revenue: 1000000`, not `10 lakh`. The validator tells you the plain number to write.
 
 ## 7. Tuning (config.yaml)
 - `interview_minutes`: shorten to 12 if you prefill from a rich website.
@@ -65,11 +71,11 @@ See `examples/example-output/COMPANY.md` (fictional tea brand) and the interview
 - `default_banned_words`: words every agent avoids. Remove any you actually use.
 
 ## 8. Troubleshooting
-1. "Cannot read website": your site blocks bots or is JavaScript only. The agent falls back to your AI tool's web fetch, or just asks you.
+1. "Cannot read website", "robots.txt disallows" or "almost no text without JavaScript": your site blocks scripts or renders with JavaScript. The script then tries your sitemap and Shopify collections by itself; if it still finds no products or prices, the agent asks you to paste your homepage text or your product list into the chat. Quickest for a store: send your product export (Shopify admin: Products, Export, CSV; WooCommerce: Products, Export) and the agent reads every product and price from it (`prefill_from_site.py --catalog <file> --currency INR`). You can also save your homepage from the browser (File, Save Page As) and run `prefill_from_site.py --html saved.html --base-url https://yourbrand.com`.
 2. Validator says placeholders remain: search the file for `{{fill}}` and answer those lines, or rerun and say "only ask about what is missing".
 3. Breakeven warning: your breakeven_roas does not equal 1 / margin. Recheck margin includes shipping and payment fees.
 4. Logo path not found: put the file in `brain/assets/` and update `logo_path`.
-5. Agents ignore the brain: start the AI tool from the Headcount home, or set `HEADCOUNT_HOME=~/headcount` in your shell profile.
+5. Agents ignore the brain: ask your AI to rerun the Headcount installer. It saves your home in `~/.headcount/config.json` and links the brain next to your skills folder, so every agent finds it from any folder. No shell profile or environment variable is needed (`HEADCOUNT_HOME`, if set, still wins).
 
 ## 9. Safety
 The brain holds business numbers. Keep it out of public repos. It never contains API keys; those live in your environment or `.env`, never in COMPANY.md.
@@ -88,7 +94,7 @@ No API keys are required.
 | Review export (optional) | real customer phrases for ICP and voice | export CSV from your review app or Shopify, drop in `brain/proof/` | free | none |
 
 Optional environment variable:
-- `HEADCOUNT_HOME`: where `brain/` and `logs/` live. Default `~/headcount`.
+- `HEADCOUNT_HOME` (optional): where `brain/` and `logs/` live. Not needed: install.py saves the home (default `~/headcount`) in `~/.headcount/config.json` and every agent reads it. Set the variable only to override that.
 
 Nothing else. Data source keys (Meta, Google, Shopify, ESP) belong to the agents that use them; see `guides/`.
 
@@ -108,7 +114,20 @@ Nothing else. Data source keys (Meta, Google, Shopify, ESP) belong to the agents
 - `references/claims-and-compliance.md`
 - `references/interview-playbook.md`
 - `references/voice-capture.md`
+- `scripts/catalog_import.py`
+- `scripts/fixtures/catalog/pasted-product-list.txt`
+- `scripts/fixtures/catalog/shopify-admin-api-response.json`
+- `scripts/fixtures/catalog/shopify-products-export.csv`
+- `scripts/fixtures/catalog/simple-product-sheet.csv`
+- `scripts/fixtures/catalog/woocommerce-products-export.csv`
+- `scripts/fixtures/js-store/collections.json`
+- `scripts/fixtures/js-store/index.html`
+- `scripts/fixtures/js-store/robots.txt`
+- `scripts/fixtures/js-store/sitemap.xml`
+- `scripts/fixtures/js-store/sitemap_products_1.xml`
 - `scripts/fixtures/site.html`
+- `scripts/hc_home.py`
 - `scripts/prefill_from_site.py`
+- `scripts/test_prefill.py`
 - `scripts/validate_brain.py`
 - `templates/COMPANY.template.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

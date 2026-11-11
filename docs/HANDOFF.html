@@ -41,7 +41,7 @@ headcount/                      the package (this repo)
   runtimes/                     runtime-specific packaging (Claude plugin, Codex AGENTS.md, GPT builder)
   guides/                       how to connect each platform, schedule, safety, costs
 
-~/headcount/                    your Headcount home (created by install.py; set HEADCOUNT_HOME to move it)
+~/headcount/                    your Headcount home (created by install.py; --home moves it, HEADCOUNT_HOME overrides)
   brain/COMPANY.md              the shared memory every agent reads first
   brain/clients/<slug>/         agency mode: one brain per client
   brain/assets/ brain/proof/    logo, product photos, proof files for claims
@@ -52,9 +52,14 @@ headcount/                      the package (this repo)
   reports/<agent>/              human reports (reports/standup/2026-11-09.md)
   ledger/headcount.db           the growth ledger: every agent action, run, approval and key metric (SQLite, created by install.py)
   AGENTS.md                     Codex only: house rules for this folder
+  README.md                     index written by install.py: where each agent's README (setup checklist) is
+  guides/                       copy of the setup guides, refreshed on every install
+
+~/.headcount/config.json        written by install.py: {"home": ...} plus the skills folder per runtime.
+                                Agents and scripts read it, so no environment variable or shell profile is needed
 ```
 
-Always start your AI tool from the Headcount home (`cd ~/headcount`). Agents resolve the home as: `$HEADCOUNT_HOME`, then the working directory if it has `brain/`, then `../../` from the skill folder (install.py links `<skills dir>/../brain` to your brain), then `~/headcount`.
+Starting your AI tool from the Headcount home (`cd ~/headcount`) is easiest, but not required. Agents resolve the home as: `$HEADCOUNT_HOME`, then `home` in `~/.headcount/config.json` (written by install.py), then the working directory if it has `brain/` (never the download folder), then `../../` from the skill folder (install.py links `<skills dir>/../brain` to your brain, also with `--dest`), then `~/headcount`.
 
 ## 2. The three rules every agent follows
 1. Read `brain/COMPANY.md` first. No brain, no run: the agent sends you to company-brain.
@@ -176,7 +181,7 @@ Typical chains:
 - Your brain, logs, outputs and ledger live in the Headcount home and are never touched by install or uninstall. A newer ledger schema is applied by install.py (or `ledger.py init`); rows are never removed.
 
 ## 9. When something goes wrong
-- Agent says the brain is missing: run from the Headcount home or set HEADCOUNT_HOME.
+- Agent says the brain is missing: rerun install.py (it rewrites `~/.headcount/config.json` and the brain link), or run from the Headcount home. `HEADCOUNT_HOME` still overrides both.
 - Agent cannot reach an API: run its `scripts/check_setup.py` (where present) and see its CONNECT.md.
 - An agent did something you did not expect: read its log or ask the ledger (`ledger.py query "SELECT * FROM agent_actions WHERE agent = '<agent>' ORDER BY ts DESC LIMIT 10"`), then its config.yaml approval settings. Set the action class back to "ask".
 - Something posted or spent without approval: stop the schedule (guides/scheduling.md), revoke the key at the platform, then review the agent's config.yaml.

@@ -22,7 +22,12 @@ window.CONFIG = {
     endsAt: "2026-11-30T23:59:59+05:30",
     label: "Company Brain written for you",
     worth: 999,
-    intakeUrl: "[https://forms.gle/REPLACE_INTAKE_FORM]"
+    intakeUrl: "[https://forms.gle/REPLACE_INTAKE_FORM]",
+    /* intake.html POSTs the answers as JSON here. Any https URL that accepts a CORS JSON
+       POST and returns 2xx (Formspree, Basin, your own Cloudflare Worker; see
+       bonuses/07-company-brain-dfy/FULFILMENT-SOP.md). While it is a [bracketed] placeholder
+       the page offers "Download answers" and "Send on WhatsApp" instead. */
+    intakeEndpoint: "[https://REPLACE_INTAKE_ENDPOINT]"
   },
 
   /* true = Pay buttons walk the demo funnel (oto, downsell, thank-you) without charging.

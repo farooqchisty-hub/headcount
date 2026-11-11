@@ -25,33 +25,34 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
 </style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="../landing/index.html">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: your first 15 minutes
 
-Headcount is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. You run them inside the AI tool you already use. You bring your own API keys; nothing is sent, posted or spent without your yes.
+Headcount is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. They run inside the AI app you already use. You never need a terminal. Nothing is sent, posted or spent without your yes.
 
-## Minute 0 to 3: install
-You need Python 3.8 or newer (`python3 --version`) and one of: Claude Code, OpenAI Codex, OpenClaw, Hermes Agent, or a ChatGPT plan that can create GPTs.
+## Minute 0 to 3: add Headcount to your AI app
+Unzip `headcount.zip` (double-click it), then pick the row for the app you use.
 
-```
-cd headcount
-python3 install.py --runtime claude --agents all --dry-run   # shows what it will do
-python3 install.py --runtime claude --agents all
-```
-Swap `claude` for `codex`, `openclaw`, `hermes` or `chatgpt`. For ChatGPT the installer writes one folder per agent in `dist/chatgpt/`; follow `runtimes/chatgpt/README.md` to create the GPTs.
+| You use | Do this | Guide |
+|---|---|---|
+| **Claude** in the browser, the Claude desktop app, or Cowork | Upload one file: Customize, Plugins, Add, Upload plugin, then pick `app-uploads/headcount-plugin.zip` | [runtimes/claude-app/README.md](runtimes/claude-app/README.html) |
+| **Claude desktop app, Code tab** (or Claude Code) | Open the `headcount` folder in the Code tab and paste one message. Claude installs everything and asks before each change. | [INSTALL-WITH-AI.md](INSTALL-WITH-AI.html) |
+| **ChatGPT desktop app or the Codex app** | Open Codex, pick the `headcount` folder, and paste the same message. | [INSTALL-WITH-AI.md](INSTALL-WITH-AI.html) |
+| **ChatGPT in the browser** | Upload skills (Business, Enterprise and Edu workspaces) or build Custom GPTs. | [runtimes/chatgpt/README.md](runtimes/chatgpt/README.html) |
+| OpenClaw or Hermes Agent | Paste the message from INSTALL-WITH-AI.md, or see Advanced below. | [runtimes/](runtimes/) |
 
-The installer also creates your Headcount home at `~/headcount` (brain, logs, outputs) and your growth ledger, `~/headcount/ledger/headcount.db`, the one file where every agent records what it changed. Add this line to your shell profile so every agent finds it:
-```
-export HEADCOUNT_HOME=~/headcount
-```
+Which is best? Uploading in the Claude app is the quickest. Pasting the message into Claude's Code tab or Codex takes a minute longer and gives you everything: helper scripts on your own computer, schedules (a Monday report at 7am), and a growth ledger that builds up week after week. You can do both.
+
+What you need: a Claude Pro (or higher) or ChatGPT Plus (or higher) plan. For the paste-a-message route, your computer also needs free Python 3.8 or newer; your AI checks and tells you how to get it if it is missing. The Claude app upload needs nothing on your computer.
 
 ## Minute 3 to 13: run company-brain (once)
-```
-cd ~/headcount
-claude            # or codex, openclaw, hermes chat -s company-brain
-```
-Type: `Run company-brain. My website is https://yourbrand.com`
+Send: `Run company-brain. My website is https://yourbrand.com`
 
-It reads your site, then interviews you for about 10 to 20 minutes: offer, prices, customer, voice samples, competitors, numbers (AOV, margin, CAC target), claims you can and cannot make, banned words, brand colours and fonts. Have ready: last month's revenue and AOV, your margin or product cost, your logo, three pieces of writing you like, ten customer reviews.
+It reads your site, then interviews you for about 10 to 20 minutes: offer, prices, customer, voice samples, competitors, numbers (AOV, margin, CAC target), claims you can and cannot make, banned words, brand colours and fonts. Have ready: last month's revenue and AOV, your margin or product cost, your logo, three pieces of writing you like, ten customer reviews. Selling products? Also your product export (Shopify admin: Products, Export, CSV; WooCommerce: Products, Export): the agents read every product and price from it instead of guessing from your website. No export? Paste your product names and prices into the chat.
 
-It writes `brain/COMPANY.md` and checks it. You can edit that file any time.
+It writes `COMPANY.md` and checks it. Where it lives depends on your app:
+- Claude Code tab or Codex: `~/headcount/brain/COMPANY.md`. Next time, open the `headcount` folder in your home folder.
+- Claude app chat: you get `COMPANY.md` to download. Add it to a Project named Headcount and run every agent inside that Project.
+- Cowork: `brain/COMPANY.md` in the folder you gave it.
+
+You can edit COMPANY.md any time.
 
 ## Minute 13 to 15: pick your first 3 agents
 Start with three. Add more once these run cleanly for a week.
@@ -65,21 +66,39 @@ Start with three. Add more once these run cleanly for a week.
 | Local business | reputation-guard, social-autopilot, google-ads-waste-killer | Reviews decide local choices; steady posting keeps you visible; local search ads leak money fast. No ads? Swap in seo-content-pipeline. |
 
 For each one:
-1. Open `agents/<agent>/README.md` and do its setup checklist (keys and costs are listed honestly).
-2. Connect the platforms it needs with the guides in `guides/` (connect-meta.md, connect-google.md, connect-shopify.md, connect-esp.md, connect-social.md, connect-ai-models.md).
+1. Ask your AI: `Use <agent>. What do you need from me first?` The agent's README has the same setup checklist (keys and costs are listed honestly). After setup, `README.md` in your Headcount home (`~/headcount`) lists where every agent's README is; in the download folder they are in `agents/<agent>/README.md`. In the Claude app, ask: `Show me the README for <agent>`.
+2. Connect the platforms it needs with the guides in `guides/` (connect-meta.md, connect-google.md, connect-shopify.md, connect-esp.md, connect-social.md, connect-ai-models.md). The installer copies them into `~/headcount/guides/`; they are also in the download folder. Easiest: ask your AI `Walk me through connect-shopify.md`.
 3. Run it once by hand: the README gives the exact first message.
-4. Put it on a schedule (guides/scheduling.md) only after one good manual run.
+4. Put it on a schedule (guides/scheduling.md) only after one good manual run. Schedules need Claude Code (the Code tab), Codex, OpenClaw or Hermes.
 
 ## Then: Monday
 Add monday-standup. Every Monday it reads every agent's log and your data and gives you one page: up to 4 numbers that moved, why, and what each agent does next.
 
 ## Any day: ask the ledger
-Every agent writes each change (before, after, why, who approved, what it cost) and its key numbers to your growth ledger. Ask in plain English: `Use growth-ledger: what did my agents change this week and what did it cost?` Every answer comes with the SQL behind it. Monday morning, `growth-ledger` also builds one HTML page with spend, revenue, ROAS and a timeline of every change. Want your AI tool to query it directly? `agents/growth-ledger/CONNECT.md` has the one-line MCP setup for Claude Code, Codex, Cursor, OpenClaw and Hermes.
+Every agent writes each change (before, after, why, who approved, what it cost) and its key numbers to your growth ledger. Ask in plain English: `Use growth-ledger: what did my agents change this week and what did it cost?` Every answer comes with the SQL behind it. Monday morning, growth-ledger also builds one HTML page with spend, revenue, ROAS and a timeline of every change. The ledger builds up over time in Claude Code, Codex, OpenClaw and Hermes; in a Claude app chat each agent ends with a log block for you to keep. Want your AI tool to query it directly? Ask it: `Connect the growth ledger MCP server for me` (growth-ledger's CONNECT.md has the steps for Claude Code, Codex, Cursor, OpenClaw and Hermes).
 
 ## Good to know
 - Approvals: agents draft; you say yes. Each agent's `config.yaml` lists what it may do alone (default: nothing public, paid or sent).
 - Costs per run: `guides/costs.md`. Most agents cost cents to a few dollars per run in API fees.
 - Platform rules: `guides/safety-and-platform-rules.md`. Read it before turning on social or outreach agents.
 - Your data stays yours: the ledger is a local file. Back it up like any finance export.
-- How it all fits together: `HANDOFF.md`.
+- How it all fits together: `HANDOFF.md` in the download folder.
+- Where each install path comes from: `guides/SOURCES-install.md` in the download folder.
+
+## Advanced: install from a terminal
+Only if you like terminals. This is exactly what your AI runs for you in INSTALL-WITH-AI.md. You need Python 3.8 or newer: `python3 --version` on Mac and Linux, `py -3 --version` on Windows (use `py -3` wherever this page says `python3`). On a fresh Mac, `python3` may open a pop-up offering Apple's free command line developer tools: click Install, wait, then check again.
+
+```
+cd headcount
+python3 install.py --runtime claude --agents all --dry-run   # shows what it will do
+python3 install.py --runtime claude --agents all
+```
+Swap `claude` for `codex`, `openclaw`, `hermes` or `chatgpt`. Add `--friendly` for plain-English output. For ChatGPT the installer writes one folder per agent in `dist/chatgpt/`; follow `runtimes/chatgpt/README.md` to create the GPTs.
+
+The installer also creates your Headcount home at `~/headcount` (brain, logs, outputs, guides) and your growth ledger, `~/headcount/ledger/headcount.db`, and saves the home's location in `~/.headcount/config.json`. Every agent reads that file, so it finds your home from any folder: there is no shell profile or environment variable to set. (`HEADCOUNT_HOME` still overrides it if you already use it.) Then:
+```
+cd ~/headcount
+claude            # or codex, openclaw, hermes chat -s company-brain
+```
+Rebuild the Claude app upload files after changing any agent: `python3 runtimes/claude-app/build_skill_zips.py`. Every option: `python3 install.py --help`.
 </script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

@@ -27,6 +27,17 @@ footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font
 
 Used by: catalog-optimizer, roas-autopilot (catalog and revenue truth), flow-architect, campaign-builder, winback-analyst, cro-test-runner, static-ad-factory (product photos), product-photoshoot, monday-standup.
 
+## Fastest and most reliable: your product export (2 minutes, no token)
+Scripts that read your public store (`yourstore.com/products.json` or product pages) are often refused with "HTTP 429, too many requests", even on the first try. For your own store you never need them:
+1. Shopify admin, **Products**, **Export**. Pick **All products** and either CSV option. Shopify emails you the file (or it downloads straight away for small stores).
+2. Give the file to your AI in the chat (or put it in your Headcount home) and say which agent should use it, for example `Use static-ad-factory with this product export`.
+
+What reads it: static-ad-factory (`fetch_products.py --csv <file> --currency INR`), company-brain (`prefill_from_site.py --catalog <file> --currency INR`) and catalog-optimizer (`backup_catalog.py --csv <file> --currency INR`). The export has titles, descriptions, every variant price and compare-at price (your MRP), stock, images and alt text, SEO fields and draft or active status. It does not say the currency, so the agents ask once or use INR from your COMPANY.md. Re-export whenever prices change.
+
+No export to hand? Paste your product names and prices into the chat, one per line (`Rose Mist Toner 100 ml - Rs. 349 (MRP 399)`). The same scripts read that list (`--list` for static-ad-factory, `--catalog` for company-brain).
+
+Catalog changes still need the token below: catalog-optimizer drafts everything from the export, but pushing approved copy to your store uses the Admin API.
+
 ## Shopify: custom app token (about 10 minutes)
 1. Shopify admin, Settings, Apps and sales channels, Develop apps. Allow custom app development if asked.
 2. Create an app (e.g. `Headcount`), Configure Admin API scopes. Pick only what your agents need:
@@ -36,14 +47,17 @@ Used by: catalog-optimizer, roas-autopilot (catalog and revenue truth), flow-arc
    - analytics (cro-test-runner): `read_analytics` (ShopifyQL where available).
 3. Install the app, reveal the Admin API access token once, copy it.
 4. Env vars: `SHOPIFY_STORE_DOMAIN` (`yourstore.myshopify.com`), `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_API_VERSION` (our scripts default to `2026-10`; Shopify releases a version each quarter and supports each for at least 12 months).
-5. Test: `curl -s -X POST "https://$SHOPIFY_STORE_DOMAIN/admin/api/$SHOPIFY_API_VERSION/graphql.json" -H "X-Shopify-Access-Token: $SHOPIFY_ADMIN_TOKEN" -H "Content-Type: application/json" -d '{"query":"{shop{name currencyCode}}"}'`
+5. Products with the token, no scraping: `python3 fetch_products.py --admin-api --out products.json` (static-ad-factory) reads your catalogue through the Admin API (`read_products` is enough; it also accepts the variable name `SHOPIFY_ACCESS_TOKEN`).
+6. Test: `curl -s -X POST "https://$SHOPIFY_STORE_DOMAIN/admin/api/$SHOPIFY_API_VERSION/graphql.json" -H "X-Shopify-Access-Token: $SHOPIFY_ADMIN_TOKEN" -H "Content-Type: application/json" -d '{"query":"{shop{name currencyCode}}"}'`
 
 Note: Shopify is moving custom app creation into the Dev Dashboard with client credentials for new apps. If your admin no longer offers "Develop apps", create the app in the Dev Dashboard and use the client ID and secret flow (GeLi2001/shopify-mcp supports both).
 
 Rate limits: GraphQL Admin API uses a cost based leaky bucket; scripts read the `throttleStatus` and slow down.
 
 ## WooCommerce
-WooCommerce, Settings, Advanced, REST API, Add key (Read for reporting, Read/Write for catalog edits). Env vars: `WOO_URL`, `WOO_CONSUMER_KEY`, `WOO_CONSUMER_SECRET`. Use HTTPS only.
+No key needed for products: WordPress admin, **Products**, **Export**, **Generate CSV**. The same scripts read it (`--csv <file>` or `--catalog <file>`), variable products and variations included.
+
+For orders and reporting: WooCommerce, Settings, Advanced, REST API, Add key (Read for reporting, Read/Write for catalog edits). Env vars: `WOO_URL`, `WOO_CONSUMER_KEY`, `WOO_CONSUMER_SECRET`. Use HTTPS only.
 
 ## Stripe (SaaS, services, coaching)
 Dashboard, Developers, API keys, Create restricted key: read on Charges, Customers, Subscriptions, Invoices; write on Payment Links only if ai-sales-closer should create links (it still asks before sending). Env var: `STRIPE_API_KEY` (an `rk_` key). Never use the secret `sk_` key with agents.
@@ -52,4 +66,6 @@ Dashboard, Developers, API keys, Create restricted key: read on Charges, Custome
 Shopify/Shopify-AI-Toolkit (MIT), GeLi2001/shopify-mcp (MIT). Stripe publishes an official MCP server; check its licence before enabling.
 
 Sources: shopify.dev/docs/api/admin-graphql, shopify.dev/docs/api/usage/versioning, shopify.dev/docs/api/usage/access-scopes; woocommerce.github.io/woocommerce-rest-api-docs; docs.stripe.com/keys (restricted keys).
+
+Export formats: the importer (catalog_import.py) follows the column names of Shopify's product CSV (Handle, Title, Body (HTML), Option1 Name, Variant Price, Variant Compare At Price, Image Src, Status...) and WooCommerce's built-in product exporter (Type, SKU, Name, Regular price, Sale price, Parent, Images...), as documented at help.shopify.com/en/manual/products/import-export and woocommerce.com/document/product-csv-importer-exporter. Tested on sample files with those headers, not re-fetched from the help pages in this round; headers are matched without case, so small changes still work.
 </script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

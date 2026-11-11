@@ -37,6 +37,7 @@ Not for: brands without decent product photos (run product-photoshoot first), re
 - [ ] angle-miner has run (recommended; ads are built on its arguments)
 - [ ] Google Chrome or Chromium installed (free; sets the type)
 - [ ] One image key if you want AI backgrounds: Gemini, OpenAI, Replicate or fal
+- [ ] Your product export, the most reliable catalogue source: Shopify admin, Products, Export, CSV (WooCommerce: Products, Export). A pasted product list also works
 Time to set up: 15 minutes. Cost per run of 20 ads: $0 if you use brand colour backgrounds only; roughly $1 to $6 for 8 to 15 AI background plates, depending on provider and resolution (check your provider's price page). The agent shows the count and estimate and waits for your yes.
 
 ## 4. First run
@@ -67,7 +68,7 @@ See `examples/output/`: five fixture ads (hero, testimonial, comparison, stateme
 ## 8. Troubleshooting
 | Problem | Fix |
 |---|---|
-| "products.json not available" (exit 3) | Store is not Shopify or blocks it. The agent reads product pages instead; or export your catalogue CSV |
+| "products.json rate limited (HTTP 429)" or "not available" | Many Shopify stores now rate limit scripts on /products.json. For your own store, skip it: export your products (Shopify admin: Products, Export, CSV) and give the file to the agent (`fetch_products.py --csv <file> --currency INR`); WooCommerce exports and a pasted product list (`--list`) work too, and an Admin token works with `--admin-api`. For other stores the script waits once, then reads up to 12 public product pages (prices from the page, so "was" prices cannot be checked and QA will block them). Exit 3 means that also failed: let the agent read pages with its browser |
 | "text did not fit" (exit 4) | Shorten the headline; 6 to 8 words fits every size |
 | Product looks pasted on | Choose a plate with matching light direction; the cutout needs a soft shadow (built in) |
 | QA fails on price | Your spec price differs from the live store. Use the live price or wait for the sale to go live |
@@ -83,13 +84,14 @@ No fake reviews, no invented people, no fake screenshots of other platforms. Tes
 
 | Connection | Needed for | Where to get it | Scopes / access | Cost | Env var |
 |---|---|---|---|---|---|
-| Shopify public catalogue | Products, prices, images | Nothing: `https://<store>/products.json` is public on most stores | Public read | Free | none |
+| Your product export (recommended for your own store) | Products, prices, compare-at prices, images | Shopify admin, Products, Export, CSV; or WooCommerce, Products, Export; or a pasted list. Run `fetch_products.py --csv <file> --currency INR` | None, a file you download | Free | none |
+| Shopify public catalogue | Products, prices, images (other stores, or no export) | Nothing: `https://<store>/products.json` is public on most stores, but many now rate limit scripts (HTTP 429); the script then reads public product pages | Public read | Free | none |
 | Chrome or Chromium | Setting real type and exporting PNGs | google.com/chrome or your package manager | Local | Free | `CHROME_PATH` (optional) |
 | Google Gemini API | Background plates, lifestyle edits (Nano Banana Pro) | aistudio.google.com, Get API key | Generative Language API | Pay per image (see ai.google.dev pricing) | `GEMINI_API_KEY` |
 | OpenAI API | GPT Image 1.5 generations and edits | platform.openai.com, API keys | Images | Pay per image, more with `input_fidelity: high` | `OPENAI_API_KEY` |
 | Replicate | Nano Banana Pro, Seedream 4, Flux Kontext Pro | replicate.com, Account, API tokens | Predictions | Pay per run (shown on each model page) | `REPLICATE_API_TOKEN` |
 | fal | Nano Banana Pro edit, Seedream 4 edit | fal.ai, Dashboard, Keys | Model calls | Pay per image | `FAL_KEY` |
-| Shopify Admin API (optional) | Own store: full-size images, inventory, live discounts | Shopify admin, Settings, Apps, Develop apps | `read_products`, `read_inventory`, `read_price_rules` | Free | `SHOPIFY_ACCESS_TOKEN`, `SHOPIFY_STORE_DOMAIN` |
+| Shopify Admin API (optional) | Own store: full-size images, inventory, live discounts; `fetch_products.py --admin-api` | Shopify admin, Settings, Apps, Develop apps | `read_products`, `read_inventory`, `read_price_rules` | Free | `SHOPIFY_ADMIN_TOKEN` (or `SHOPIFY_ACCESS_TOKEN`), `SHOPIFY_STORE_DOMAIN` |
 | treg (optional) | Only if you already have your own treg account with image models | your account | per tool | per call | `TREG_TOKEN` |
 
 You need one image provider at most. Brand colour backgrounds need none.
@@ -127,10 +129,18 @@ Keys live in your environment or a git ignored `.env`. Scripts never print them;
 - `references/image-prompting.md`
 - `references/qa-rubric.md`
 - `scripts/_common.py`
+- `scripts/catalog_import.py`
 - `scripts/check_setup.py`
 - `scripts/fetch_products.py`
+- `scripts/fixtures/catalog/pasted-product-list.txt`
+- `scripts/fixtures/catalog/shopify-admin-api-response.json`
+- `scripts/fixtures/catalog/shopify-products-export.csv`
+- `scripts/fixtures/catalog/simple-product-sheet.csv`
+- `scripts/fixtures/catalog/woocommerce-products-export.csv`
 - `scripts/gen_image.py`
+- `scripts/hc_home.py`
 - `scripts/qa_check.py`
 - `scripts/render_ad.py`
+- `scripts/test_catalog_import.py`
 - `templates/ad-spec.example.json`
 - `templates/batch-summary.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

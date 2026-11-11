@@ -31,9 +31,9 @@
       desc: "The comment-to-DM funnel, openers, a one-line offer and objection answers.",
       inside: ["6-step DM funnel", "9 message templates", "8 objection answers"], short: "WhatsApp and DM Scripts" },
     { slug: "motion-kit", mock: "player", tint: "blue", value: 1999,
-      name: "The Motion Template Kit", format: "5 video templates",
-      desc: "Kinetic type, count-up, walkthrough, review and carousel. Edit one block, render MP4.",
-      inside: ["5 templates", "9:16 and 1:1", "Render checklist"], short: "Motion Template Kit" },
+      name: "The Motion Template Kit", format: "10 video templates",
+      desc: "Price drop, Diwali countdown, before and after, reviews, kinetic type and 5 more. Edit one file, render MP4.",
+      inside: ["10 templates", "9:16 and 1:1", "41 s preview reel"], short: "Motion Template Kit" },
     { slug: "company-brain", mock: "doc", tint: "gold", value: 999, fast: true,
       name: "Your Company Brain, written for you", format: "Done for you",
       desc: "Fill a 15-minute form. We write and check your COMPANY.md, the file every agent reads before it does anything, and send it to you.",
@@ -243,8 +243,8 @@
       '<div class="pl-win"><div class="pl-bar"><span class="nt-dots"><i></i><i></i><i></i></span><b>motion-template-kit / preview-reel.mp4</b></div>' +
         '<div class="pl-vid"><div class="pl-blur"></div><div class="pl-frame"><div class="l">Stop</div><div class="l">guessing</div><div class="l a">what works</div><div class="kick">Copy the mechanism, not the video.</div><i class="bar"></i></div>' +
           '<div class="pl-ctrl"><div class="pl-prog">' + prog + '<span class="pl-head" style="--x:11.4%"></span><span class="pl-tip" style="--x:11.4%">01 Kinetic type</span></div>' +
-            '<div class="pl-row"><svg viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1.5" width="2.8" height="9" rx=".6"/><rect x="7.2" y="1.5" width="2.8" height="9" rx=".6"/></svg><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 4.5h2l3-2.5v8l-3-2.5h-2z" fill="currentColor"/><path d="M8.5 4a3 3 0 010 4"/></svg><span>0:05 / 0:43</span><span class="sp"></span><span>CC</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 4V1.5H4M8 1.5h2.5V4M10.5 8v2.5H8M4 10.5H1.5V8"/></svg></div></div></div>' +
-        '<div class="pl-meta"><h6>The Motion Template Kit \u00B7 preview reel</h6><div><span>5 chapters</span><span>HyperFrames</span><span>Apache-2.0</span></div></div>' +
+            '<div class="pl-row"><svg viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1.5" width="2.8" height="9" rx=".6"/><rect x="7.2" y="1.5" width="2.8" height="9" rx=".6"/></svg><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 4.5h2l3-2.5v8l-3-2.5h-2z" fill="currentColor"/><path d="M8.5 4a3 3 0 010 4"/></svg><span>0:05 / 0:41</span><span class="sp"></span><span>CC</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1.5 4V1.5H4M8 1.5h2.5V4M10.5 8v2.5H8M4 10.5H1.5V8"/></svg></div></div></div>' +
+        '<div class="pl-meta"><h6>The Motion Template Kit \u00B7 preview reel</h6><div><span>10 chapters</span><span>HyperFrames</span><span>Apache-2.0</span></div></div>' +
         '<div class="pl-list"><div class="hd">Chapters</div>' + list + "</div>" +
       "</div>" +
       '<div class="pl-json bx-float" style="--d:-1.5s"><div class="hd"><span>content.json</span><b>edit this, render</b></div>' +
