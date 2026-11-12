@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DASHBOARD-PLAN: Headcount</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Headcount customer dashboard: plan
+
+Goal: buyers never get a forwardable download link. Everything they bought lives behind an email + password login at `ecomagents.ai/headcount/app/`, tied to the purchase email. The dashboard is also our upsell surface: locked products, short product explainers, and one timed offer per session.
+
+## 1. Accounts and login
+- **Who can have an account:** only an email that has a paid order. The account is created by the payment, never by self sign-up.
+- **First access:** the delivery email has no download links, only a one-time "Set your password" link (single use, expires in 24 h, re-sendable from the login page with "Email me a new link"). This proves they own the inbox.
+- **Login:** email + password every time. Session cookie is HttpOnly, Secure, SameSite=Strict, ends after 12 h or when the browser closes. One session = one login.
+- **Passwords:** PBKDF2-SHA256 via WebCrypto with a per-user salt (the Worker-safe standard), minimum 8 characters, checked against a short common-password list.
+- **Protection:** rate limit per IP and per email, lockout after 8 bad tries for 15 min, Cloudflare Turnstile shown after 3 failures, "Forgot password" by emailed link, every login logged (time, IP, device).
+- **Sharing control:** at most 2 active sessions per account; a third login signs out the oldest. Same account seen from more than 3 cities or 5 devices in a day raises an ops alert.
+
+## 2. What is inside the dashboard
+- **Home:** greeting, "Start here" (3 setup steps for their plan), what's new.
+- **My products:** one card per owned product (Headcount agents, Crew Pro extras, Ecom Agent OS, Winning Statics bundle, AI Video Templates, Niche Brain Pack), each with its setup steps and a Download button.
+- **Bonuses:** read and use in the browser (Rulebook, Swipe File, Hook Vault, scripts, outreach pack as built-in viewers; motion kit as a download). Viewing in the browser is harder to forward than a file.
+- **Locked products:** every add-on and product they do not own, shown greyed with a lock. Tap to expand: a 3-line pitch, 3 to 6 visuals (the preview images we already have), what's inside, price, and one-tap Buy (email prefilled, Cashfree). Buying unlocks it instantly on the payment webhook.
+- **Services:** brief forms and status for done-for-you work (ad creatives, video, install, Company Brain).
+- **Account:** change password, sign out everywhere, order history, GST details.
+- **Future products:** the catalog is data (a products table), so adding a new product = one catalog entry + one private file. It shows up as "Locked" for everyone and "Coming soon" if not yet on sale.
+
+## 3. Downloads that resist sharing
+- No public links. The Download button asks the API for a signed link valid for 5 minutes, tied to the session.
+- Limits: 5 downloads per product per day per account; every download logged.
+- **Watermarking:** the agent packs (the core product) are stamped per buyer at download: a licence file and a hidden ID in each agent's files carrying the buyer's email and order ID. Leaked copies can be traced. Very large media packs (walkthrough videos) are streamed, not stamped.
+- Honest limit: anything that has to be installed in Claude or Codex must be downloaded at some point. Login, short links, limits and watermarks make sharing traceable and inconvenient, not impossible.
+
+## 4. The once-per-session offer
+- **When:** 2 minutes after login, once per session, never during checkout or a brief form.
+- **What:** one product they don't own, 10% off, with a live 30-minute countdown.
+- **Rotation:** we keep each buyer's offer history and pick the next unowned product in turn, so every session shows a different one.
+- **The deadline is real:** the discount is held by the server for 30 minutes. A product's 10% offer is shown to the same buyer at most once every 30 days. So "ends in 30 minutes" is true. India's 2023 dark-pattern rules ban false urgency, and this design stays clear of it.
+- **Close or buy:** "Not now" closes it for the session. "Buy" opens checkout at the discounted price.
+
+## 5. Changes to what exists
+- Delivery emails and lifecycle emails: replace download links with "Open your dashboard" or "Set your password". Offers in emails link to the dashboard's locked cards.
+- Thank-you page after payment: "Check your inbox to set your password", plus a button to resend.
+- Remove the old download-token links (no real buyers yet, so no migration).
+- Slack alerts unchanged; add ops alerts for suspected account sharing.
+
+## 6. Build and test
+- **API (headcount-api Worker):** accounts, sessions, password set and reset, catalog, entitlements, signed downloads, watermarking, offers and rotation, admin commands. Storage in D1 `headcount-orders` (new migration), files in R2 `headcount-private`.
+- **Dashboard (Pages, same design system):** login, set password, home, products, bonuses, locked cards with explainers, services, account, the offer pop-up.
+- **Emails:** delivery and lifecycle updates.
+- **Tests:** login and lockout, session limit, password reset, entitlement checks (no access to unowned files), link expiry, download limits, watermark present, offer rotation, single pop-up per session, discount expires at 30 minutes, buying unlocks instantly, phone (390 px) and desktop (1440 px) screens checked by eye.
+- **Deploy:** same commands as now, with a new D1 migration.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
