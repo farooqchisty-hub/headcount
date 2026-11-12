@@ -55,7 +55,8 @@ Goal: buyers never get a forwardable download link. Everything they bought lives
 - **What:** one product they don't own, 10% off, with a live 30-minute countdown.
 - **Rotation:** we keep each buyer's offer history and pick the next unowned product in turn, so every session shows a different one.
 - **The deadline is real:** the discount is held by the server for 30 minutes. A product's 10% offer is shown to the same buyer at most once every 30 days. So "ends in 30 minutes" is true. India's 2023 dark-pattern rules ban false urgency, and this design stays clear of it.
-- **Close or buy:** "Not now" closes it for the session. "Buy" opens checkout at the discounted price.
+- **Close or buy:** "Not now" closes it for the session.
+- **Checkout inside the pop-up:** buyers never leave the pop-up. "Buy" turns it into a checkout step: email and phone already filled from the account, the featured product at 10% off with its timer, plus the same "Add to your order" boxes as the main checkout (every other product they don't own, normal price, unticked). Payment runs in Cashfree's embedded checkout inside the pop-up (UPI first). On success, the pop-up shows "Unlocked" and the new products appear in My products at once.
 
 ## 5. Changes to what exists
 - Delivery emails and lifecycle emails: replace download links with "Open your dashboard" or "Set your password". Offers in emails link to the dashboard's locked cards.
