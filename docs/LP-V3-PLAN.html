@@ -1,0 +1,130 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LP-V3-PLAN: Headcount AI</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+:root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
+:root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--link)}.w{max-width:980px;margin:0 auto;padding:0 16px}
+nav{border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}nav .w{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav b{font-family:"Bricolage Grotesque",Inter,sans-serif;font-size:18px;margin-right:auto}nav a{color:var(--ink);text-decoration:none}
+h1,h2,h3{font-family:"Bricolage Grotesque",Inter,sans-serif;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(32px,6vw,52px);margin:36px 0 10px}h2{font-size:clamp(24px,4vw,32px);margin:44px 0 12px}
+.mut{color:var(--mut)}.lede{font-size:19px;max-width:720px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0;font-size:14.5px;color:var(--mut)}
+a.card{text-decoration:none;color:inherit;display:block}a.card:hover{border-color:var(--ink)}
+.stat{font-family:"Bricolage Grotesque";font-size:34px;font-weight:800}
+.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;margin:6px 8px 0 0}
+.btn.alt{background:var(--ink);color:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:13px}
+code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft);padding:1px 4px;border-radius:4px}pre code{background:none;padding:0}
+.doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
+</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Headcount AI landing page v3: plan (15 Nov 2026)
+
+Owner brief (15 Nov): rename to Headcount AI with a cooler logo; better hooks; clean, human, valuable copy (no "dumb" headings like "Your first 15 minutes, start to finish" or "Workflows / Every agent runs a real playbook"); explain why the 3 example workflows and what the Growth Ledger is; roster "All" tab shows 4 to 5 rows then "load more"; "What's in the box" gets two tabs (file preview + a 10 to 14 s polished dashboard tour video of an all-access buyer); no separate Crew Pro products section before pricing: show those products inside the pricing section when Crew Pro is selected, Crew Pro selected by default, add-ons with a plus/checkbox right next to the selection; drop the value checklist and the "₹5,497 of products for ₹3,000 more" block, keep the ₹40,000-a-month idea and show it better; push "The math" down and make it catchier; 🎁 on every bonus and smaller bonus previews; a CTA after every section; short mobile scroll with sections that fit one view; re-order for conversion; coherent headings that lead into each other; then speed.
+
+Live today: mobile page 33,905 px tall, desktop 23,910 px. Targets: mobile about 12,000 px, desktop about 11,000 px, no section taller than about 1.3 phone screens except pricing.
+
+## 1. Brand
+- Name **Headcount AI** everywhere a person reads it (page title, nav, footer, OG, disclaimer "Headcount AI is not affiliated with..."). URL stays `ecomagents.ai/headcount`. Technical ids (`hc_`, `headcount` folders, Meta content_category) stay.
+- New logo from `site/assets/img/brand/` (mark, lockups, favicon set). Old `lead-mark.svg` retired.
+- New OG image (1200x630) of the new hero with the new lockup.
+
+## 2. Hero hooks (10 options; #4 goes live, owner can swap)
+1. Hire 40 AI marketers for ₹2,999. Once. (today's control)
+2. Your next 40 hires cost ₹2,999. In total.
+3. A full marketing team for less than one week of one salary.
+4. **The marketing team you could never afford. Now ₹2,999, once.**
+5. 40 AI marketers that run your ads, reels and SEO, for ₹2,999 once.
+6. Stop doing all the marketing yourself. Hire 40 AI marketers for ₹2,999.
+7. Marketing that runs itself, with you on the approve button. ₹2,999 once.
+8. The work of a ₹40,000-a-month marketer, times 40, for ₹2,999.
+9. 40 AI marketers. No salaries, no monthly fee. ₹2,999 once.
+10. Grow like a brand with a marketing team. Because now you have one.
+
+## 3. Section order, copy and layout
+
+Every section ends with a CTA (primary button to `#pricing`): "Get Headcount AI from ₹2,999" plus a short reassurance line that changes per section. Headings are written as one story: promise, proof it fits, see them work, easy start, how they think, what you get, extra value, price logic, choose, doubts, last call.
+
+### 1. Hero
+- Pill: "40 agents · 9 departments · pay once"
+- H1: "The marketing team you could never afford. Now ₹2,999, once."
+- Sub: "40 AI marketers run your ads, reels, SEO, sales and email inside ChatGPT or Claude. They do the work, then ask before they spend a rupee."
+- CTA "Get Headcount AI from ₹2,999" · "One payment · UPI or card · Instant access"
+- "Runs inside" app chips (ChatGPT, Claude, Codex, OpenClaw, Hermes) stay. Live agents mock stays, shorter on mobile (3 rows visible).
+
+### 2. Works with (slim band)
+- Eyebrow "Works with your tools" · H2 "Plugs into the tools you already pay for."
+- Sub: "Meta, Google, Shopify, WhatsApp, your inbox and 30 more, through their official APIs and your own keys. Nothing passes through us."
+- One tools marquee + one models marquee (two rows, not four). Mobile under 450 px tall.
+
+### 3. Meet the team (showcase + roster)
+- Eyebrow "Meet the team" · H2 "Watch your new team at work."
+- Sub: "Pick a department and an agent to watch an example run. Each one reads the numbers, does the job and waits for your yes."
+- Department chips in one horizontal row on mobile; the run window has a fixed height with its own scroll.
+- Roster: "All 42 agents" tab shows 12 cards on desktop (4 rows) and 5 on mobile, then "Show all 42 agents" (and "Show fewer"). Department tabs show their agents in full.
+
+### 4. How it works
+- Eyebrow "How it works" · H2 "Fifteen minutes to set up. After that, you just approve."
+- Sub: "No coding and no terminal. Three steps."
+- 1 "Add it to your AI app" (3 min): "Upload one file to Claude, or ask ChatGPT or Codex to set it up for you."
+- 2 "Tell it about your business" (10 min): "Company Brain reads your website and asks about your products, prices and customers. Every agent reads it first."
+- 3 "Approve, then read one page on Monday" (weekly): "Agents plan and ask; you say yes or no. Each Monday you get one page: what moved, why, and what happens next."
+- Mobile: the three steps fit one screen (small visuals or a tap-to-switch visual).
+
+### 5. Example playbooks + Growth Ledger (one section)
+- Eyebrow "Example playbooks" · H2 "Three of the 40 playbooks, step by step."
+- Sub: "One for ads, one for content and one for sales, because that's where most brands lose the most time and money. All 40 agents work the same way: they pull the numbers, do the job, check their own work and stop for your yes before anything is spent, posted or sent."
+- Tabs: "Ads · ROAS Autopilot", "Content · Viral Reel Cloner", "Sales · Reddit Buying Signals" (one visible at a time).
+- Ledger block with pill "Included in every plan": H3 "And every move lands in your Growth Ledger." Body: "Growth Ledger is one of two core agents in every plan, next to Company Brain. Each agent writes down what it changed and what happened after, so you can ask plain questions like 'which change made the most money this week?' It lives on your computer; your numbers never come to us." Compact Q&A mock. The hand-off diagram becomes one line or goes.
+
+### 6. What you get
+- Eyebrow "What you get" · H2 "See exactly what you're buying."
+- Tabs: **"Inside an agent"** and **"Your dashboard"**.
+  - Inside an agent: "Every agent is a full folder, not a prompt: the playbook, rules you can change, tested scripts, templates and a worked example. Here's ROAS Autopilot." File tree + SKILL.md preview + stats (1,100+ files, 200+ tested scripts, 9 setup guides, 5 AI apps).
+  - Your dashboard: "Everything you buy lives in your own login. Download your agents, read your bonuses, send briefs for services and add products whenever you like." 14 s tour video (`assets/video/dashboard-tour.{mp4,webm}`, poster `dashboard-tour.webp`), muted, loops, plays when the tab is open and in view.
+- The "Crew Pro adds 3 more products" line goes (moved into pricing).
+
+### 7. Bonuses
+- Eyebrow "🎁 Bonuses" · H2 "Plus 7 bonuses worth ₹10,493, free with every plan."
+- Sub: "Built from the same playbooks, for the days you'd rather read than run an agent. Six are yours the moment you pay. The seventh, your Company Brain written for you, is free if you buy before 30 Nov."
+- Each card: "🎁 Bonus 1" + name + one line + "Worth ₹1,499 · Free". Previews about 20% smaller. Mobile: one swipeable row (one bonus per view, dots and "1 of 7"), justified because seven tall previews cannot fit one view. Desktop: compact two-column grid.
+
+### 8. Salary check (replaces "The math" and the pricing value block)
+- Eyebrow "Salary check" · H2 "One marketer costs ₹40,000 a month. This whole team costs ₹2,999, once."
+- Sub: "The five jobs a growing brand usually hires for, and the agents that take each one off your plate."
+- Five role rows (role, typical monthly salary, agents that cover it) beside a short receipt: Monthly salary ₹0, Monthly fee ₹0, Total ₹2,999, paid once, "about ₹75 per agent". Footnote: "Typical salaries for mid-level roles in Indian metros. Agents do the work; you still make the calls."
+- CTA "See the plans".
+
+### 9. Pricing (redesigned)
+- Eyebrow "Pricing" · H2 "Pick your plan. Pay once, keep it for good."
+- Launch strip: "Launch prices end in <timer>. After 30 Nov: Crew ₹4,999, Crew Pro ₹9,999."
+- Plan picker: three selectable cards (Crew ₹2,999, **Crew Pro ₹5,999, selected by default, "Best value"**, Done With You ₹11,999), strike prices, "once".
+- Detail panel of the selected plan:
+  - Crew Pro: "Everything in Crew" in one collapsible line; "Plus 3 more products" as three tiles (thumbnail, name, one line, worth, "Look inside" opening its preview gallery: the visuals from today's Crew Pro section move here); "Plus Pro extras" (walkthrough videos, 200 commands, 10 client brands, lifetime updates and every new agent, 60 days priority WhatsApp help).
+  - Crew: the Crew list; the three products appear as add-on checkboxes.
+  - Done With You: what we do for you.
+- "Add to your order": checkbox rows with a plus toggle right under the picker, only the add-ons eligible for the selected plan, live total. On Crew, adding 2 or more of the three products shows the nudge "Crew Pro includes all three plus Pro extras for ₹X more" with one-tap switch.
+- Summary + "Continue to checkout" opens the existing drawer with the selection (email, name, phone, pay; unselected eligible add-ons still offered there; Crew-only bumps unchanged). Mobile: sticky bottom bar (plan, total, Continue) while pricing is in view.
+- Payment marks row (UPI, GPay, PhonePe, Paytm, cards, netbanking, Secured by Cashfree).
+- Removed: the "Everything in Crew / Worth" checklist, "Crew Pro adds / ₹5,497 of products" block, the separate `#stack` section.
+
+### 10. FAQ
+- H2 "Questions, answered." Sub "Still unsure? Write to support@ecomagents.ai. A real person replies." Shorter answers, accordion.
+
+### 11. Final call
+- H2 "Your new marketing team can start today." Countdown, "Launch price ends 30 Nov. After that, Crew is ₹4,999.", CTA, payment marks.
+
+## 4. Speed
+Lazy-init below-the-fold modules (showcase, bonuses, flows) on IntersectionObserver; delete the code and CSS of removed sections; minify JS and CSS at publish; images in WebP/AVIF with width/height and `loading="lazy"`; fonts: only the weights used, `display=swap`, preconnect; `_headers` with long cache for assets plus a version query; video `preload="none"` until its tab opens. Check Lighthouse mobile before and after.
+
+## 5. Everywhere else (rename sweep)
+Dashboard, funnel pages (OTO, downsell, thank-you, intake), legal pages, Cashfree order notes, lifecycle emails, ops emails, Slack labels ("Headcount AI: ..."), the product package docs and plugin display name, release zips, GitHub Pages hub. ViralFrames is told to rename its Headcount cross-sell to "Headcount AI".
+
+## 6. QA
+Full local suite green (tests updated to the new structure with the same coverage: default Crew Pro, add-on toggles, totals, drawer, Crew-only bumps, nudge, server prices, no refund or guarantee copy, WhatsApp hidden), sandbox e2e selectors updated, render review at 390 and 1440 with no overflow, then deploy and verify live.
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount AI blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

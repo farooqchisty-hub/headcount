@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HANDOFF: Headcount</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HANDOFF: Headcount AI</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
 :root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
 :root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
@@ -23,9 +23,9 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 .doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
 .pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
-</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Headcount operator handoff
+</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Headcount AI operator handoff
 
-For whoever runs Headcount day to day: an owner, a marketer or an agency account lead. Read this once; it explains how the system is organised, where everything is written (including the growth ledger, the one database of every agent action), how agents run on schedules and hand work to each other, and how to add a new agent.
+For whoever runs Headcount AI day to day: an owner, a marketer or an agency account lead. Read this once; it explains how the system is organised, where everything is written (including the growth ledger, the one database of every agent action), how agents run on schedules and hand work to each other, and how to add a new agent.
 
 ## 1. How the system is organised
 
@@ -41,7 +41,7 @@ headcount/                      the package (this repo)
   runtimes/                     runtime-specific packaging (Claude plugin, Codex AGENTS.md, GPT builder)
   guides/                       how to connect each platform, schedule, safety, costs
 
-~/headcount/                    your Headcount home (created by install.py; --home moves it, HEADCOUNT_HOME overrides)
+~/headcount/                    your Headcount AI home (created by install.py; --home moves it, HEADCOUNT_HOME overrides)
   brain/COMPANY.md              the shared memory every agent reads first
   brain/clients/<slug>/         agency mode: one brain per client
   brain/assets/ brain/proof/    logo, product photos, proof files for claims
@@ -59,7 +59,7 @@ headcount/                      the package (this repo)
                                 Agents and scripts read it, so no environment variable or shell profile is needed
 ```
 
-Starting your AI tool from the Headcount home (`cd ~/headcount`) is easiest, but not required. Agents resolve the home as: `$HEADCOUNT_HOME`, then `home` in `~/.headcount/config.json` (written by install.py), then the working directory if it has `brain/` (never the download folder), then `../../` from the skill folder (install.py links `<skills dir>/../brain` to your brain, also with `--dest`), then `~/headcount`.
+Starting your AI tool from the Headcount AI home (`cd ~/headcount`) is easiest, but not required. Agents resolve the home as: `$HEADCOUNT_HOME`, then `home` in `~/.headcount/config.json` (written by install.py), then the working directory if it has `brain/` (never the download folder), then `../../` from the skill folder (install.py links `<skills dir>/../brain` to your brain, also with `--dest`), then `~/headcount`.
 
 ## 2. The three rules every agent follows
 1. Read `brain/COMPANY.md` first. No brain, no run: the agent sends you to company-brain.
@@ -178,11 +178,11 @@ Typical chains:
 
 ## 8. Updating
 - `git pull` in the package, then rerun the same install command (it replaces folders it installed, never yours). With `--mode link` there is nothing to rerun.
-- Your brain, logs, outputs and ledger live in the Headcount home and are never touched by install or uninstall. A newer ledger schema is applied by install.py (or `ledger.py init`); rows are never removed.
+- Your brain, logs, outputs and ledger live in the Headcount AI home and are never touched by install or uninstall. A newer ledger schema is applied by install.py (or `ledger.py init`); rows are never removed.
 
 ## 9. When something goes wrong
-- Agent says the brain is missing: rerun install.py (it rewrites `~/.headcount/config.json` and the brain link), or run from the Headcount home. `HEADCOUNT_HOME` still overrides both.
+- Agent says the brain is missing: rerun install.py (it rewrites `~/.headcount/config.json` and the brain link), or run from the Headcount AI home. `HEADCOUNT_HOME` still overrides both.
 - Agent cannot reach an API: run its `scripts/check_setup.py` (where present) and see its CONNECT.md.
 - An agent did something you did not expect: read its log or ask the ledger (`ledger.py query "SELECT * FROM agent_actions WHERE agent = '<agent>' ORDER BY ts DESC LIMIT 10"`), then its config.yaml approval settings. Set the action class back to "ask".
 - Something posted or spent without approval: stop the schedule (guides/scheduling.md), revoke the key at the platform, then review the agent's config.yaml.
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount AI blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

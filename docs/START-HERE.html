@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>START-HERE: Headcount</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>START-HERE: Headcount AI</title><meta name="description" content=""><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
 :root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
 :root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
@@ -23,11 +23,11 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 .doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
 .pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
-</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: your first 15 minutes
+</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: your first 15 minutes
 
-Headcount is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. They run inside the AI app you already use. You never need a terminal. Nothing is sent, posted or spent without your yes.
+Headcount AI is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. They run inside the AI app you already use. You never need a terminal. Nothing is sent, posted or spent without your yes.
 
-## Minute 0 to 3: add Headcount to your AI app
+## Minute 0 to 3: add Headcount AI to your AI app
 Unzip `headcount.zip` (double-click it), then pick the row for the app you use.
 
 | You use | Do this | Guide |
@@ -49,7 +49,7 @@ It reads your site, then interviews you for about 10 to 20 minutes: offer, price
 
 It writes `COMPANY.md` and checks it. Where it lives depends on your app:
 - Claude Code tab or Codex: `~/headcount/brain/COMPANY.md`. Next time, open the `headcount` folder in your home folder.
-- Claude app chat: you get `COMPANY.md` to download. Add it to a Project named Headcount and run every agent inside that Project.
+- Claude app chat: you get `COMPANY.md` to download. Add it to a Project named Headcount AI and run every agent inside that Project.
 - Cowork: `brain/COMPANY.md` in the folder you gave it.
 
 You can edit COMPANY.md any time.
@@ -66,7 +66,7 @@ Start with three. Add more once these run cleanly for a week.
 | Local business | reputation-guard, social-autopilot, google-ads-waste-killer | Reviews decide local choices; steady posting keeps you visible; local search ads leak money fast. No ads? Swap in seo-content-pipeline. |
 
 For each one:
-1. Ask your AI: `Use <agent>. What do you need from me first?` The agent's README has the same setup checklist (keys and costs are listed honestly). After setup, `README.md` in your Headcount home (`~/headcount`) lists where every agent's README is; in the download folder they are in `agents/<agent>/README.md`. In the Claude app, ask: `Show me the README for <agent>`.
+1. Ask your AI: `Use <agent>. What do you need from me first?` The agent's README has the same setup checklist (keys and costs are listed honestly). After setup, `README.md` in your Headcount AI home (`~/headcount`) lists where every agent's README is; in the download folder they are in `agents/<agent>/README.md`. In the Claude app, ask: `Show me the README for <agent>`.
 2. Connect the platforms it needs with the guides in `guides/` (connect-meta.md, connect-google.md, connect-shopify.md, connect-esp.md, connect-social.md, connect-ai-models.md). The installer copies them into `~/headcount/guides/`; they are also in the download folder. Easiest: ask your AI `Walk me through connect-shopify.md`.
 3. Run it once by hand: the README gives the exact first message.
 4. Put it on a schedule (guides/scheduling.md) only after one good manual run. Schedules need Claude Code (the Code tab), Codex, OpenClaw or Hermes.
@@ -95,10 +95,10 @@ python3 install.py --runtime claude --agents all
 ```
 Swap `claude` for `codex`, `openclaw`, `hermes` or `chatgpt`. Add `--friendly` for plain-English output. For ChatGPT the installer writes one folder per agent in `dist/chatgpt/`; follow `runtimes/chatgpt/README.md` to create the GPTs.
 
-The installer also creates your Headcount home at `~/headcount` (brain, logs, outputs, guides) and your growth ledger, `~/headcount/ledger/headcount.db`, and saves the home's location in `~/.headcount/config.json`. Every agent reads that file, so it finds your home from any folder: there is no shell profile or environment variable to set. (`HEADCOUNT_HOME` still overrides it if you already use it.) Then:
+The installer also creates your Headcount AI home at `~/headcount` (brain, logs, outputs, guides) and your growth ledger, `~/headcount/ledger/headcount.db`, and saves the home's location in `~/.headcount/config.json`. Every agent reads that file, so it finds your home from any folder: there is no shell profile or environment variable to set. (`HEADCOUNT_HOME` still overrides it if you already use it.) Then:
 ```
 cd ~/headcount
 claude            # or codex, openclaw, hermes chat -s company-brain
 ```
 Rebuild the Claude app upload files after changing any agent: `python3 runtimes/claude-app/build_skill_zips.py`. Every option: `python3 install.py --help`.
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount AI blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>

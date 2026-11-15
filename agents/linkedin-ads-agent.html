@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinkedIn Ads Agent: Headcount agent</title><meta name="description" content="LinkedIn Ads at your CAC goal: fatigued ads paused when cost jumps, budget moved to what converts, and target accounts see ads and pages made for them (ABM lane)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinkedIn Ads Agent: Headcount AI agent</title><meta name="description" content="LinkedIn Ads at your CAC goal: fatigued ads paused when cost jumps, budget moved to what converts, and target accounts see ads and pages made for them (ABM lane)."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><style>
 :root{--bg:#fbfaf6;--ink:#121212;--mut:#5f5d57;--line:#e6e3da;--card:#fff;--soft:#f2f0e8;--acc:#ff5a1f;--link:#1f4fd8}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}}
 :root[data-theme="dark"]{--bg:#111110;--ink:#f3f1ea;--mut:#a9a69c;--line:#2a2926;--card:#1a1918;--soft:#201f1d;--link:#8ea8ff}
@@ -23,7 +23,7 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 .doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
 .pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
-</style></head><body><nav><div class="w"><b>Headcount</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># LinkedIn Ads Agent
+</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># LinkedIn Ads Agent
 
 ## 1. What this agent gets you
 LinkedIn Ads run to the customer cost you can afford. Every morning it checks spend, cost per conversion and creative fatigue, asks you to pause the ads that went stale when cost jumps, and moves budget from the campaigns that lose money to the ones that win. Named target accounts get their own ads and landing pages, and the ones that engage reach your outbound queue that week.
@@ -40,7 +40,7 @@ LinkedIn Ads run to the customer cost you can afford. Every morning it checks sp
 | LinkedIn Insight Tag and one conversion rule, or Lead Gen Forms | yes | 30 min | free |
 | LinkedIn developer app with Advertising API access, token with `r_ads_reporting`, `rw_ads` | to read numbers and make approved changes | days (LinkedIn approves by hand) | free |
 | A static host for ABM pages | ABM lane only | 15 min | often free |
-| Growth ledger (installed with Headcount) | recommended | none | free |
+| Growth ledger (installed with Headcount AI) | recommended | none | free |
 API calls are free; your ad spend is separate. AI tokens: about 15k to 40k per daily run. Without API access the agent still plans, writes ABM pages and ads, and judges an export you upload.
 
 ## 4. First run
@@ -105,7 +105,7 @@ Good means: CAC within 15 percent of target by week 4, at least 3 live ads per c
 | API version | `LINKEDIN_API_VERSION` (optional) | learn.microsoft.com/linkedin/marketing/versioning | YYYYMM, default `202610` from config | free | Linkedin-Version header |
 | LinkedIn Insight Tag | none | Campaign Manager, Analyze, Insight Tag; then a conversion rule | 30 day click, 7 day view windows by default | free | the conversions the agent judges |
 | CRM export (optional) | none | your CRM: closed-won deals with the LinkedIn campaign id (UTM or LinkedIn's CRM sync) | CSV `date,campaign_id,customers` | free | true CAC instead of implied |
-| Growth ledger | none | installed with Headcount (`../growth-ledger`) | none | free | budget change history, every live change recorded |
+| Growth ledger | none | installed with Headcount AI (`../growth-ledger`) | none | free | budget change history, every live change recorded |
 | HubSpot (optional) | `HUBSPOT_ACCESS_TOKEN` | private app | `crm.objects.companies.read`, `crm.objects.contacts.read`, `crm.objects.deals.read` | free tier | contacts at target accounts, closed customers |
 | Exa (optional) | `EXA_API_KEY` or Exa MCP | dashboard.exa.ai | none | per search | extra tier 1 account research |
 | Image generation | your provider's key | via static-ad-factory | per provider | per image | ABM and refresh creatives |
@@ -181,4 +181,4 @@ Verify before first live use:
 - `templates/creative-refresh-request.md`
 - `templates/daily-decisions.md`
 - `templates/landing-page.html`
-- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
+- `templates/weekly-report.md`</script><script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script><script>document.getElementById("doc").innerHTML=marked.parse(document.getElementById("md").textContent);document.querySelectorAll("#doc table").forEach(t=>{const d=document.createElement("div");d.className="tw";t.parentNode.insertBefore(d,t);d.appendChild(t)});</script></main><footer><div class="w">Headcount AI blueprint · built 11 Nov 2026 · buyer docs shown; agent procedures, scripts and templates ship only in the paid download.</div></footer></body></html>
