@@ -23,11 +23,13 @@ code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--soft
 .doc{max-width:780px}.doc img{max-width:100%}blockquote{border-left:3px solid var(--line);margin:0;padding:2px 14px;color:var(--mut)}
 .pill{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;color:var(--mut)}
 footer{border-top:1px solid var(--line);margin-top:60px;padding:24px 0 48px;font-size:13px;color:var(--mut)}
-</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: your first 15 minutes
+</style></head><body><nav><div class="w"><b>Headcount AI</b><a href="../index.html">Overview</a><a href="../index.html#agents">40 agents</a><a href="../index.html#pricing">Pricing</a><a href="https://ecomagents.ai/headcount/">Sales page</a><a href="../index.html#docs">Docs</a></div></nav><main class="w"><article class="doc" id="doc"></article><script type="text/markdown" id="md"># Start here: 3 steps, about 5 minutes
 
 Headcount AI is 40 marketing agents, each owning one outcome, plus two core agents: company-brain, which every agent reads, and growth-ledger, which every agent writes to. They run inside the AI app you already use. You never need a terminal. Nothing is sent, posted or spent without your yes.
 
-## Minute 0 to 3: add Headcount AI to your AI app
+Setup is 3 steps, about 5 minutes: add Headcount AI to your AI app, start company-brain, pick your first 3 agents.
+
+## Step 1 (about 3 minutes): add Headcount AI to your AI app
 Unzip `headcount.zip` (double-click it), then pick the row for the app you use.
 
 | You use | Do this | Guide |
@@ -42,10 +44,10 @@ Which is best? Uploading in the Claude app is the quickest. Pasting the message 
 
 What you need: a Claude Pro (or higher) or ChatGPT Plus (or higher) plan. For the paste-a-message route, your computer also needs free Python 3.8 or newer; your AI checks and tells you how to get it if it is missing. The Claude app upload needs nothing on your computer.
 
-## Minute 3 to 13: run company-brain (once)
+## Step 2 (1 minute to start, once): run company-brain
 Send: `Run company-brain. My website is https://yourbrand.com`
 
-It reads your site, then interviews you for about 10 to 20 minutes: offer, prices, customer, voice samples, competitors, numbers (AOV, margin, CAC target), claims you can and cannot make, banned words, brand colours and fonts. Have ready: last month's revenue and AOV, your margin or product cost, your logo, three pieces of writing you like, ten customer reviews. Selling products? Also your product export (Shopify admin: Products, Export, CSV; WooCommerce: Products, Export): the agents read every product and price from it instead of guessing from your website. No export? Paste your product names and prices into the chat.
+It reads your site and drafts what it can, so you mostly confirm. Then it asks what your site could not tell it. You do this once, at your own pace: most people finish in 10 to 20 minutes, and you can say skip and come back to anything. It covers offer, prices, customer, voice samples, competitors, numbers (AOV, margin, CAC target), claims you can and cannot make, banned words, brand colours and fonts. Have ready: last month's revenue and AOV, your margin or product cost, your logo, three pieces of writing you like, ten customer reviews. Selling products? Also your product export (Shopify admin: Products, Export, CSV; WooCommerce: Products, Export): the agents read every product and price from it instead of guessing from your website. No export? Paste your product names and prices into the chat.
 
 It writes `COMPANY.md` and checks it. Where it lives depends on your app:
 - Claude Code tab or Codex: `~/headcount/brain/COMPANY.md`. Next time, open the `headcount` folder in your home folder.
@@ -54,7 +56,7 @@ It writes `COMPANY.md` and checks it. Where it lives depends on your app:
 
 You can edit COMPANY.md any time.
 
-## Minute 13 to 15: pick your first 3 agents
+## Step 3 (1 minute): pick your first 3 agents
 Start with three. Add more once these run cleanly for a week.
 
 | Business | First 3 | Why these first |
@@ -65,7 +67,7 @@ Start with three. Add more once these run cleanly for a week.
 | Creator or coach | clip-repurposer, founder-brand-engine, dm-closer | Turn one long video into a week of posts, grow on X and LinkedIn in your voice, and turn comments into booked calls or sales. |
 | Local business | reputation-guard, social-autopilot, google-ads-waste-killer | Reviews decide local choices; steady posting keeps you visible; local search ads leak money fast. No ads? Swap in seo-content-pipeline. |
 
-For each one:
+After setup, for each of your first 3 agents:
 1. Ask your AI: `Use <agent>. What do you need from me first?` The agent's README has the same setup checklist (keys and costs are listed honestly). After setup, `README.md` in your Headcount AI home (`~/headcount`) lists where every agent's README is; in the download folder they are in `agents/<agent>/README.md`. In the Claude app, ask: `Show me the README for <agent>`.
 2. Connect the platforms it needs with the guides in `guides/` (connect-meta.md, connect-google.md, connect-shopify.md, connect-esp.md, connect-social.md, connect-ai-models.md). The installer copies them into `~/headcount/guides/`; they are also in the download folder. Easiest: ask your AI `Walk me through connect-shopify.md`.
 3. Run it once by hand: the README gives the exact first message.
